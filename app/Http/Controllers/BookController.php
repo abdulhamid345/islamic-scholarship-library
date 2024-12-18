@@ -6,6 +6,14 @@ use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
+
+    public function index()
+{
+    $books = Book::all();
+    return view('books.index', compact('books'));
+}
+
+
     public function create()
 {
     return view('books.create');
@@ -49,7 +57,6 @@ public function update(Request $request, Book $book)
 
     
     if ($request->hasFile('file')) {
-        // Delete the old file if it exists
         if ($book->file_path) {
             Storage::delete($book->file_path);
         }
