@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('author')->nullable();
+            $table->text('description')->nullable();
+            $table->string('audio_path')->nullable();
             $table->string('file_path');
             $table->integer('download_count')->default(0);
             $table->timestamps();

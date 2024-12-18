@@ -4,15 +4,20 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\ProfileController;
 
+
 Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-Route::resource('books', BookController::class)->middleware(['auth', 'verified']);
-Route::resource('books', BookController::class);
+
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::resource('books', BookController::class);
+});
 
 
 Route::middleware('auth')->group(function () {
@@ -21,4 +26,5 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+// Authentication Routes
+require __DIR__ . '/auth.php';
