@@ -14,22 +14,22 @@
 
                         <div class="mb-4">
                             <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
-                            <input type="text" id="title" name="title" class="block mt-1 w-full" required>
+                            <input type="text" id="title" name="title" class="block mt-1 w-full text-black-500" required>
                         </div>
 
                         <div class="mb-4">
                             <label for="author" class="block text-sm font-medium text-gray-700">Author</label>
-                            <input type="text" id="author" name="author" class="block mt-1 w-full" required>
+                            <input type="text" id="author" name="author" class="block mt-1 w-full text-black-500" required>
                         </div>
 
                         <div class="mb-4">
                             <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
-                            <textarea id="description" name="description" rows="4" class="block mt-1 w-full"></textarea>
+                            <textarea id="description" name="description" rows="4" class="block mt-1 w-full text-black-500"></textarea>
                         </div>
 
                         <div class="mb-4">
-                            <label for="file" class="block text-sm font-medium text-gray-700">Book File (optional)</label>
-                            <input type="file" id="file" name="file" class="block mt-1 w-full">
+                            <label for="file" class="block text-sm font-medium text-gray-700">Book File</label>
+                            <input type="file" id="file" name="file" class="block mt-1 w-full text-black-500">
                         </div>
 
                         <div>

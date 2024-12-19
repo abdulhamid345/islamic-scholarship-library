@@ -71,4 +71,16 @@ public function update(Request $request, Book $book)
     return redirect()->route('books.index')->with('success', 'Book updated successfully.');
 }
 
+public function destroy($id)
+{
+    
+    $book = Book::findOrFail($id);
+
+    
+    $book->delete();
+
+    
+    return redirect()->route('books.index')->with('success', 'Book deleted successfully.');
+}
+
 }
