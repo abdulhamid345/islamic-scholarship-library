@@ -3,4 +3,8 @@ body {
   font-family: "Sen", serif;
 }
 
+.avatar-pic {
+  clip-path: circle();
+}
+
 /*# sourceMappingURL=main.css.map */
