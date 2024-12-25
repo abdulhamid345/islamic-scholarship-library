@@ -1,0 +1,274 @@
+<html><head><base href="." />
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<style>
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.modal-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: opacity 0.3s ease;
+}
+
+.modal-content {
+  transition: transform 0.3s ease;
+}
+
+.badge {
+  animation: badge-pop 0.3s ease-out;
+}
+
+@keyframes badge-pop {
+  0% { transform: scale(0.8); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+</style>
+</head>
+<body class="bg-gray-50">
+<div id="app" class="min-h-screen">
+  <div class="container mx-auto px-4 py-8">
+    <!-- Profile Header -->
+    <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+      <div class="md:flex items-center space-y-4 md:space-y-0">
+        <div class="relative">
+          <img :src="user.avatar_url || 'https://images.websim.ai/avatar/default'" 
+               class="w-32 h-32 rounded-full object-cover border-4 border-emerald-500"
+               alt="Profile Picture">
+          <button @click="showImageUpload = true" 
+                  class="absolute bottom-0 right-0 bg-emerald-500 text-white p-2 rounded-full hover:bg-emerald-600 transition-colors">
+            <i class="fas fa-camera"></i>
+          </button>
+        </div>
+        <div class="md:ml-8 flex-grow">
+          <div class="flex justify-between items-start">
+            <div>
+              <h1 class="text-3xl font-bold text-gray-800">{{ user.fullName }}</h1>
+              <p class="text-gray-600">{{ user.email }}</p>
+              <div class="flex gap-2 mt-2">
+                <span class="inline-block bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm font-semibold">
+                  {{ user.role }}
+                </span>
+                <span v-if="user.badges.topDownloader" 
+                      class="badge inline-block bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-semibold">
+                  <i class="fas fa-trophy mr-1"></i>Top Downloader
+                </span>
+              </div>
+            </div>
+            <button @click="showEditProfile = true" 
+                    class="bg-emerald-500 text-white px-4 py-2 rounded-lg hover:bg-emerald-600 transition-colors">
+              <i class="fas fa-edit mr-2"></i>Edit Profile
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Activity Stats -->
+    <div class="grid md:grid-cols-2 gap-8 mb-8">
+      <div class="bg-white rounded-lg shadow-lg p-6">
+        <h2 class="text-2xl font-bold mb-6">Activity Overview</h2>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="text-center p-4 bg-gray-50 rounded-lg">
+            <div class="text-3xl font-bold text-emerald-600">{{ stats.totalDownloads }}</div>
+            <div class="text-gray-600">Total Downloads</div>
+          </div>
+          <div class="text-center p-4 bg-gray-50 rounded-lg">
+            <div class="text-3xl font-bold text-emerald-600">{{ stats.favoriteBooks }}</div>
+            <div class="text-gray-600">Favorites</div>
+          </div>
+        </div>
+        <button @click="downloadReport" 
+                class="mt-6 w-full bg-emerald-100 text-emerald-700 px-4 py-2 rounded-lg hover:bg-emerald-200 transition-colors">
+          <i class="fas fa-download mr-2"></i>Download Activity Report
+        </button>
+      </div>
+
+      <div class="bg-white rounded-lg shadow-lg p-6">
+        <h2 class="text-2xl font-bold mb-6">Recent Downloads</h2>
+        <div class="space-y-4">
+          <div v-for="download in recentDownloads" :key="download.id" 
+               class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <div>
+              <div class="font-semibold">{{ download.title }}</div>
+              <div class="text-sm text-gray-600">{{ formatDate(download.date) }}</div>
+            </div>
+            <a :href="download.url" 
+               class="text-emerald-500 hover:text-emerald-600">
+              <i class="fas fa-download"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings -->
+    <div class="bg-white rounded-lg shadow-lg p-6">
+      <h2 class="text-2xl font-bold mb-6">Account Settings</h2>
+      <div class="space-y-6">
+        <div class="border-b pb-6">
+          <h3 class="text-lg font-semibold mb-4">Change Password</h3>
+          <button @click="showChangePassword = true" 
+                  class="bg-emerald-500 text-white px-4 py-2 rounded-lg hover:bg-emerald-600 transition-colors">
+            Update Password
+          </button>
+        </div>
+
+        <div class="border-b pb-6">
+          <h3 class="text-lg font-semibold mb-4">Notification Preferences</h3>
+          <div class="space-y-3">
+            <label class="flex items-center">
+              <input type="checkbox" v-model="preferences.emailNotifications" 
+                     class="form-checkbox text-emerald-500" @change="savePreferences">
+              <span class="ml-2">Email Notifications</span>
+            </label>
+            <label class="flex items-center">
+              <input type="checkbox" v-model="preferences.newBooks" 
+                     class="form-checkbox text-emerald-500" @change="savePreferences">
+              <span class="ml-2">New Book Alerts</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Profile Modal -->
+  <div v-if="showEditProfile" class="fixed inset-0 z-50 overflow-y-auto">
+    <div class="modal-overlay absolute inset-0" @click="showEditProfile = false"></div>
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="modal-content bg-white rounded-lg shadow-xl w-full max-w-md relative fade-in">
+        <div class="p-6">
+          <h3 class="text-2xl font-bold mb-4">Edit Profile</h3>
+          <form @submit.prevent="updateProfile">
+            <div class="space-y-4">
+              <div>
+                <label class="block text-gray-700 mb-2">Full Name</label>
+                <input type="text" v-model="editForm.fullName" required
+                       class="w-full p-2 border rounded focus:ring-2 focus:ring-emerald-500">
+              </div>
+              <div>
+                <label class="block text-gray-700 mb-2">Email</label>
+                <input type="email" v-model="editForm.email" required
+                       class="w-full p-2 border rounded focus:ring-2 focus:ring-emerald-500">
+              </div>
+            </div>
+            <div class="mt-6 flex justify-end space-x-3">
+              <button type="button" @click="showEditProfile = false" 
+                      class="px-4 py-2 border rounded hover:bg-gray-50">
+                Cancel
+              </button>
+              <button type="submit" 
+                      class="px-4 py-2 bg-emerald-500 text-white rounded hover:bg-emerald-600">
+                Save Changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const { createApp } = Vue
+
+createApp({
+  data() {
+    return {
+      user: {
+        fullName: 'Muhammad Ibrahim',
+        email: 'muhammad.ibrahim@example.com',
+        role: 'User',
+        avatar_url: null,
+        badges: {
+          topDownloader: true
+        }
+      },
+      stats: {
+        totalDownloads: 47,
+        favoriteBooks: 12
+      },
+      recentDownloads: [
+        {
+          id: 1,
+          title: 'Ihya Ulum al-Din',
+          date: '2024-01-15',
+          url: 'https://library.example.com/download/1'
+        },
+        {
+          id: 2,
+          title: 'Risalat al-Mustarshidin',
+          date: '2024-01-10',
+          url: 'https://library.example.com/download/2'
+        },
+        {
+          id: 3,
+          title: 'Al-Hikam',
+          date: '2024-01-05',
+          url: 'https://library.example.com/download/3'
+        }
+      ],
+      preferences: {
+        emailNotifications: true,
+        newBooks: true
+      },
+      showEditProfile: false,
+      showChangePassword: false,
+      showImageUpload: false,
+      editForm: {
+        fullName: '',
+        email: ''
+      }
+    }
+  },
+  methods: {
+    formatDate(dateStr) {
+      return new Date(dateStr).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      })
+    },
+    async updateProfile() {
+      try {
+        // API call would go here
+        this.user.fullName = this.editForm.fullName
+        this.user.email = this.editForm.email
+        this.showEditProfile = false
+      } catch (error) {
+        console.error('Error updating profile:', error)
+      }
+    },
+    async savePreferences() {
+      try {
+        // API call would go here
+        console.log('Preferences saved:', this.preferences)
+      } catch (error) {
+        console.error('Error saving preferences:', error)
+      }
+    },
+    async downloadReport() {
+      try {
+        // API call would go here
+        console.log('Downloading activity report...')
+      } catch (error) {
+        console.error('Error downloading report:', error)
+      }
+    }
+  },
+  mounted() {
+    this.editForm.fullName = this.user.fullName
+    this.editForm.email = this.user.email
+  }
+}).mount('#app')
+</script>
+</body>
+</html>
