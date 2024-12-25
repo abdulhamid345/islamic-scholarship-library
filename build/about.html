@@ -1,0 +1,149 @@
+<html><head><base href="." />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+  .fade-in {
+    animation: fadeIn 1s ease-in;
+  }
+  
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  
+  .timeline-dot::before {
+    content: '';
+    position: absolute;
+    left: -39px;
+    width: 20px;
+    height: 20px;
+    background: #10B981;
+    border-radius: 50%;
+  }
+  
+  .timeline-dot::after {
+    content: '';
+    position: absolute;
+    left: -30px;
+    top: 20px;
+    width: 2px;
+    height: calc(100% + 20px);
+    background: #D1D5DB;
+  }
+  </style>
+  </head>
+  <body>
+  <div id="app">
+    <div class="min-h-screen bg-gray-50">
+      <!-- Header -->
+      <header class="bg-emerald-700 text-white py-20 px-4">
+        <div class="container mx-auto text-center fade-in">
+          <h1 class="text-5xl font-bold mb-4">About the Yahaya Bawa Islamic Library</h1>
+          <p class="text-xl">Preserving and sharing the timeless works of Islamic scholars</p>
+        </div>
+      </header>
+  
+      <!-- Mission & Vision -->
+      <section class="py-16 px-4">
+        <div class="container mx-auto grid md:grid-cols-2 gap-12">
+          <div class="bg-white p-8 rounded-lg shadow-lg fade-in">
+            <div class="flex items-center mb-6">
+              <i class="fas fa-bullseye text-3xl text-emerald-600 mr-4"></i>
+              <h2 class="text-3xl font-bold">Our Mission</h2>
+            </div>
+            <p class="text-gray-700 leading-relaxed">
+              To provide easy access to the scholarly works of the Sokoto Caliphate and beyond, ensuring these invaluable resources are preserved and shared with the global community.
+            </p>
+          </div>
+          <div class="bg-white p-8 rounded-lg shadow-lg fade-in">
+            <div class="flex items-center mb-6">
+              <i class="fas fa-eye text-3xl text-emerald-600 mr-4"></i>
+              <h2 class="text-3xl font-bold">Our Vision</h2>
+            </div>
+            <p class="text-gray-700 leading-relaxed">
+              To inspire future generations through the preservation of Islamic knowledge, fostering a deep connection with our rich scholarly heritage.
+            </p>
+          </div>
+        </div>
+      </section>
+  
+      <!-- History Timeline -->
+      <section class="py-16 px-4 bg-gray-100">
+        <div class="container mx-auto">
+          <h2 class="text-4xl font-bold text-center mb-12">Our History</h2>
+          <div class="relative pl-10 space-y-12">
+            <div class="timeline-dot relative fade-in">
+              <h3 class="text-2xl font-bold text-emerald-700">Foundation</h3>
+              <p class="text-gray-700 mt-2">Named after the respected scholar Yahaya Bawa, our library was established to preserve the intellectual legacy of the Sokoto Caliphate.</p>
+            </div>
+            <div class="timeline-dot relative fade-in">
+              <h3 class="text-2xl font-bold text-emerald-700">Early Collections</h3>
+              <p class="text-gray-700 mt-2">The library began collecting manuscripts and works from Sheik Abdullahi Bn Fodio and Sheik Muhammad Bello, establishing a foundation of scholarly excellence.</p>
+            </div>
+            <div class="timeline-dot relative fade-in">
+              <h3 class="text-2xl font-bold text-emerald-700">Digital Transformation</h3>
+              <p class="text-gray-700 mt-2">Embracing modern technology to make our collections accessible to scholars and students worldwide.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+  
+      <!-- Core Values -->
+      <section class="py-16 px-4">
+        <div class="container mx-auto">
+          <h2 class="text-4xl font-bold text-center mb-12">Our Core Values</h2>
+          <div class="grid md:grid-cols-3 gap-8">
+            <div v-for="value in coreValues" :key="value.title" 
+                 class="bg-white p-6 rounded-lg shadow-lg text-center fade-in">
+              <i :class="value.icon + ' text-4xl text-emerald-600 mb-4'"></i>
+              <h3 class="text-xl font-bold mb-2">{{ value.title }}</h3>
+              <p class="text-gray-700">{{ value.description }}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+  
+      <!-- Call to Action -->
+      <section class="bg-emerald-700 text-white py-16 px-4">
+        <div class="container mx-auto text-center">
+          <h2 class="text-3xl font-bold mb-4">Join Us in Preserving Islamic Heritage</h2>
+          <p class="text-xl mb-8">Explore our collections and be part of this noble journey</p>
+          <a href="https://library-collections.example.com" 
+             class="inline-block bg-white text-emerald-700 px-8 py-3 rounded-full font-bold hover:bg-emerald-50 transition-colors">
+            Explore Collections
+          </a>
+        </div>
+      </section>
+    </div>
+  </div>
+  
+  <script>
+  const { createApp } = Vue
+  
+  createApp({
+    data() {
+      return {
+        coreValues: [
+          {
+            title: 'Accessibility',
+            icon: 'fas fa-universal-access',
+            description: 'Making Islamic knowledge accessible to all seekers of knowledge worldwide.'
+          },
+          {
+            title: 'Authenticity',
+            icon: 'fas fa-check-circle',
+            description: 'Ensuring the preservation of authentic texts and scholarly works.'
+          },
+          {
+            title: 'Education',
+            icon: 'fas fa-graduation-cap',
+            description: 'Promoting education and understanding of Islamic scholarship.'
+          }
+        ]
+      }
+    }
+  }).mount('#app')
+  </script>
+  </body>
+  </html>
