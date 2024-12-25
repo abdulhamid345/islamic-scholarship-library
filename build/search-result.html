@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Result</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/main.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+  <nav class="md:flex w-full items-center md:bg-white md:shadow-md md:px-6 gap-3"> 
+    <div class="flex justify-between items-center py-4 px-6 md:p-0 shadow-md md:shadow-none bg-white md:bg-transparent">
+      <a href="">Islamic Heritage Library</a>
+      <button class="md:hidden p-2 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200" data-collapse-toggle="mobile-menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+    
+    <div class="hidden md:block md:flex-grow px-6 py-4" id="mobile-menu">
+      <div class="md:flex md:justify-between md:items-center md:gap-4 md:w-full">
+        <form class="w-full py-2 pb-4 md:py-0 md:pb-0 ">
+          <input type="text" class="w-full p-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-200" placeholder="Search for books, authors, etc.">
+        </form>
+        <div class="md:flex md:gap-4 md:w-fit md:flex-grow md:items-center md:justify-between w-full md:flex-shrink-0">
+          <a class="block my-3 hover:text-green-900" href="">About Us</a>
+          <a class="block my-3 hover:text-green-900" href="">Authors</a>
+          <a class="block my-3 hover:text-green-900" href="">Collections</a>
+          <a class="block my-3 px-3.5 py-2.5 border-2 border-green-900 rounded-md text-sm font-semibold text-green-900 hover:text-white hover:bg-green-900" href="">Log In</a>
+          <a class="block my-3 bg-green-900 px-3.5 py-2.5 text-sm rounded-md font-semibold hover:bg-green-950 text-white" href="">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-4 p-6">
+    <div class="col-span-1 md:col-span-1 bg-white p-4 rounded-lg shadow-md">
+      <!-- Sidebar content here -->
+      <h2 class="text-lg font-semibold mb-4">Filters</h2>
+      <!-- Add filter options here -->
+      <div class="mb-4">
+        <h3 class="font-semibold mb-2">Category</h3>
+        <ul>
+          <li><input type="checkbox" id="category1" name="category1"><label for="category1" class="ml-2">Book</label></li>
+          <li><input type="checkbox" id="category2" name="category2"><label for="category2" class="ml-2">Collection</label></li>
+        </ul>
+      </div>
+      <div class="mb-4">
+        <h3 class="font-semibold mb-2">Author</h3>
+        <ul>
+          <li><input type="checkbox" id="author1" name="author1"><label for="author1" class="ml-2">Author 1</label></li>
+          <li><input type="checkbox" id="author2" name="author2"><label for="author2" class="ml-2">Author 2</label></li>
+          <li><input type="checkbox" id="author3" name="author3"><label for="author3" class="ml-2">Author 3</label></li>
+        </ul>
+      </div>
+      <div class="mb-4">
+        <h3 class="font-semibold mb-2">Publication Year</h3>
+        <label for="yearRange" class="block mb-2">Select a range:</label>
+        <input type="range" id="yearRange" name="yearRange" min="2000" max="2023" step="1" class="w-full">
+        <div class="flex justify-between text-sm mt-2">
+          <span>2000</span>
+          <span>2023</span>
+        </div>
+        <div class="flex justify-between text-xs mt-1">
+          <span>2000</span>
+          <span>2005</span>
+          <span>2010</span>
+          <span>2015</span>
+          <span>2020</span>
+          <span>2023</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-span-1 md:col-span-3 bg-white p-4 rounded-lg shadow-md">
+      <!-- Main content here -->
+      <h2 class="text-lg font-semibold mb-4">Search Results</h2>
+      <!-- Add search results here -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div class="block w-full">
+          <figure>
+            <img class="w-full h-auto"src="https://dummyimage.com/640x2:3" alt="">
+          </figure>
+          T1
+        </div>
+        <!-- Book Placeholder -->
+        <div class="block w-full">
+          <figure>
+            <img class="w-full h-auto"src="https://dummyimage.com/640x2:3" alt="">
+          </figure>
+          T1
+        </div>
+        <!-- Book Placeholder -->
+        <div class="block w-full">
+          <figure>
+            <img class="w-full h-auto"src="https://dummyimage.com/640x2:3" alt="">
+          </figure>
+          T1
+        </div>
+        <!-- Book Placeholder -->
+        <div class="block w-full">
+          <figure>
+            <img class="w-full h-auto"src="https://dummyimage.com/640x2:3" alt="">
+          </figure>
+          T1
+        </div>
+        <!-- Book Placeholder -->
+        <div class="block w-full">
+          <figure>
+            <img class="w-full h-auto"src="https://dummyimage.com/640x2:3" alt="">
+          </figure>
+          T1
+        </div>
+        <!-- Book Placeholder -->
+      </div>
+    </div>
+  </div>
+</body>
+</html>
