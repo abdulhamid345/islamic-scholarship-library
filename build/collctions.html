@@ -1,0 +1,254 @@
+<html><head><base href="/" />
+<title>Islamic Heritage Library - Collections</title>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/@heroicons/vue@2.0.17/outline"></script>
+<style>
+.collection-card {
+  transition: transform 0.2s;
+}
+.collection-card:hover {
+  transform: translateY(-4px);
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.3s;
+}
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+</style>
+</head>
+<body class="bg-gray-50">
+<div id="app" class="min-h-screen">
+  <!-- Navigation -->
+  <nav class="bg-emerald-800 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center">
+          <a href="https://islamic-heritage-library.com" class="text-xl font-semibold">
+            Islamic Heritage Library
+          </a>
+        </div>
+        <div class="flex items-center space-x-4">
+          <a href="https://islamic-heritage-library.com/collections" class="hover:text-emerald-200">Collections</a>
+          <a href="https://islamic-heritage-library.com/books" class="hover:text-emerald-200">Books</a>
+          <a href="https://islamic-heritage-library.com/about" class="hover:text-emerald-200">About</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Search and Filters -->
+    <div class="mb-8">
+      <div class="flex flex-col sm:flex-row gap-4">
+        <div class="flex-1">
+          <input 
+            type="text" 
+            v-model="searchQuery"
+            placeholder="Search collections..."
+            class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+          >
+        </div>
+        <div class="flex gap-4">
+          <select 
+            v-model="sortBy"
+            class="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+          >
+            <option value="name">Sort by Name</option>
+            <option value="books">Sort by Books</option>
+            <option value="date">Sort by Date</option>
+          </select>
+          <select 
+            v-model="categoryFilter"
+            class="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+          >
+            <option value="">All Categories</option>
+            <option value="fiqh">Fiqh</option>
+            <option value="tafsir">Tafsir</option>
+            <option value="history">History</option>
+            <option value="hadith">Hadith</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Collections Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <template v-for="collection in filteredCollections" :key="collection.id">
+        <div class="collection-card bg-white rounded-lg shadow-md overflow-hidden">
+          <div class="relative h-48">
+            <div class="absolute inset-0 bg-gradient-to-br" :class="getGradientClass(collection.category)">
+              <div class="flex items-center justify-center h-full">
+                <span class="text-4xl text-white">{{ getCategoryIcon(collection.category) }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-2">{{ collection.name }}</h3>
+            <p class="text-gray-600 mb-4">{{ collection.description }}</p>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-500">{{ collection.books.length }} books</span>
+              <button 
+                @click="viewCollection(collection.id)"
+                class="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
+              >
+                View Collection
+              </button>
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+
+    <!-- Collection Detail Modal -->
+    <div v-if="selectedCollection" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+      <div class="bg-white rounded-lg w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-6">
+            <h2 class="text-2xl font-semibold">{{ selectedCollection.name }}</h2>
+            <button @click="selectedCollection = null" class="text-gray-500 hover:text-gray-700">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          <p class="text-gray-600 mb-6">{{ selectedCollection.description }}</p>
+          
+          <h3 class="text-lg font-semibold mb-4">Books in Collection</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div v-for="book in selectedCollection.books" :key="book.id" 
+                 class="flex items-start p-4 bg-gray-50 rounded-lg">
+              <div class="flex-1">
+                <h4 class="font-medium">{{ book.title }}</h4>
+                <p class="text-sm text-gray-600">{{ book.author }}</p>
+              </div>
+              <button 
+                class="px-3 py-1 text-sm bg-emerald-600 text-white rounded hover:bg-emerald-700"
+                @click="downloadBook(book.id)"
+              >
+                Download
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+const { createApp, ref, computed } = Vue
+
+createApp({
+  setup() {
+    const searchQuery = ref('')
+    const sortBy = ref('name')
+    const categoryFilter = ref('')
+    const selectedCollection = ref(null)
+    
+    const collections = ref([
+      {
+        id: 1,
+        name: 'Essential Fiqh Collection',
+        description: 'Comprehensive collection of classical fiqh texts from various madhahib',
+        category: 'fiqh',
+        books: [
+          { id: 1, title: 'Al-Umm', author: 'Imam Al-Shafi\'i' },
+          { id: 2, title: 'Al-Mughni', author: 'Ibn Qudamah' },
+          { id: 3, title: 'Al-Hidayah', author: 'Al-Marghinani' }
+        ]
+      },
+      {
+        id: 2,
+        name: 'Classical Tafsir Works',
+        description: 'Major works of Quranic exegesis from renowned scholars',
+        category: 'tafsir',
+        books: [
+          { id: 4, title: 'Tafsir Al-Tabari', author: 'Ibn Jarir Al-Tabari' },
+          { id: 5, title: 'Tafsir Ibn Kathir', author: 'Ibn Kathir' }
+        ]
+      },
+      {
+        id: 3,
+        name: 'Islamic History',
+        description: 'Chronicles and historical accounts of Islamic civilization',
+        category: 'history',
+        books: [
+          { id: 6, title: 'Tarikh Al-Rusul wa Al-Muluk', author: 'Al-Tabari' },
+          { id: 7, title: 'Al-Bidayah wa Al-Nihayah', author: 'Ibn Kathir' }
+        ]
+      }
+    ])
+
+    const filteredCollections = computed(() => {
+      let result = collections.value
+
+      if (searchQuery.value) {
+        const query = searchQuery.value.toLowerCase()
+        result = result.filter(c => 
+          c.name.toLowerCase().includes(query) || 
+          c.description.toLowerCase().includes(query)
+        )
+      }
+
+      if (categoryFilter.value) {
+        result = result.filter(c => c.category === categoryFilter.value)
+      }
+
+      if (sortBy.value === 'name') {
+        result = [...result].sort((a, b) => a.name.localeCompare(b.name))
+      } else if (sortBy.value === 'books') {
+        result = [...result].sort((a, b) => b.books.length - a.books.length)
+      }
+
+      return result
+    })
+
+    const getGradientClass = (category) => {
+      const gradients = {
+        fiqh: 'from-emerald-500 to-emerald-700',
+        tafsir: 'from-blue-500 to-blue-700',
+        history: 'from-amber-500 to-amber-700',
+        hadith: 'from-purple-500 to-purple-700'
+      }
+      return gradients[category] || 'from-gray-500 to-gray-700'
+    }
+
+    const getCategoryIcon = (category) => {
+      const icons = {
+        fiqh: '📚',
+        tafsir: '📖',
+        history: '⌛',
+        hadith: '📜'
+      }
+      return icons[category] || '📚'
+    }
+
+    const viewCollection = (id) => {
+      selectedCollection.value = collections.value.find(c => c.id === id)
+    }
+
+    const downloadBook = (bookId) => {
+      // Implementation would depend on your backend setup
+      console.log(`Downloading book ${bookId}`)
+      alert('Download started!')
+    }
+
+    return {
+      searchQuery,
+      sortBy,
+      categoryFilter,
+      collections,
+      filteredCollections,
+      selectedCollection,
+      getGradientClass,
+      getCategoryIcon,
+      viewCollection,
+      downloadBook
+    }
+  }
+}).mount('#app')
+</script>
+</body></html>
