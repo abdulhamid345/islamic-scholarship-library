@@ -1,0 +1,262 @@
+<html><head><base href="./"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<title>Islamic Heritage Library - View Works</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
+
+.arabic {
+  font-family: 'Amiri', serif;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.book-card {
+  transition: transform 0.2s ease;
+}
+
+.book-card:hover {
+  transform: translateY(-4px);
+}
+
+@media (max-width: 640px) {
+  .book-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body>
+<div id="app" class="min-h-screen bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Back Button -->
+    <button @click="goBack" class="mb-8 flex items-center text-gray-600 hover:text-gray-900">
+      <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+      </svg>
+      Back to Scholars
+    </button>
+
+    <!-- Scholar Info -->
+    <div v-if="scholar" class="mb-12">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ scholar.name }}</h1>
+      <div class="flex items-start gap-8">
+        <div class="flex-1">
+          <p class="text-gray-600 leading-relaxed mb-6">{{ scholar.biography }}</p>
+          <div class="flex items-center gap-4 text-sm text-gray-500">
+            <span>{{ scholar.books.length }} Works</span>
+            <span>{{ totalDownloads }} Total Downloads</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search & Filter -->
+    <div class="mb-8 flex flex-col sm:flex-row gap-4">
+      <div class="relative flex-1">
+        <input 
+          type="text" 
+          v-model="searchQuery"
+          placeholder="Search books..."
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+        >
+        <svg class="w-5 h-5 absolute right-3 top-2.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+      </div>
+      <select 
+        v-model="selectedCategory"
+        class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+      >
+        <option value="">All Categories</option>
+        <option v-for="category in categories" :key="category" :value="category">
+          {{ category }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Books Grid -->
+    <div class="book-grid">
+      <div v-for="book in filteredBooks" :key="book.id" 
+           class="book-card bg-white rounded-xl shadow-sm overflow-hidden">
+        <div class="p-6">
+          <div class="flex items-start justify-between">
+            <h3 class="text-lg font-semibold text-gray-900">{{ book.title }}</h3>
+            <span class="text-xs font-medium px-2.5 py-0.5 rounded-full" 
+                  :class="getFormatClass(book.format)">
+              {{ book.format }}
+            </span>
+          </div>
+          <p class="mt-2 text-gray-600 text-sm line-clamp-3">{{ book.summary }}</p>
+          <div class="mt-4 flex items-center justify-between">
+            <span class="text-sm text-gray-500">{{ book.downloads }} downloads</span>
+            <button @click="downloadBook(book)" 
+                    class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500">
+              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+              </svg>
+              Download
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div v-if="totalPages > 1" class="mt-8 flex justify-center">
+      <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+        <button 
+          @click="currentPage = Math.max(1, currentPage - 1)"
+          :disabled="currentPage === 1"
+          class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+        >
+          Previous
+        </button>
+        <button 
+          v-for="page in totalPages" 
+          :key="page"
+          @click="currentPage = page"
+          :class="[
+            currentPage === page ? 'z-10 bg-emerald-50 border-emerald-500 text-emerald-600' : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50',
+            'relative inline-flex items-center px-4 py-2 border text-sm font-medium'
+          ]"
+        >
+          {{ page }}
+        </button>
+        <button 
+          @click="currentPage = Math.min(totalPages, currentPage + 1)"
+          :disabled="currentPage === totalPages"
+          class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+        >
+          Next
+        </button>
+      </nav>
+    </div>
+  </div>
+</div>
+
+<script>
+const { createApp, ref, computed } = Vue
+
+createApp({
+  setup() {
+    // Sample data - In production, this would come from your Laravel backend
+    const scholar = ref({
+      id: 1,
+      name: 'Sheikh Abdullah bin Bayyah',
+      biography: 'Sheikh Abdullah bin Bayyah is a renowned Islamic scholar and authority in Islamic jurisprudence. He currently serves as the President of the Forum for Promoting Peace in Muslim Societies and is known for his extensive work in Islamic legal theory and contemporary jurisprudence.',
+      books: [
+        {
+          id: 1,
+          title: 'Industry of Fatwa and Contemporary Jurisprudence',
+          summary: 'A comprehensive examination of the principles and methodologies of issuing religious verdicts in contemporary context.',
+          format: 'PDF',
+          downloads: 1250,
+          category: 'Fiqh'
+        },
+        {
+          id: 2,
+          title: 'Discourse on Security and Peace',
+          summary: 'An analysis of Islamic teachings regarding peace, security, and coexistence in modern societies.',
+          format: 'DOC',
+          downloads: 850,
+          category: 'Contemporary Issues'
+        },
+        // Add more books as needed
+      ]
+    })
+
+    const searchQuery = ref('')
+    const selectedCategory = ref('')
+    const currentPage = ref(1)
+    const itemsPerPage = 9
+
+    const categories = computed(() => {
+      const uniqueCategories = new Set(scholar.value.books.map(book => book.category))
+      return Array.from(uniqueCategories)
+    })
+
+    const filteredBooks = computed(() => {
+      let filtered = scholar.value.books
+      
+      if (searchQuery.value) {
+        filtered = filtered.filter(book => 
+          book.title.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+          book.summary.toLowerCase().includes(searchQuery.value.toLowerCase())
+        )
+      }
+
+      if (selectedCategory.value) {
+        filtered = filtered.filter(book => book.category === selectedCategory.value)
+      }
+
+      // Pagination
+      const start = (currentPage.value - 1) * itemsPerPage
+      const end = start + itemsPerPage
+      return filtered.slice(start, end)
+    })
+
+    const totalPages = computed(() => {
+      return Math.ceil(scholar.value.books.length / itemsPerPage)
+    })
+
+    const totalDownloads = computed(() => {
+      return scholar.value.books.reduce((sum, book) => sum + book.downloads, 0)
+    })
+
+    const getFormatClass = (format) => {
+      const classes = {
+        'PDF': 'bg-red-100 text-red-800',
+        'DOC': 'bg-blue-100 text-blue-800'
+      }
+      return classes[format] || 'bg-gray-100 text-gray-800'
+    }
+
+    const downloadBook = async (book) => {
+      try {
+        // In production, this would make an API call to your Laravel backend
+        book.downloads++
+        console.log(`Downloading book: ${book.title}`)
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 1000))
+        alert('Download started!')
+      } catch (error) {
+        console.error('Download failed:', error)
+        alert('Download failed. Please try again.')
+      }
+    }
+
+    const goBack = () => {
+      // In production, this would use your router
+      console.log('Navigating back to scholars page')
+    }
+
+    return {
+      scholar,
+      searchQuery,
+      selectedCategory,
+      currentPage,
+      categories,
+      filteredBooks,
+      totalPages,
+      totalDownloads,
+      getFormatClass,
+      downloadBook,
+      goBack
+    }
+  }
+}).mount('#app')
+</script>
+
+</body></html>
