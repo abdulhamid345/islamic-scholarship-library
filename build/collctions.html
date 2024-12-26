@@ -21,22 +21,32 @@
 <body class="bg-gray-50">
 <div id="app" class="min-h-screen">
   <!-- Navigation -->
-  <nav class="bg-emerald-800 text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-        <div class="flex items-center">
-          <a href="https://islamic-heritage-library.com" class="text-xl font-semibold">
-            Islamic Heritage Library
-          </a>
-        </div>
-        <div class="flex items-center space-x-4">
-          <a href="https://islamic-heritage-library.com/collections" class="hover:text-emerald-200">Collections</a>
-          <a href="https://islamic-heritage-library.com/books" class="hover:text-emerald-200">Books</a>
-          <a href="https://islamic-heritage-library.com/about" class="hover:text-emerald-200">About</a>
+  <nav class="md:flex w-full items-center md:bg-white md:shadow-md md:px-6 gap-3"> 
+    <div class="flex justify-between items-center py-4 px-6 md:p-0 shadow-md md:shadow-none bg-white md:bg-transparent">
+      <a href="">Yahaya Bawa Islamic Library</a>
+      <button class="md:hidden p-2 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200" data-collapse-toggle="mobile-menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+    
+    <div class="hidden md:block md:flex-grow px-6 py-4" id="mobile-menu">
+      <div class="md:flex md:justify-between md:items-center md:gap-4 md:w-full">
+        <form class="w-full py-2 pb-4 md:py-0 md:pb-0 ">
+          <input type="text" class="w-full p-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-200" placeholder="Search for books, authors, etc.">
+        </form>
+        <div class="md:flex md:gap-4 md:w-fit md:flex-grow md:items-center md:justify-between w-full md:flex-shrink-0">
+          <a class="block my-3 hover:text-green-900" href="">About Us</a>
+          <a class="block my-3 hover:text-green-900" href="">Authors</a>
+          <a class="block my-3 hover:text-green-900" href="">Collections</a>
+          <a class="block my-3 px-3.5 py-2.5 border-2 border-green-900 rounded-md text-sm font-semibold text-green-900 hover:text-white hover:bg-green-900" href="">Log In</a>
+          <a class="block my-3 bg-green-900 px-3.5 py-2.5 text-sm rounded-md font-semibold hover:bg-green-950 text-white" href="">Sign Up</a>
         </div>
       </div>
     </div>
   </nav>
+
 
   <!-- Main Content -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
