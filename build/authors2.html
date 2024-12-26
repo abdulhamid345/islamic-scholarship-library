@@ -1,206 +1,279 @@
 <html><head><base href="https://websim.ai/" />
-<title>Islamic Heritage Library - Scholar Works</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
-</head>
-<body>
-
-<div id="app" class="min-h-screen bg-amber-50">
-  <!-- Navigation -->
-  <nav class="bg-green-900 text-white p-4">
-    <div class="container mx-auto flex justify-between items-center">
-      <h1 class="text-2xl font-amiri">Islamic Heritage Library</h1>
-      <a href="/scholars" class="bg-green-700 hover:bg-green-600 px-4 py-2 rounded-lg transition">
-        Back to Scholars
-      </a>
-    </div>
-  </nav>
-
-  <!-- Main Content -->
-  <main class="container mx-auto px-4 py-8">
-    <!-- Scholar Information -->
-    <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-      <div class="flex flex-col md:flex-row gap-8">
-        <div class="w-full md:w-1/3">
-          <div class="aspect-square rounded-lg overflow-hidden">
-            <img :src="scholar.imageUrl" :alt="scholar.name" class="w-full h-full object-cover">
-          </div>
-        </div>
-        <div class="w-full md:w-2/3">
-          <h2 class="text-3xl font-amiri font-bold text-green-900 mb-4">{{ scholar.name }}</h2>
-          <p class="text-gray-600 leading-relaxed mb-4">{{ scholar.biography }}</p>
-          <div class="flex gap-4">
-            <div class="bg-amber-100 px-4 py-2 rounded-lg">
-              <span class="font-bold">{{ scholar.totalBooks }}</span> Works
-            </div>
-            <div class="bg-amber-100 px-4 py-2 rounded-lg">
-              <span class="font-bold">{{ scholar.totalDownloads }}</span> Downloads
-            </div>
-          </div>
-        </div>
+  <title>Islamic Heritage Library - Scholar Works</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+  
+  <div id="app" class="min-h-screen bg-amber-50">
+    <!-- Navigation -->
+    <nav class="bg-green-900 text-white p-4 sticky top-0 z-50 shadow-lg">
+      <div class="container mx-auto flex justify-between items-center">
+        <h1 class="text-2xl font-amiri tracking-wide">Islamic Heritage Library</h1>
+        <a href="/scholars" class="bg-green-700 hover:bg-green-600 px-4 py-2 rounded-lg transition duration-300 ease-in-out flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Back to Scholars
+        </a>
       </div>
-    </div>
-
-    <!-- Books Section -->
-    <div class="mb-8">
-      <div class="flex justify-between items-center mb-6">
-        <h3 class="text-2xl font-amiri font-bold text-green-900">Scholar Works</h3>
-        <div class="flex gap-4">
-          <select v-model="sortBy" class="bg-white border border-gray-300 rounded-lg px-4 py-2">
-            <option value="title">Title</option>
-            <option value="downloads">Most Downloaded</option>
-            <option value="date">Latest</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Books Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div v-for="book in sortedBooks" :key="book.id" 
-             class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition">
-          <div class="p-6">
-            <h4 class="text-xl font-amiri font-bold text-green-900 mb-2">{{ book.title }}</h4>
-            <p class="text-gray-600 mb-4 line-clamp-3">{{ book.summary }}</p>
-            <div class="flex justify-between items-center">
-              <span class="text-sm text-gray-500">{{ book.downloads }} downloads</span>
-              <button @click="downloadBook(book.id)" 
-                      class="bg-green-900 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
-                Download
-              </button>
+    </nav>
+  
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+      <!-- Scholar Information -->
+      <div class="bg-white rounded-xl shadow-xl p-8 mb-8 transform hover:scale-[1.01] transition duration-300">
+        <div class="flex flex-col md:flex-row gap-8">
+          <div class="w-full md:w-1/3">
+            <div class="aspect-square rounded-xl overflow-hidden shadow-lg">
+              <img :src="scholar.imageUrl" :alt="scholar.name" class="w-full h-full object-cover transform hover:scale-105 transition duration-500">
+            </div>
+            <div class="flex gap-4 mt-4">
+              <div class="bg-amber-100 px-4 py-2 rounded-lg flex-1 text-center">
+                <span class="font-bold text-green-900">{{ scholar.totalBooks }}</span>
+                <p class="text-sm text-gray-600">Works</p>
+              </div>
+              <div class="bg-amber-100 px-4 py-2 rounded-lg flex-1 text-center">
+                <span class="font-bold text-green-900">{{ formatNumber(scholar.totalDownloads) }}</span>
+                <p class="text-sm text-gray-600">Downloads</p>
+              </div>
+            </div>
+          </div>
+          <div class="w-full md:w-2/3">
+            <h2 class="text-4xl font-amiri font-bold text-green-900 mb-4">{{ scholar.name }}</h2>
+            <div class="space-y-4">
+              <p class="text-gray-600 leading-relaxed" v-html="formatBiography(scholar.biography)"></p>
+              <div class="flex flex-wrap gap-3">
+                <span v-for="field in scholar.fields" 
+                      class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">
+                  {{ field }}
+                </span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- Load More -->
-      <div v-if="hasMoreBooks" class="text-center mt-8">
-        <button @click="loadMoreBooks" 
-                class="bg-amber-100 px-6 py-3 rounded-lg hover:bg-amber-200 transition">
-          Load More Books
-        </button>
+  
+      <!-- Books Section -->
+      <div class="mb-8">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+          <h3 class="text-2xl font-amiri font-bold text-green-900">Scholar Works</h3>
+          <div class="flex flex-wrap gap-4">
+            <div class="relative">
+              <input v-model="searchQuery" 
+                     placeholder="Search works..." 
+                     class="bg-white border border-gray-300 rounded-lg px-4 py-2 pr-10 w-full sm:w-auto">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+            <select v-model="sortBy" class="bg-white border border-gray-300 rounded-lg px-4 py-2">
+              <option value="title">Title</option>
+              <option value="downloads">Most Downloaded</option>
+              <option value="date">Latest</option>
+            </select>
+          </div>
+        </div>
+  
+        <!-- Books Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div v-for="book in filteredAndSortedBooks" :key="book.id" 
+               class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+            <div class="p-6">
+              <h4 class="text-xl font-amiri font-bold text-green-900 mb-2">{{ book.title }}</h4>
+              <p class="text-gray-600 mb-4 line-clamp-3">{{ book.summary }}</p>
+              <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <div class="flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                  <span class="text-sm text-gray-500">{{ formatNumber(book.downloads) }} downloads</span>
+                </div>
+                <button @click="downloadBook(book.id)" 
+                        class="bg-green-900 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition duration-300 flex items-center gap-2 w-full sm:w-auto justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                  Download
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Load More -->
+        <div v-if="hasMoreBooks" class="text-center mt-8">
+          <button @click="loadMoreBooks" 
+                  :disabled="loading"
+                  class="bg-amber-100 px-6 py-3 rounded-lg hover:bg-amber-200 transition duration-300 flex items-center gap-2 mx-auto">
+            <span v-if="loading" class="animate-spin rounded-full h-4 w-4 border-b-2 border-green-900"></span>
+            {{ loading ? 'Loading...' : 'Load More Books' }}
+          </button>
+        </div>
       </div>
-    </div>
-  </main>
-</div>
-
-<script>
-const { createApp } = Vue
-
-createApp({
-  data() {
-    return {
-      scholar: {
-        name: 'Ibn Taymiyyah',
-        biography: 'Taqi ad-Din Ahmad ibn Taymiyyah was an Islamic scholar, theologian and logician. He lived from 1263 to 1328 CE. His intellectual activities and fervent opposition to popular religious practices made him a controversial figure in the eyes of many scholars.',
-        imageUrl: 'https://images.websim.ai/scholars/ibn-taymiyyah.jpg',
-        totalBooks: 45,
-        totalDownloads: 125000
-      },
-      books: [],
-      page: 1,
-      hasMoreBooks: true,
-      sortBy: 'title',
-      loading: false
-    }
-  },
-  computed: {
-    sortedBooks() {
-      return [...this.books].sort((a, b) => {
-        switch(this.sortBy) {
-          case 'downloads':
-            return b.downloads - a.downloads
-          case 'date':
-            return new Date(b.publishedAt) - new Date(a.publishedAt)
-          default:
-            return a.title.localeCompare(b.title)
+    </main>
+  </div>
+  
+  <script>
+  const { createApp } = Vue
+  
+  createApp({
+    data() {
+      return {
+        scholar: {
+          name: 'Ibn Taymiyyah',
+          biography: 'Taqi ad-Din Ahmad ibn Taymiyyah was an Islamic scholar, theologian and logician. He lived from 1263 to 1328 CE. His intellectual activities and fervent opposition to popular religious practices made him a controversial figure in the eyes of many scholars.',
+          imageUrl: 'https://images.websim.ai/scholars/ibn-taymiyyah.jpg',
+          totalBooks: 45,
+          totalDownloads: 125000,
+          fields: ['Theology', 'Islamic Law', 'Philosophy', 'Logic', 'Exegesis']
+        },
+        books: [],
+        page: 1,
+        hasMoreBooks: true,
+        sortBy: 'title',
+        loading: false,
+        searchQuery: ''
+      }
+    },
+    computed: {
+      filteredAndSortedBooks() {
+        let filtered = this.books
+        if (this.searchQuery) {
+          const query = this.searchQuery.toLowerCase()
+          filtered = filtered.filter(book => 
+            book.title.toLowerCase().includes(query) || 
+            book.summary.toLowerCase().includes(query)
+          )
         }
-      })
-    }
-  },
-  methods: {
-    async fetchBooks() {
-      try {
-        this.loading = true
-        // In a real app, this would be an API call
-        const response = await fetch(`/api/scholars/1/books?page=${this.page}`)
-        const data = await response.json()
         
-        this.books = [...this.books, ...data.books]
-        this.hasMoreBooks = data.hasMore
-        this.page++
-      } catch (error) {
-        console.error('Error fetching books:', error)
-      } finally {
-        this.loading = false
+        return filtered.sort((a, b) => {
+          switch(this.sortBy) {
+            case 'downloads':
+              return b.downloads - a.downloads
+            case 'date':
+              return new Date(b.publishedAt) - new Date(a.publishedAt)
+            default:
+              return a.title.localeCompare(b.title)
+          }
+        })
       }
     },
-    async downloadBook(bookId) {
-      try {
-        await fetch(`/api/books/${bookId}/download`, { method: 'POST' })
-        const book = this.books.find(b => b.id === bookId)
-        if (book) book.downloads++
-      } catch (error) {
-        console.error('Error downloading book:', error)
+    methods: {
+      formatNumber(num) {
+        return new Intl.NumberFormat().format(num)
+      },
+      formatBiography(text) {
+        // Split biography into paragraphs for better readability
+        return text.split('. ').join('.<br><br>')
+      },
+      async fetchBooks() {
+        try {
+          this.loading = true
+          // Simulate API delay
+          await new Promise(resolve => setTimeout(resolve, 1000))
+          
+          // In a real app, this would be an API call
+          const mockData = {
+            books: [
+              {
+                id: this.books.length + 1,
+                title: `Book ${this.books.length + 1}`,
+                summary: 'Another important theological work exploring Islamic principles and jurisprudence.',
+                downloads: Math.floor(Math.random() * 50000),
+                publishedAt: '1323-01-01'
+              }
+            ],
+            hasMore: this.page < 5
+          }
+          
+          this.books = [...this.books, ...mockData.books]
+          this.hasMoreBooks = mockData.hasMore
+          this.page++
+        } catch (error) {
+          console.error('Error fetching books:', error)
+        } finally {
+          this.loading = false
+        }
+      },
+      async downloadBook(bookId) {
+        try {
+          await fetch(`/api/books/${bookId}/download`, { method: 'POST' })
+          const book = this.books.find(b => b.id === bookId)
+          if (book) book.downloads++
+        } catch (error) {
+          console.error('Error downloading book:', error)
+        }
+      },
+      loadMoreBooks() {
+        if (!this.loading) this.fetchBooks()
       }
     },
-    loadMoreBooks() {
-      if (!this.loading) this.fetchBooks()
+    mounted() {
+      // Initial mock data
+      this.books = [
+        {
+          id: 1,
+          title: 'The Great Compilation of Fatwa',
+          summary: 'A comprehensive collection of Islamic legal opinions and rulings covering various aspects of religious, social, and personal matters.',
+          downloads: 45000,
+          publishedAt: '1320-01-01'
+        },
+        {
+          id: 2,
+          title: 'The Correct Response to Those Who Changed the Religion of Christ',
+          summary: 'A detailed refutation of Christian doctrines from an Islamic perspective, focusing on theological differences and scriptural analysis.',
+          downloads: 32000,
+          publishedAt: '1321-01-01'
+        },
+        {
+          id: 3,
+          title: 'The Way of the Sunnah',
+          summary: 'An extensive work on the methodology of following prophetic traditions and understanding Islamic theology.',
+          downloads: 28000,
+          publishedAt: '1322-01-01'
+        }
+      ]
     }
-  },
-  mounted() {
-    // Simulate initial data
-    this.books = [
-      {
-        id: 1,
-        title: 'The Great Compilation of Fatwa',
-        summary: 'A comprehensive collection of Islamic legal opinions and rulings covering various aspects of religious, social, and personal matters.',
-        downloads: 45000,
-        publishedAt: '1320-01-01'
-      },
-      {
-        id: 2,
-        title: 'The Correct Response to Those Who Changed the Religion of Christ',
-        summary: 'A detailed refutation of Christian doctrines from an Islamic perspective, focusing on theological differences and scriptural analysis.',
-        downloads: 32000,
-        publishedAt: '1321-01-01'
-      },
-      {
-        id: 3,
-        title: 'The Way of the Sunnah',
-        summary: 'An extensive work on the methodology of following prophetic traditions and understanding Islamic theology.',
-        downloads: 28000,
-        publishedAt: '1322-01-01'
-      }
-    ]
+  }).mount('#app')
+  </script>
+  
+  <style>
+  .font-amiri {
+    font-family: 'Amiri', serif;
   }
-}).mount('#app')
-</script>
-
-<style>
-.font-amiri {
-  font-family: 'Amiri', serif;
-}
-
-/* Add custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #014737;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #016d54;
-}
-</style>
-
-</body></html>
+  
+  /* Add custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #014737;
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #016d54;
+  }
+  
+  /* Add smooth scrolling to the page */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Add text selection color */
+  ::selection {
+    background: #014737;
+    color: white;
+  }
+  </style>
+  
+  </body></html>
