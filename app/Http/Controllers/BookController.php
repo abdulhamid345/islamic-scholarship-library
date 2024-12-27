@@ -75,7 +75,6 @@ public function destroy($id)
 {
     
     $book = Book::findOrFail($id);
-
     
     $book->delete();
 
