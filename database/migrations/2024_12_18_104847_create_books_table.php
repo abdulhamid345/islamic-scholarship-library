@@ -9,25 +9,27 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('books', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('author')->nullable();
-            $table->text('description')->nullable();
-            $table->string('audio_path')->nullable();
-            $table->string('file_path');
-            $table->integer('download_count')->default(0);
-            $table->timestamps();
+        Schema::table('books', function (Blueprint $table) {
+            // Add new columns
+            $table->string('language')->nullable();
+            $table->json('categories')->nullable();
+            $table->integer('number_of_pages')->nullable();
+            $table->integer('year_written')->nullable();
+
+            $table->unsignedBigInteger('scholar_id')->nullable();
+       
+            $table->foreign('scholar_id')->references('id')->on('scholars')->onDelete('set null');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('books');
+        Schema::table('books', function (Blueprint $table) {
+            $table->dropColumn(['language', 'categories', 'number_of_pages', 'year_written']);
+            $table->dropForeign(['scholar_id']);
+            $table->dropColumn('scholar_id');
+        });
     }
 };
