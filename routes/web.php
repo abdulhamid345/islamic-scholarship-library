@@ -13,11 +13,18 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/books', function () {
+    return view('books');
+})->name('books');
+
+Route::get('/scholars', function () {
+    return view('scholars');
+})->name('scholars');
 
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::resource('books', BookController::class);
-});
+// Route::middleware(['auth', 'verified'])->group(function () {
+//     Route::resource('books', BookController::class);
+// });
 
 
 Route::middleware('auth')->group(function () {
