@@ -79,14 +79,14 @@
               class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
             >
               <option value="">All Eras</option>
-              <option v-for="era in eras" :key="era" :value="era">{{ era }}</option>
+              <option v-for="era in eras" :key="era" :value="era"></option>
             </select>
             <select 
               v-model="selectedSpecialty" 
               class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
             >
               <option value="">All Specialties</option>
-              <option v-for="specialty in specialties" :key="specialty" :value="specialty">{{ specialty }}</option>
+              <option v-for="specialty in specialties" :key="specialty" :value="specialty"> specialty </option>
             </select>
           </div>
         </div>
@@ -100,22 +100,22 @@
                class="scholar-card bg-white rounded-lg shadow-md overflow-hidden">
             <div class="h-48 bg-green-100 flex items-center justify-center">
               <div class="h-32 w-32 rounded-full bg-green-200 flex items-center justify-center">
-                <span class="text-4xl text-green-800 arabic-calligraphy">{{ scholar.initial }}</span>
+                <span class="text-4xl text-green-800 arabic-calligraphy"> scholar.initial </span>
               </div>
             </div>
             <div class="p-6">
-              <h3 class="text-xl font-bold mb-2">{{ scholar.name }}</h3>
-              <p class="text-sm text-gray-600 mb-2">{{ scholar.era }}</p>
-              <p class="text-gray-700 mb-4">{{ scholar.description }}</p>
+              <h3 class="text-xl font-bold mb-2"> scholar.name </h3>
+              <p class="text-sm text-gray-600 mb-2"> scholar.era </p>
+              <p class="text-gray-700 mb-4"> scholar.description </p>
               <div class="flex flex-wrap gap-2 mb-4">
                 <span v-for="specialty in scholar.specialties" 
                       :key="specialty"
                       class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">
-                  {{ specialty }}
+                   specialty 
                 </span>
               </div>
               <div class="flex justify-between items-center">
-                <span class="text-sm text-gray-500">{{ scholar.works }} works</span>
+                <span class="text-sm text-gray-500"> scholar.works  works</span>
                 <a :href="'/scholar/' + scholar.id" 
                    class="inline-flex items-center text-green-600 hover:text-green-800">
                   View Profile
@@ -142,9 +142,9 @@
                 <div class="timeline-dot absolute left-1/2 transform -translate-x-1/2 -translate-y-4 w-4 h-4 bg-green-500 rounded-full"></div>
                 <div class="ml-auto mr-8 md:mr-auto md:ml-8 p-6 bg-white rounded-lg shadow-md w-full md:w-96" 
                      :class="event.year % 2 === 0 ? 'md:ml-auto md:mr-8' : 'md:mr-auto md:ml-8'">
-                  <span class="text-green-600 font-bold">{{ event.year }}</span>
-                  <h3 class="font-bold mt-2 mb-2">{{ event.title }}</h3>
-                  <p class="text-gray-600">{{ event.description }}</p>
+                  <span class="text-green-600 font-bold"> event.year </span>
+                  <h3 class="font-bold mt-2 mb-2"> event.title </h3>
+                  <p class="text-gray-600"> event.description </p>
                 </div>
               </div>
             </div>
