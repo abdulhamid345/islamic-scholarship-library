@@ -21,6 +21,15 @@ Route::get('/scholars', function () {
     return view('scholars');
 })->name('scholars');
 
+Route::get('/works', function() {
+    return view('works');
+})->name('works');
+
+Route::get('/profile', function() {
+    return view('profile');
+})->name('profile');
+
+
 
 // Route::middleware(['auth', 'verified'])->group(function () {
 //     Route::resource('books', BookController::class);

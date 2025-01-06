@@ -116,7 +116,7 @@
               </div>
               <div class="flex justify-between items-center">
                 <span class="text-sm text-gray-500"> scholar.works  works</span>
-                <a :href="'/scholar/' + scholar.id" 
+                <a href="{{ route('profile') }}" 
                    class="inline-flex items-center text-green-600 hover:text-green-800">
                   View Profile
                   <svg class="w-4 h-4 ml-1" viewBox="0 0 24 24" fill="none" stroke="currentColor">
