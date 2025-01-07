@@ -13,6 +13,7 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
 Route::get('/books', function () {
     return view('books');
 })->name('books');
@@ -25,9 +26,9 @@ Route::get('/works', function() {
     return view('works');
 })->name('works');
 
-Route::get('/profile', function() {
-    return view('profile');
-})->name('profile');
+Route::get('/scholar', function() {
+    return view('scholar');
+})->name('scholar');
 
 
 
