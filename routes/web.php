@@ -14,9 +14,9 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/books', function () {
+Route::get('/all-books', function () {
     return view('books');
-})->name('books');
+})->name('all-books');
 
 Route::get('/scholars', function () {
     return view('scholars');

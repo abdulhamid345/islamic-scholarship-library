@@ -45,7 +45,7 @@
               </a>
             </div>
             <div class="flex items-center space-x-6">
-              <a href="/books" class="hover:text-green-200 transition-colors">Books</a>
+              <a href="{{ route('all-books') }}" class="hover:text-green-200 transition-colors">Books</a>
               <a href="/scholars" class="hover:text-green-200 transition-colors">Scholars</a>
               <a href="/login" class="hover:text-green-200 transition-colors">Login</a>
               <a href="/register" class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">Register</a>

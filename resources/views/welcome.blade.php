@@ -51,7 +51,7 @@
               </a>
             </div>
             <div class="flex items-center space-x-6">
-              <a href="./books.html" class="hover:text-green-200 transition-colors">Books</a>
+              <a href="{{ route('all-books') }}" class="hover:text-green-200 transition-colors">Books</a>
               <a href="./scholars-page.html" class="hover:text-green-200 transition-colors">Scholars</a>
               <a href="{{ route('login') }}" class="hover:text-green-200 transition-colors">Login</a>
               <a href="{{ route('register') }}" class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">Register</a>
