@@ -28,6 +28,10 @@ public function store(Request $request)
         'author' => 'required|string|max:255',
         'description' => 'nullable|string',
         'file' => 'nullable|file|mimes:pdf,epub|max:10240', 
+        'language' => 'required|string|max:255',
+        'categories' => 'required|string|in:fiqh,aqeedah,history,poetry,philosophy',
+        'number_of_pages' => 'required|integer|min:1',
+        'year_written' => 'required|integer|digits:4',
     ]);
 
     
@@ -54,6 +58,10 @@ public function update(Request $request, Book $book)
         'author' => 'required|string|max:255',
         'description' => 'nullable|string',
         'file' => 'nullable|file|mimes:pdf,epub|max:10240', 
+        'language' => 'required|string|max:255',
+        'categories' => 'required|string|in:fiqh,aqeedah,history,poetry,philosophy',
+        'number_of_pages' => 'required|integer|min:1',
+        'year_written' => 'required|integer|digits:4',
     ]);
 
     

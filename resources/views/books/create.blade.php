@@ -28,6 +28,33 @@
                         </div>
 
                         <div class="mb-4">
+                            <label for="language" class="block text-sm font-medium text-gray-700">Language</label>
+                            <input type="text" id="language" name="language" class="block mt-1 w-full text-black-500" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="categories" class="block text-sm font-medium text-gray-700">Category</label>
+                            <select id="categories" name="categories" class="block mt-1 w-full text-black-500" required>
+                                <option value="fiqh">Fiqh</option>
+                                <option value="aqeedah">Aqeedah</option>
+                                <option value="history">History</option>
+                                <option value="poetry">Poetry</option>
+                                <option value="philosophy">Philosophy</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="number_of_pages" class="block text-sm font-medium text-gray-700">Number of Pages</label>
+                            <input type="number" id="number_of_pages" name="number_of_pages" class="block mt-1 w-full text-black-500" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="year_written" class="block text-sm font-medium text-gray-700">Year Written</label>
+                            <input type="number" id="year_written" name="year_written" class="block mt-1 w-full text-black-500" required>
+                        </div>
+
+
+                        <div class="mb-4">
                             <label for="file" class="block text-sm font-medium text-gray-700">Book File</label>
                             <input type="file" id="file" name="file" class="block mt-1 w-full text-black-500">
                         </div>

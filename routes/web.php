@@ -32,9 +32,9 @@ Route::get('/scholar', function() {
 
 
 
-// Route::middleware(['auth', 'verified'])->group(function () {
-//     Route::resource('books', BookController::class);
-// });
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::resource('books', BookController::class);
+});
 
 
 Route::middleware('auth')->group(function () {

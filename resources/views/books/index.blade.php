@@ -20,37 +20,41 @@
                             {{ session('success') }}
                         </div>
                     @endif
-
-                    <table class="table-auto w-full">
-                        <thead>
-                            <tr>
-                                <th>Title</th>
-                                <th>Author</th>
-                                <th>Description</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($books as $book)
-                                <tr>
-                                    <td>{{ $book->title }}</td>
-                                    <td>{{ $book->author }}</td>
-                                    <td>{{ $book->description }}</td>
-                                    <td>
-                                        <a href="{{ route('books.edit', $book->id) }}" class="text-blue-500">Edit</a>
-                                        |
-                                        <form action="{{ route('books.destroy', $book->id) }}" method="POST" style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-red-500">Delete</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        @foreach ($books as $book)
+                            <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg shadow-md">
+                                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">{{ $book->title }}</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Author: {{ $book->author }}</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                                    {{ Str::limit($book->description, 100, '...') }}
+                                </p>
+    
+                                <div class="flex justify-between items-center mt-4">
+                                    <a href="{{ route('books.edit', $book->id) }}" class="text-blue-500 hover:text-blue-700 flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M17.414 2.586a2 2 0 00-2.828 0L8 9.172V11h1.828l6.586-6.586a2 2 0 000-2.828zM4 13v3h3l8.586-8.586-3-3L4 13z" />
+                                        </svg>
+                                        Edit
+                                    </a>
+    
+                                    <form action="{{ route('books.destroy', $book->id) }}" method="POST" onsubmit="return confirm('Are you sure?');" class="flex items-center">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-500 hover:text-red-700 flex items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2h-1V3a1 1 0 00-1-1H6zm0 5H4v10a2 2 0 002 2h8a2 2 0 002-2V7H6zM8 9a1 1 0 112 0v6a1 1 0 11-2 0V9zm4 0a1 1 0 112 0v6a1 1 0 11-2 0V9z" clip-rule="evenodd" />
+                                            </svg>
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    
 </x-app-layout>
