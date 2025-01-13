@@ -16,6 +16,13 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
+                    <x-nav-link :href="route('scholars.index')" :active="request()->routeIs('scholars.index')">
+                        {{ __('Scholars') }}
+                    </x-nav-link>
+                
+                    <x-nav-link :href="route('scholars.create')" :active="request()->routeIs('scholars.create')">
+                        {{ __('Add Scholar') }}
+                    </x-nav-link>
                     
                 </div>
             </div>
