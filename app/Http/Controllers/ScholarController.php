@@ -2,63 +2,46 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Scholar;
 use Illuminate\Http\Request;
 
 class ScholarController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $scholars = Scholar::all();
+        return view('scholars.index', compact('scholars'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('scholars.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:scholars',
+        ]);
+
+        Scholar::create($request->all());
+        return redirect()->route('scholars.index')->with('success', 'Scholar created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit(Scholar $scholar)
     {
-        //
+        return view('scholars.edit', compact('scholar'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, Scholar $scholar)
     {
-        //
-    }
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:scholars,email,' . $scholar->id,
+        ]);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $scholar->update($request->all());
+        return redirect()->route('scholars.index')->with('success', 'Scholar updated successfully.');
     }
 }
