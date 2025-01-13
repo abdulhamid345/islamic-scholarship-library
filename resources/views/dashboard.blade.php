@@ -3,10 +3,6 @@
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Dashboard') }}
         </h2>
-        <nav class="mt-4">
-            <a href="{{ route('scholars.index') }}" class="text-blue-500 hover:underline">All Scholars</a>
-            <a href="{{ route('scholars.create') }}" class="text-blue-500 hover:underline ml-4">Create Scholar</a>
-        </nav>
     </x-slot>
 
     <div class="py-12">
