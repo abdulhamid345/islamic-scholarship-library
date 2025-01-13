@@ -131,7 +131,7 @@
       </div>
     </div>
     
-    <script>
+    {{-- <script>
     const { createApp } = Vue
     
     createApp({
@@ -187,7 +187,7 @@
         }
       }
     }).mount('#app')
-    </script>
+    </script> --}}
     
     </body>
     </html>
