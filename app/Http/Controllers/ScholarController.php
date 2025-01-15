@@ -29,26 +29,31 @@ class ScholarController extends Controller
      */
     public function store(Request $request)
 {
+    \Log::info($request->all());
+
     $validated = $request->validate([
         'name' => 'required|string|max:255',
         'about' => 'nullable|string',
         'biography' => 'nullable|string',
-        'published_works' => 'nullable|array',
+        'published_works' => 'nullable|string',
         'students' => 'nullable|array',
-        'categories' => 'nullable|array',
-        'categories.*' => 'string',
+        'categories' => 'nullable|array', 
+        'categories.*' => 'string', 
     ]);
 
-    // Convert array fields to JSON
-    $validated['published_works'] = isset($validated['published_works']) ? json_encode($validated['published_works']) : null;
-    $validated['students'] = isset($validated['students']) ? json_encode($validated['students']) : null;
+    
     $validated['categories'] = isset($validated['categories']) ? json_encode($validated['categories']) : null;
 
-    // Save to the database
+    
+    $validated['published_works'] = isset($validated['published_works']) ? $validated['published_works'] : null;
+    $validated['students'] = isset($validated['students']) ? json_encode($validated['students']) : null;
+
+    
     Scholar::create($validated);
 
     return redirect()->route('scholars.index')->with('success', 'Scholar created successfully!');
 }
+
 
 
 
