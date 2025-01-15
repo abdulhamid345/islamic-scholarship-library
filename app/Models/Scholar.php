@@ -14,4 +14,8 @@ class Scholar extends Model
         'students',
         'categories',
     ];
+
+    protected $casts = [
+        'categories' => 'array',
+    ];
 }
