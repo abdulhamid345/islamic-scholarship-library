@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Book;
 use App\Models\Scholar;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class ScholarController extends Controller
@@ -13,8 +14,9 @@ class ScholarController extends Controller
      */
     public function showWelcomePage()
     {
+        $books = Book::all();
         $scholars = Scholar::all(); 
-        return view('welcome', compact('scholars'));  
+        return view('welcome', compact('scholars', 'books'));  
     }
 
     public function index()

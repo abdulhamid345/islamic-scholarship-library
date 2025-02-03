@@ -28,6 +28,7 @@ Route::get('/scholar', function() {
     return view('scholar');
 })->name('scholar');
 
+Route::get('/books/{id}', [BookController::class, 'show'])->name('books.show');
 
 
 Route::middleware(['auth', 'verified'])->group(function () {

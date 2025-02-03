@@ -66,11 +66,11 @@
             <div class="scholar-card bg-white rounded-lg shadow-md p-6 text-center">
                 <div class="h-32 w-32 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center">
                     <span class="text-4xl text-green-800 arabic-calligraphy">
-                        {{ strtoupper(substr($scholar->name, 0, 1)) }}  {{-- Initial from Name --}}
+                        {{ strtoupper(substr($scholar->name, 0, 1)) }}  
                     </span>
                 </div>
                 <h3 class="text-xl font-bold mb-2">{{ $scholar->name }}</h3>
-                <p class="text-gray-600 mb-4">{{ $scholar->description }}</p>
+                <p class="text-gray-600 mb-4">{{ $scholar->biography }}</p>
                 <a href="{{ route('works', ['id' => $scholar->id]) }}" 
                    class="inline-block bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors">
                     View Works
@@ -81,38 +81,38 @@
 </div>
 
 
-  <!-- Featured Books Section -->
-  <div class="bg-gray-100 py-16">
-    <div class="max-w-7xl mx-auto px-4">
+  
+<div class="bg-gray-100 py-16">
+  <div class="max-w-7xl mx-auto px-4">
       <h2 class="text-3xl font-bold mb-8 text-center">Featured Books</h2>
       <div class="grid md:grid-cols-4 gap-6">
-        <div v-for="book in featuredBooks" 
-             :key="book.id" 
-             class="book-card bg-white rounded-lg shadow-md p-4">
-          <div class="aspect-w-3 aspect-h-4 mb-4">
-            <div class="bg-green-50 h-48 rounded-lg flex items-center justify-center">
-              <svg class="w-16 h-16 text-green-800" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4 19.5C4 18.837 4.26339 18.2011 4.73223 17.7322C5.20107 17.2634 5.83696 17 6.5 17H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M6.5 2H20V22H6.5C5.83696 22 5.20107 21.7366 4.73223 21.2678C4.26339 20.7989 4 20.163 4 19.5V4.5C4 3.83696 4.26339 3.20107 4.73223 2.73223C5.20107 2.26339 5.83696 2 6.5 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-          <h3 class="font-bold mb-2"> book.title </h3>
-          <p class="text-sm text-gray-600 mb-2"> book.author </p>
-          <div class="flex justify-between items-center">
-            <span class="text-sm text-gray-500">Downloads:  book.downloads </span>
-            <a :href="'/books/' + book.id" 
-               class="text-green-600 hover:text-green-800 transition-colors flex items-center">
-              View Details
-              <svg class="w-4 h-4 ml-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </a>
-          </div>
-        </div>
+          @foreach ($books as $book)
+              <div class="book-card bg-white rounded-lg shadow-md p-4">
+                  <div class="aspect-w-3 aspect-h-4 mb-4">
+                      <div class="bg-green-50 h-48 rounded-lg flex items-center justify-center">
+                          <svg class="w-16 h-16 text-green-800" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M4 19.5C4 18.837 4.26339 18.2011 4.73223 17.7322C5.20107 17.2634 5.83696 17 6.5 17H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                              <path d="M6.5 2H20V22H6.5C5.83696 22 5.20107 21.7366 4.73223 21.2678C4.26339 20.7989 4 20.163 4 19.5V4.5C4 3.83696 4.26339 3.20107 4.73223 2.73223C5.20107 2.26339 5.83696 2 6.5 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                      </div>
+                  </div>
+                  <h3 class="font-bold mb-2">{{ $book->title }}</h3>
+                  <p class="text-sm text-gray-600 mb-2">{{ $book->author }}</p>
+                  <div class="flex justify-between items-center">
+                      <span class="text-sm text-gray-500">Downloads: {{ $book->downloads }}</span>
+                      <a href="{{ url('/books/' . $book->id) }}" class="text-green-600 hover:text-green-800 transition-colors flex items-center">
+                          View Details
+                          <svg class="w-4 h-4 ml-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                      </a>
+                  </div>
+              </div>
+          @endforeach
       </div>
-    </div>
   </div>
+</div>
+
 </div>
 
 @section('content')

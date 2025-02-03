@@ -32,7 +32,7 @@
         @yield('content')
     </div>
 
-    <footer class="bg-gray-800 text-white text-center py-6">
+    <footer class="bg-green-800 text-white text-center py-6">
         <p>&copy; {{ date('Y') }} Yahaya Bawa Islamic Library. All rights reserved.</p>
     </footer>
 </body>
