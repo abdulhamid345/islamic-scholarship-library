@@ -18,6 +18,7 @@
                                 <th class="border border-gray-300 px-4 py-2 text-left">Published Works</th>
                                 <th class="border border-gray-300 px-4 py-2 text-left">Students</th>
                                 <th class="border border-gray-300 px-4 py-2 text-left">Categories</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">Years Active</th>
                                 <th class="border border-gray-300 px-4 py-2 text-left">Actions</th>
                             </tr>
                         </thead>
@@ -28,13 +29,7 @@
                                     <td class="border border-gray-300 px-4 py-2">{{ $scholar->about ?? 'N/A' }}</td>
                                     <td class="border border-gray-300 px-4 py-2">{{ $scholar->biography ?? 'N/A' }}</td>
                                     <td class="border border-gray-300 px-4 py-2">{{ $scholar->published_works ?? 'N/A' }}</td>
-                                    <td class="border border-gray-300 px-4 py-2">
-                                        @if(!empty($scholar->students))
-                                            {{ implode(', ', $scholar->students) }}
-                                        @else
-                                            N/A
-                                        @endif
-                                    </td>
+                                    <td class="border border-gray-300 px-4 py-2">{{ $scholar->students ?? 'N/A' }}</td>
                                     <td class="border border-gray-300 px-4 py-2">
                                         @if(!empty($scholar->categories))
                                             {{ implode(', ', $scholar->categories) }}
@@ -42,6 +37,7 @@
                                             N/A
                                         @endif
                                     </td>
+                                    <td class="border border-gray-300 px-4 py-2">{{ $scholar->years_active ?? 'N/A' }}</td>
                                     <td class="border border-gray-300 px-4 py-2 flex space-x-2">
                                         <a href="{{ route('scholars.edit', $scholar) }}" class="text-blue-500 hover:text-blue-700">
                                             <i class="fas fa-edit"></i>
