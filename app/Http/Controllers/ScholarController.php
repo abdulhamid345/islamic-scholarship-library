@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Scholar;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,10 @@ class ScholarController extends Controller
      */
     public function index()
     {
-        $scholars = Scholar::all();
+        $scholars = Scholar::all(); 
         return view('scholars.index', compact('scholars'));
     }
+    
 
     /**
      * Show the form for creating a new scholar.
@@ -62,7 +64,9 @@ class ScholarController extends Controller
      */
     public function edit(Scholar $scholar)
     {
-        return view('scholars.edit', compact('scholar'));
+        $allCategories = ['Fiqh', 'Aqeedah', 'Tafsir', 'History'];
+
+        return view('scholars.edit', compact('scholar', 'allCategories'));
     }
 
     /**
