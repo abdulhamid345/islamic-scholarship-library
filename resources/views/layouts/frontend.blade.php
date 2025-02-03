@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic&display=swap" rel="stylesheet">
+    @yield('styles')
 </head>
 <body class="bg-gray-50">
     <nav class="bg-green-800 text-white shadow-lg sticky top-0 z-50">
