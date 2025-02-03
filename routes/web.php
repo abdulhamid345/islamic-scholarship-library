@@ -6,10 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScholarController;
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', [ScholarController::class, 'showWelcomePage']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -11,6 +11,12 @@ class ScholarController extends Controller
     /**
      * Display a listing of the scholars.
      */
+    public function showWelcomePage()
+    {
+        $scholars = Scholar::all(); 
+        return view('welcome', compact('scholars'));  
+    }
+
     public function index()
     {
         $scholars = Scholar::all(); 
