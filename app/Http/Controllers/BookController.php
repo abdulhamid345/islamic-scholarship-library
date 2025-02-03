@@ -20,6 +20,14 @@ class BookController extends Controller
     return view('books.create');
 }
 
+public function show($id)
+{
+    $book = Book::findOrFail($id);
+
+    return view('books-details', compact('book'));
+}
+
+
 public function store(Request $request)
 {
     
