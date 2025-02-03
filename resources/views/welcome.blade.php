@@ -81,21 +81,24 @@
       <div class="max-w-7xl mx-auto px-4 py-16">
         <h2 class="text-3xl font-bold mb-8 text-center">Renowned Scholars</h2>
         <div class="grid md:grid-cols-3 gap-8">
-          <div v-for="scholar in scholars" 
-               :key="scholar.id" 
-               class="scholar-card bg-white rounded-lg shadow-md p-6 text-center">
-            <div class="h-32 w-32 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center">
-              <span class="text-4xl text-green-800 arabic-calligraphy"> scholar.initial </span>
-            </div>
-            <h3 class="text-xl font-bold mb-2"> scholar.name </h3>
-            <p class="text-gray-600 mb-4"> scholar.description </p>
-            <a :href="{{ route('works') }}"    //TODO: Add scholar id and fetch dynamically
-               class="inline-block bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors">
-              View Works
-            </a>
-          </div>
+            @foreach ($scholars as $scholar)
+                <div class="scholar-card bg-white rounded-lg shadow-md p-6 text-center">
+                    <div class="h-32 w-32 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center">
+                        <span class="text-4xl text-green-800 arabic-calligraphy">
+                            {{ strtoupper(substr($scholar->name, 0, 1)) }}  {{-- Initial from Name --}}
+                        </span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">{{ $scholar->name }}</h3>
+                    <p class="text-gray-600 mb-4">{{ $scholar->description }}</p>
+                    <a href="{{ route('works', ['id' => $scholar->id]) }}" 
+                       class="inline-block bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                        View Works
+                    </a>
+                </div>
+            @endforeach
         </div>
-      </div>
+    </div>
+    
     
       <!-- Featured Books Section -->
       <div class="bg-gray-100 py-16">
