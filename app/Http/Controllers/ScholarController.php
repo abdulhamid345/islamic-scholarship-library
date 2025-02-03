@@ -36,7 +36,7 @@ class ScholarController extends Controller
         'about' => 'nullable|string',
         'biography' => 'nullable|string',
         'published_works' => 'nullable|string',
-        'students' => 'nullable|array',
+        'students' => 'nullable|string',
         'categories' => 'nullable|array', 
         'categories.*' => 'string', 
     ]);
@@ -46,7 +46,7 @@ class ScholarController extends Controller
 
     
     $validated['published_works'] = isset($validated['published_works']) ? $validated['published_works'] : null;
-    $validated['students'] = isset($validated['students']) ? json_encode($validated['students']) : null;
+    $validated['students'] = isset($validated['students']) ? $validated['students'] : null;
 
     
     Scholar::create($validated);
