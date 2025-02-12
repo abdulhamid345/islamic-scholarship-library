@@ -23,6 +23,14 @@
                     <x-nav-link :href="route('scholars.create')" :active="request()->routeIs('scholars.create')">
                         {{ __('Add Scholar') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('books.index')" :active="request()->routeIs('books.index')">
+                        {{ __('Books') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('books.create')" :active="request()->routeIs('books.create')">
+                        {{ __('Add Books') }}
+                    </x-nav-link>
                     
                 </div>
             </div>

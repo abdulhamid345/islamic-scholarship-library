@@ -70,6 +70,13 @@
                         @error('categories') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
 
+                    {{-- Submit Button --}}
+                    <div class="flex justify-end">
+                        <button type="submit" class="px-4 py-2 bg-blue-600 text-black rounded-lg hover:bg-blue-700">
+                            Save Changes
+                        </button>
+                    </div>
+
                     <div class="mb-4">
                         <label for="years_active" class="block text-sm font-medium">Years Active</label>
                         <input type="text" id="years_active" name="years_active" value="{{ old('years_active', $scholar->years_active) }}" 
@@ -77,12 +84,7 @@
                         @error('years_active') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
 
-                    {{-- Submit Button --}}
-                    <div class="flex justify-end">
-                        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                            Save Changes
-                        </button>
-                    </div>
+                   
                 </form>
             </div>
         </div>

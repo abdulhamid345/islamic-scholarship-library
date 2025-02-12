@@ -12,14 +12,14 @@
                     <table class="min-w-full border-collapse border border-gray-300">
                         <thead class="bg-gray-100 dark:bg-gray-700">
                             <tr>
-                                <th class="border border-gray-300 px-4 py-2 text-left">Name</th>
-                                <th class="border border-gray-300 px-4 py-2 text-left">About</th>
-                                <th class="border border-gray-300 px-4 py-2 text-left">Biography</th>
-                                <th class="border border-gray-300 px-4 py-2 text-left">Published Works</th>
-                                <th class="border border-gray-300 px-4 py-2 text-left">Students</th>
-                                <th class="border border-gray-300 px-4 py-2 text-left">Categories</th>
-                                <th class="border border-gray-300 px-4 py-2 text-left">Years Active</th>
-                                <th class="border border-gray-300 px-4 py-2 text-left">Actions</th>
+                                <th class="border border-gray-300 px-4 py-2">Name</th>
+                                <th class="border border-gray-300 px-4 py-2">About</th>
+                                <th class="border border-gray-300 px-4 py-2">Biography</th>
+                                <th class="border border-gray-300 px-4 py-2">Published Works</th>
+                                <th class="border border-gray-300 px-4 py-2">Students</th>
+                                <th class="border border-gray-300 px-4 py-2">Categories</th>
+                                <th class="border border-gray-300 px-4 py-2">Years Active</th>
+                                <th class="border border-gray-300 px-4 py-2">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -31,10 +31,10 @@
                                     <td class="border border-gray-300 px-4 py-2">{{ $scholar->published_works ?? 'N/A' }}</td>
                                     <td class="border border-gray-300 px-4 py-2">{{ $scholar->students ?? 'N/A' }}</td>
                                     <td class="border border-gray-300 px-4 py-2">
-                                        @if(!empty($scholar->categories))
+                                        @if(is_array($scholar->categories))
                                             {{ implode(', ', $scholar->categories) }}
                                         @else
-                                            N/A
+                                            {{ $scholar->categories ?? 'N/A' }}
                                         @endif
                                     </td>
                                     <td class="border border-gray-300 px-4 py-2">{{ $scholar->years_active ?? 'N/A' }}</td>
@@ -58,7 +58,4 @@
             </div>
         </div>
     </div>
-    
-    
-    
 </x-app-layout>
