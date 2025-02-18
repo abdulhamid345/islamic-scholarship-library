@@ -30,26 +30,49 @@ public function show($id)
 
 public function store(Request $request)
 {
-    
     $validated = $request->validate([
         'title' => 'required|string|max:255',
         'author' => 'required|string|max:255',
         'description' => 'nullable|string',
-        'file' => 'nullable|file|mimes:pdf,epub|max:10240', 
+        'file' => 'mimes:pdf,epub,jpg,jpeg,png|max:10240', 
         'language' => 'required|string|max:255',
-        'categories' => 'required|string|in:fiqh,aqeedah,history,poetry,philosophy',
+        'categories' => 'required|string',
         'number_of_pages' => 'required|integer|min:1',
         'year_written' => 'required|integer|digits:4',
     ]);
 
-    
+    $filePath = null; // Initialize file path variable
+
     if ($request->hasFile('file')) {
-        $validated['file_path'] = $request->file('file')->store('books');
+        try {
+            // Store the file and get the path
+            $filePath = $request->file('file')->store('books'); // Store in 'books' directory
+        } catch (\Exception $e) {
+            // Return with error message if file upload fails
+            return redirect()->back()->withErrors(['file' => 'Failed to upload file: ' . $e->getMessage()]);
+        }
     }
 
-    
-    Book::create($validated);
+    // Add the file path to the validated data if a file was uploaded
+    // if ($filePath) {
+    //     $validated['file'] = $filePath; // Assuming you have a 'file_path' column in your 'books' table
+    // }
 
+    // dd($filePath);
+
+    // Create the book record
+    Book::create([
+        'title' => $validated['title'],
+        'author' => $validated['author'],
+        'description' => $validated['description'],
+        'language' => $validated['language'],
+        'categories' => $validated['categories'],
+        'number_of_pages' => $validated['number_of_pages'],
+        'year_written' => $validated['year_written'],
+        'file' => $filePath,
+    ]);
+
+    // Redirect with success message
     return redirect()->route('books.index')->with('success', 'Book created successfully.');
 }
 

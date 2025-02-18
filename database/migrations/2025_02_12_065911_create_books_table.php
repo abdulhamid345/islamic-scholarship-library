@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('title');
             $table->string('author');
             $table->text('description')->nullable();
-            $table->string('file'); // Store file path or URL
+            $table->string('file')->nullable(); // Store file path or URL
             $table->string('language')->nullable();
-            $table->json('categories')->nullable();
+            $table->string('categories')->nullable();
             $table->integer('number_of_pages')->nullable();
             $table->integer('year_written')->nullable();
             $table->integer('download_count')->default(0); // Default to 0

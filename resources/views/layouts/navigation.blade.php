@@ -28,9 +28,7 @@
                         {{ __('Books') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('books.create')" :active="request()->routeIs('books.create')">
-                        {{ __('Add Books') }}
-                    </x-nav-link>
+                   
                     
                 </div>
             </div>
