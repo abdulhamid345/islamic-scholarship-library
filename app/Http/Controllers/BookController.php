@@ -41,26 +41,16 @@ public function store(Request $request)
         'year_written' => 'required|integer|digits:4',
     ]);
 
-    $filePath = null; // Initialize file path variable
+    $filePath = null;
 
     if ($request->hasFile('file')) {
         try {
-            // Store the file and get the path
-            $filePath = $request->file('file')->store('books'); // Store in 'books' directory
+            $filePath = $request->file('file')->store('books'); 
         } catch (\Exception $e) {
-            // Return with error message if file upload fails
             return redirect()->back()->withErrors(['file' => 'Failed to upload file: ' . $e->getMessage()]);
         }
     }
 
-    // Add the file path to the validated data if a file was uploaded
-    // if ($filePath) {
-    //     $validated['file'] = $filePath; // Assuming you have a 'file_path' column in your 'books' table
-    // }
-
-    // dd($filePath);
-
-    // Create the book record
     Book::create([
         'title' => $validated['title'],
         'author' => $validated['author'],
@@ -72,7 +62,6 @@ public function store(Request $request)
         'file' => $filePath,
     ]);
 
-    // Redirect with success message
     return redirect()->route('books.index')->with('success', 'Book created successfully.');
 }
 
