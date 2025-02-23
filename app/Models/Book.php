@@ -22,6 +22,6 @@ class Book extends Model
         'categories',
         'number_of_pages',
         'year_written',
-        'file_path',
+        'file',
     ];
 }

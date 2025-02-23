@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('file');
             $table->string('language')->nullable();
-            $table->json('categories')->nullable();
+            $table->string('categories')->nullable();
             $table->string('number_of_pages')->nullable();
             $table->string('year_written')->nullable();
             $table->integer('download_count')->default(0); 
