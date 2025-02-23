@@ -57,17 +57,22 @@
 
                     {{-- Categories (Array) --}}
                     <div class="mb-4">
-                        <label for="categories" class="block text-sm font-medium">Categories</label>
-                        <select id="categories" name="category" 
-                        class="mt-1 block w-full p-2 border rounded-lg bg-gray-100 dark:bg-gray-700 focus:ring-blue-500 focus:border-blue-500">
-                    @foreach($allCategories as $category)
-                        <option value="{{ $category }}" 
-                            {{ old('category', $scholar->category ?? '') == $category ? 'selected' : '' }}>
-                            {{ $category }}
-                        </option>
-                    @endforeach
-                </select>
-                        @error('categories') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                        <label for="categories" class="block text-sm font-medium text-gray-700">Categories</label>
+                        <select name="categories[]" id="categories" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" multiple>
+                            <option value="fiqh">Fiqh</option>
+                            <option value="hadith">Hadith</option>
+                            <option value="tafsir">Tafsir</option>
+                            <option value="islamic philosophy">Islamic Philosophy</option>
+                            <option value="islamic history">Islamic History</option>
+                        </select>
+                        <small class="text-gray-500">Hold down the Ctrl (Windows) or Command (Mac) key to select multiple options.</small>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="years_active" class="block text-sm font-medium">Years Active</label>
+                        <input type="text" id="years_active" name="years_active" value="{{ old('years_active', $scholar->years_active) }}" 
+                               class="mt-1 block w-full p-2 border rounded-lg bg-gray-100 dark:bg-gray-700 focus:ring-blue-500 focus:border-blue-500">
+                        @error('years_active') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
 
                     {{-- Submit Button --}}
@@ -77,12 +82,6 @@
                         </button>
                     </div>
 
-                    <div class="mb-4">
-                        <label for="years_active" class="block text-sm font-medium">Years Active</label>
-                        <input type="text" id="years_active" name="years_active" value="{{ old('years_active', $scholar->years_active) }}" 
-                               class="mt-1 block w-full p-2 border rounded-lg bg-gray-100 dark:bg-gray-700 focus:ring-blue-500 focus:border-blue-500">
-                        @error('years_active') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                    </div>
 
                    
                 </form>

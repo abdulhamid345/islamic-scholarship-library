@@ -16,9 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->text('about')->nullable();
             $table->longText('biography')->nullable();
-            $table->json('published_works')->nullable();
-            $table->json('students')->nullable();
-            $table->json('categories')->nullable(); 
+            $table->string('published_works')->nullable();
+            $table->string('students')->nullable();
+            $table->string('categories')->nullable();
+            $table->string('years_active')->nullable();
             $table->timestamps();
         });
     }

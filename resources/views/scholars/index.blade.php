@@ -42,7 +42,7 @@
                                         <a href="{{ route('scholars.edit', $scholar) }}" class="text-blue-500 hover:text-blue-700">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <form action="{{ route('scholars.destroy', $scholar) }}" method="POST" onsubmit="return confirm('Are you sure?');">
+                                        <form action="{{ route('scholars.destroy', $scholar) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete scholar Note: this change cannot be reversed?');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="text-red-500 hover:text-red-700">

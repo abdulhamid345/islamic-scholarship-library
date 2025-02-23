@@ -49,6 +49,7 @@ class ScholarController extends Controller
         'students' => 'nullable|string',
         'categories' => 'nullable|array', 
         'categories.*' => 'string', 
+        'years_active' => 'string',
     ]);
 
     
@@ -58,7 +59,7 @@ class ScholarController extends Controller
     $validated['published_works'] = isset($validated['published_works']) ? $validated['published_works'] : null;
     $validated['students'] = isset($validated['students']) ? $validated['students'] : null;
 
-    
+    // dd($validated);
     Scholar::create($validated);
 
     return redirect()->route('scholars.index')->with('success', 'Scholar created successfully!');
@@ -86,10 +87,14 @@ class ScholarController extends Controller
             'name' => 'required|string|max:255',
             'about' => 'nullable|string',
             'biography' => 'nullable|string',
-            'published_works' => 'nullable|json',
-            'students' => 'nullable|json',
-            'categories' => 'nullable|json',
+            'published_works' => 'nullable|string',
+            'students' => 'nullable|string',
+            'categories' => 'nullable|array', 
+            'categories.*' => 'string', 
+            'years_active' => 'string',
         ]);
+
+        // dd($request->all());
 
         $scholar->update($request->all());
 

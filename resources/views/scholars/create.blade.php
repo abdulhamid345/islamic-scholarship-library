@@ -55,6 +55,11 @@
                             <input type="text" name="published_works" id="published_works" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
                         </div>
 
+                        <div class="mb-4">
+                            <label for="years_active" class="block text-sm font-medium">Years Active</label>
+                            <input type="text" id="years_active" name="years_active" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
+                        </div>
+
                         <!-- Submit Button -->
                         <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">Save</button>
                     </form>
