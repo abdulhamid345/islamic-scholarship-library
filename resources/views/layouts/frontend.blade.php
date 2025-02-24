@@ -28,7 +28,7 @@
         </div>
     </nav>
 
-    <div class="container mx-auto px-4 py-10">
+    <div class="mx-auto">
         @yield('content')
     </div>
 
