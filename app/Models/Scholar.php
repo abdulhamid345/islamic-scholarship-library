@@ -13,6 +13,7 @@ class Scholar extends Model
         'published_works',
         'students',
         'categories',
+        'years_active'
     ];
 
     protected $casts = [

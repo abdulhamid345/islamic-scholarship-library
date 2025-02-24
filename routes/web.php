@@ -28,12 +28,13 @@ Route::get('/scholar', function() {
     return view('scholar');
 })->name('scholar');
 
-Route::get('/books/{id}', [BookController::class, 'show'])->name('books.show');
+
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('books', BookController::class);
     Route::resource('scholars', ScholarController::class);
+    Route::get('/books/{id}', [BookController::class, 'show'])->name('books.show');
 });
 
 

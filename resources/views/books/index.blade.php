@@ -5,7 +5,7 @@
                 {{ __('Books') }}
             </h2>
             <a href="{{ route('books.create') }}" 
-               class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+               class="bg-blue-500 hover:bg-blue-600 text-black font-bold py-2 px-4 rounded">
                 Create Book
             </a>
         </div>
@@ -16,7 +16,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     @if (session('success'))
-                        <div class="bg-green-500 text-white p-2 rounded mb-4">
+                        <div class="bg-green-500 text-black p-2 rounded mb-4">
                             {{ session('success') }}
                         </div>
                     @endif

@@ -30,25 +30,39 @@ public function show($id)
 
 public function store(Request $request)
 {
-    
     $validated = $request->validate([
         'title' => 'required|string|max:255',
         'author' => 'required|string|max:255',
         'description' => 'nullable|string',
-        'file' => 'nullable|file|mimes:pdf,epub|max:10240', 
+        'file' => 'mimes:pdf,epub,jpg,jpeg,png|max:10240', 
         'language' => 'required|string|max:255',
-        'categories' => 'required|string|in:fiqh,aqeedah,history,poetry,philosophy',
+        'categories' => 'required|string',
         'number_of_pages' => 'required|integer|min:1',
         'year_written' => 'required|integer|digits:4',
     ]);
 
-    
+    $filePath = null;
+
     if ($request->hasFile('file')) {
-        $validated['file_path'] = $request->file('file')->store('books');
+        try {
+            $filePath = $request->file('file')->store('books'); 
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['file' => 'Failed to upload file: ' . $e->getMessage()]);
+        }
     }
 
-    
-    Book::create($validated);
+    // dd($validated);
+
+    Book::create([
+        'title' => $validated['title'],
+        'author' => $validated['author'],
+        'description' => $validated['description'],
+        'language' => $validated['language'],
+        'categories' => $validated['categories'],
+        'number_of_pages' => $validated['number_of_pages'],
+        'year_written' => $validated['year_written'],
+        'file' => $filePath,
+    ]);
 
     return redirect()->route('books.index')->with('success', 'Book created successfully.');
 }
@@ -67,7 +81,7 @@ public function update(Request $request, Book $book)
         'description' => 'nullable|string',
         'file' => 'nullable|file|mimes:pdf,epub|max:10240', 
         'language' => 'required|string|max:255',
-        'categories' => 'required|string|in:fiqh,aqeedah,history,poetry,philosophy',
+        'categories' => 'required|in:fiqh,aqeedah,history,poetry,philosophy',
         'number_of_pages' => 'required|integer|min:1',
         'year_written' => 'required|integer|digits:4',
     ]);

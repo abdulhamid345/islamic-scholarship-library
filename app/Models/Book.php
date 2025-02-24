@@ -18,8 +18,10 @@ class Book extends Model
         'title',
         'author',
         'description',
-        'file_path', 
-        'audio_path',
-        'downloads', 
+        'language',
+        'categories',
+        'number_of_pages',
+        'year_written',
+        'file',
     ];
 }
