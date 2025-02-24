@@ -16,17 +16,17 @@ Route::get('/all-books', function () {
     return view('books');
 })->name('all-books');
 
-Route::get('/scholars', function () {
-    return view('scholars');
-})->name('scholars');
+// Route::get('/scholars', function () {
+//     return view('scholars');
+// })->name('scholars');
 
-Route::get('/works', function() {
-    return view('works');
-})->name('works');
+// Route::get('/works', function () {
+//     return view('works');
+// })->name('works');
 
-Route::get('/scholar', function() {
-    return view('scholar');
-})->name('scholar');
+// Route::get('/scholar', function () {
+//     return view('scholar');
+// })->name('scholar');
 
 
 

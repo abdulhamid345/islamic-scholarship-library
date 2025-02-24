@@ -110,34 +110,167 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic&amp;display=swap" rel="stylesheet" />
 </head>
 
-<body class="bg-gray-50">
-    <nav class="bg-green-800 text-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <a href="/" class="text-xl font-bold flex items-center">
-                        Yahaya Bawa Islamic Library
-                    </a>
-                </div>
-                <div class="flex items-center space-x-6">
-                    <a href="{{ route('all-books') }}" class="hover:text-green-200 transition-colors">Books</a>
-                    <a href="{{ route('all-books') }}" class="hover:text-green-200 transition-colors">Categories</a>
-                    <a href="./scholars-page.html" class="hover:text-green-200 transition-colors">Scholars</a>
-                    <a href="{{ route('login') }}" class="hover:text-green-200 transition-colors">Login</a>
-                    <a href="{{ route('register') }}"
-                        class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">Register</a>
+<body class="bg-gray-50" :class="{ 'dark-mode': darkMode }">
+    <div class="scroll-indicator" :style="{ width: scrollProgress + '%' }"></div>
+    <div id="app">
+        <!-- Navigation -->
+        <nav class="bg-green-800 text-white shadow-lg sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="flex justify-between h-16">
+                    <div class="flex items-center">
+                        <a href="/" class="text-xl font-bold flex items-center">
+                            <svg class="w-8 h-8 mr-2" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <span class="hidden sm:inline">Yahaya Bawa Islamic Library</span>
+                            <span class="sm:hidden">YBIL</span>
+                        </a>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button @click="toggleDarkMode" class="p-2 rounded-full hover:bg-green-700">
+                            <svg v-if="!darkMode" class="w-6 h-6" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                            </svg>
+                            <svg v-else="" class="w-6 h-6" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="flex items-center md:hidden">
+                        <button @click="toggleMenu" class="p-2 rounded-md hover:bg-green-700 focus:outline-none">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path v-if="!menuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6h16M4 12h16M4 18h16" />
+                                <path v-else="" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div :class="['nav-links', 'md:flex', 'md:items-center', 'md:space-x-6', { 'active': menuOpen }]">
+                        <a href="books.html" class="hover:text-green-200 transition-colors">Books</a>
+                        <a href="categories.html"
+                            class="px-3 py-2 rounded-md hover:bg-green-700 transition-colors">Categories</a>
+                        <a href="scholars-page.html" class="hover:text-green-200 transition-colors">Scholars</a>
+                        <a href="login.html" class="hover:text-green-200 transition-colors">Login</a>
+                        <a href="register.html"
+                            class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">Register</a>
+                    </div>
                 </div>
             </div>
+        </nav>
+
+        <div class="mx-auto">
+            @yield('content')
         </div>
-    </nav>
 
-    <div class="mx-auto">
-        @yield('content')
+        <footer class="bg-green-800 text-white text-center py-6">
+            <p>&copy; {{ date('Y') }} Yahaya Bawa Islamic Library. All rights reserved.</p>
+        </footer>
+
+        <script>
+            const {
+                createApp
+            } = Vue;
+            createApp({
+                data() {
+                    return {
+                        menuOpen: false,
+                        searchQuery: "",
+                        darkMode: false,
+                        scrollProgress: 0,
+                        scholars: [{
+                                id: 1,
+                                name: "Sheik Othman Bn Fodio",
+                                initial: "O",
+                                description: "Founder of the Sokoto Caliphate and prolific author of numerous Islamic texts",
+                            },
+                            {
+                                id: 2,
+                                name: "Sheik Abdullahi Bn Fodio",
+                                initial: "A",
+                                description: "Renowned scholar and brother of Othman Bn Fodio, known for his comprehensive works",
+                            },
+                            {
+                                id: 3,
+                                name: "Sheik Muhammad Bello",
+                                initial: "M",
+                                description: "Son of Othman Bn Fodio and second Sultan of Sokoto, authored many significant works",
+                            },
+                        ],
+                        featuredBooks: [{
+                                id: 1,
+                                title: "Ihya ul-Sunna",
+                                author: "Sheik Othman Bn Fodio",
+                                downloads: 1234,
+                            },
+                            {
+                                id: 2,
+                                title: "Diya ul-Siyasat",
+                                author: "Sheik Muhammad Bello",
+                                downloads: 890,
+                            },
+                            {
+                                id: 3,
+                                title: "Diya ul-Hukkam",
+                                author: "Sheik Abdullahi Bn Fodio",
+                                downloads: 756,
+                            },
+                            {
+                                id: 4,
+                                title: "Nur ul-Albab",
+                                author: "Sheik Othman Bn Fodio",
+                                downloads: 643,
+                            },
+                        ],
+                        selectedScholar: {},
+                    };
+                },
+                methods: {
+                    toggleMenu() {
+                        this.menuOpen = !this.menuOpen;
+                    },
+                    toggleDarkMode() {
+                        this.darkMode = !this.darkMode;
+                    },
+                    handleSearch() {
+                        console.log("Searching for:", this.searchQuery);
+                    },
+                    updateScrollProgress() {
+                        const winScroll =
+                            document.body.scrollTop || document.documentElement.scrollTop;
+                        const height =
+                            document.documentElement.scrollHeight -
+                            document.documentElement.clientHeight;
+                        this.scrollProgress = (winScroll / height) * 100;
+                    },
+                },
+                mounted() {
+                    AOS.init({
+                        duration: 1000,
+                        once: true,
+                        offset: 50,
+                    });
+                    window.addEventListener("scroll", this.updateScrollProgress);
+                },
+                beforeUnmount() {
+                    window.removeEventListener("scroll", this.updateScrollProgress);
+                },
+            }).mount("#app");
+        </script>
     </div>
+</body>
 
-    <footer class="bg-green-800 text-white text-center py-6">
-        <p>&copy; {{ date('Y') }} Yahaya Bawa Islamic Library. All rights reserved.</p>
-    </footer>
+</html>
 </body>
 
 </html>
