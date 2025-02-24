@@ -15,7 +15,7 @@ class ScholarController extends Controller
     public function showWelcomePage()
     {
         $books = Book::all();
-        $scholars = Scholar::all(); 
+        $scholars = Scholar::get()->take(3); 
         return view('welcome', compact('scholars', 'books'));  
     }
 
