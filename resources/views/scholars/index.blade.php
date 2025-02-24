@@ -1,8 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('All Scholars') }}
-        </h2>
+        <div class="flex justify-between items-center">
+
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                {{ __('All Scholars') }}
+            </h2>
+            <a href="{{ route('scholars.create') }}"
+                class="bg-blue-500 hover:bg-blue-600 text-black font-bold py-2 px-4 rounded">
+                Create Scholars
+            </a>
+        </div>
     </x-slot>
 
     <div class="py-12">
@@ -13,36 +20,24 @@
                         <thead class="bg-gray-100 dark:bg-gray-700">
                             <tr>
                                 <th class="border border-gray-300 px-4 py-2">Name</th>
-                                <th class="border border-gray-300 px-4 py-2">About</th>
                                 <th class="border border-gray-300 px-4 py-2">Biography</th>
-                                <th class="border border-gray-300 px-4 py-2">Published Works</th>
-                                <th class="border border-gray-300 px-4 py-2">Students</th>
-                                <th class="border border-gray-300 px-4 py-2">Categories</th>
-                                <th class="border border-gray-300 px-4 py-2">Years Active</th>
+                                <th class="border border-gray-300 px-4 py-2">Books</th>
                                 <th class="border border-gray-300 px-4 py-2">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($scholars as $scholar)
+                            @foreach ($scholars as $scholar)
                                 <tr class="hover:bg-gray-50 dark:hover:bg-gray-800">
                                     <td class="border border-gray-300 px-4 py-2">{{ $scholar->name }}</td>
-                                    <td class="border border-gray-300 px-4 py-2">{{ $scholar->about ?? 'N/A' }}</td>
                                     <td class="border border-gray-300 px-4 py-2">{{ $scholar->biography ?? 'N/A' }}</td>
-                                    <td class="border border-gray-300 px-4 py-2">{{ $scholar->published_works ?? 'N/A' }}</td>
-                                    <td class="border border-gray-300 px-4 py-2">{{ $scholar->students ?? 'N/A' }}</td>
-                                    <td class="border border-gray-300 px-4 py-2">
-                                        @if(is_array($scholar->categories))
-                                            {{ implode(', ', $scholar->categories) }}
-                                        @else
-                                            {{ $scholar->categories ?? 'N/A' }}
-                                        @endif
-                                    </td>
-                                    <td class="border border-gray-300 px-4 py-2">{{ $scholar->years_active ?? 'N/A' }}</td>
+                                    <td class="border border-gray-300 px-4 py-2">{{ $scholar->books ?? 'N/A' }}</td>
                                     <td class="border border-gray-300 px-4 py-2 flex space-x-2">
-                                        <a href="{{ route('scholars.edit', $scholar) }}" class="text-blue-500 hover:text-blue-700">
+                                        <a href="{{ route('scholars.edit', $scholar) }}"
+                                            class="text-blue-500 hover:text-blue-700">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <form action="{{ route('scholars.destroy', $scholar) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete scholar Note: this change cannot be reversed?');">
+                                        <form action="{{ route('scholars.destroy', $scholar) }}" method="POST"
+                                            onsubmit="return confirm('Are you sure you want to delete scholar Note: this change cannot be reversed?');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="text-red-500 hover:text-red-700">
