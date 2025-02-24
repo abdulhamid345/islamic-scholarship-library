@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Scholar extends Model
 {
 
-    protected $guarded = 'id'; 
+    protected $guarded = ['id']; 
 
     protected $casts = [
         'categories' => 'array',

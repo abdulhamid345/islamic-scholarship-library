@@ -161,8 +161,8 @@
                         <a href="categories.html"
                             class="px-3 py-2 rounded-md hover:bg-green-700 transition-colors">Categories</a>
                         <a href="scholars-page.html" class="hover:text-green-200 transition-colors">Scholars</a>
-                        <a href="login.html" class="hover:text-green-200 transition-colors">Login</a>
-                        <a href="register.html"
+                        <a href="{{ route('login') }}" class="hover:text-green-200 transition-colors">Login</a>
+                        <a href="{{ route('register') }}"
                             class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">Register</a>
                     </div>
                 </div>
