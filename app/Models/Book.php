@@ -14,18 +14,14 @@ class Book extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'title',
-        'author',
-        'description',
-        'language',
-        'categories',
-        'number_of_pages',
-        'year_written',
-        'file',
-    ];
+
+     protected $guarded = 'id'; 
 
     public function scholar() {
         return $this->belongsTo(Scholar::class);
+    }
+
+    public function category() {
+        return $this->belongsTo(Category::class);
     }
 }
