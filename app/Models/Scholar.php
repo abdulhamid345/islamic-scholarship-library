@@ -19,4 +19,8 @@ class Scholar extends Model
     protected $casts = [
         'categories' => 'array',
     ];
+
+    public function books() {
+        return $this->hasMany(Book::class);
+    }
 }

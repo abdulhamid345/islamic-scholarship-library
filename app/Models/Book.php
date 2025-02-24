@@ -24,4 +24,8 @@ class Book extends Model
         'year_written',
         'file',
     ];
+
+    public function scholar() {
+        return $this->belongsTo(Scholar::class);
+    }
 }
