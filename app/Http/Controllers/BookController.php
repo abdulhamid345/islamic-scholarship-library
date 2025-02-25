@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Scholar;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -16,13 +18,14 @@ class BookController extends Controller
 
     public function create()
     {
-        return view('books.create');
+        $scholar = Scholar::all();
+        $categories = Category::all();
+        return view('books.create', compact('scholar', 'categories'));
     }
 
     public function show($id)
     {
         $book = Book::findOrFail($id);
-
         return view('books-details', compact('book'));
     }
 
