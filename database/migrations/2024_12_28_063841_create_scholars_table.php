@@ -14,10 +14,8 @@ return new class extends Migration
         Schema::create('scholars', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('about')->nullable();
             $table->longText('biography')->nullable();
             $table->string('published_works')->nullable();
-            $table->string('students')->nullable();
             $table->string('categories')->nullable();
             $table->string('years_active')->nullable();
             $table->timestamps();
