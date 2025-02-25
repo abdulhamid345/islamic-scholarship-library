@@ -11,7 +11,7 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h2 class="text-xl font-semibold mb-4">Edit Scholar</h2>
 
-                    <form action="{{ route('dashboard.scholars.update', $scholar) }}" method="POST">
+                    <form action="{{ route('dashboard.scholars.update', $scholar->id) }}" method="POST">
                         @csrf
                         @method('PUT')
 
@@ -22,16 +22,6 @@
                                 value="{{ old('name', $scholar->name) }}"
                                 class="mt-1 block w-full p-2 border rounded-lg bg-gray-100 dark:bg-gray-700 focus:ring-blue-500 focus:border-blue-500">
                             @error('name')
-                                <span class="text-red-500 text-sm">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        {{-- About --}}
-                        <div class="mb-4">
-                            <label for="about" class="block text-sm font-medium">About</label>
-                            <textarea id="about" name="about" rows="3"
-                                class="mt-1 block w-full p-2 border rounded-lg bg-gray-100 dark:bg-gray-700 focus:ring-blue-500 focus:border-blue-500">{{ old('about', $scholar->about) }}</textarea>
-                            @error('about')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
                         </div>
@@ -53,17 +43,6 @@
                                 value="{{ old('published_works', $scholar->published_works) }}"
                                 class="mt-1 block w-full p-2 border rounded-lg bg-gray-100 dark:bg-gray-700 focus:ring-blue-500 focus:border-blue-500">
                             @error('published_works')
-                                <span class="text-red-500 text-sm">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        {{-- Students --}}
-                        <div class="mb-4">
-                            <label for="students" class="block text-sm font-medium">Students</label>
-                            <input type="text" id="students" name="students"
-                                value="{{ old('students', $scholar->students) }}"
-                                class="mt-1 block w-full p-2 border rounded-lg bg-gray-100 dark:bg-gray-700 focus:ring-blue-500 focus:border-blue-500">
-                            @error('students')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
                         </div>

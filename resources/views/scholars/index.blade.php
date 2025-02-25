@@ -21,7 +21,7 @@
                             <tr>
                                 <th class="border border-gray-300 px-4 py-2">Name</th>
                                 <th class="border border-gray-300 px-4 py-2">Biography</th>
-                                <th class="border border-gray-300 px-4 py-2">Books</th>
+                                <th class="border border-gray-300 px-4 py-2">Years Active</th>
                                 <th class="border border-gray-300 px-4 py-2">Actions</th>
                             </tr>
                         </thead>
@@ -30,13 +30,13 @@
                                 <tr class="hover:bg-gray-50 dark:hover:bg-gray-800">
                                     <td class="border border-gray-300 px-4 py-2">{{ $scholar->name }}</td>
                                     <td class="border border-gray-300 px-4 py-2">{{ $scholar->biography ?? 'N/A' }}</td>
-                                    <td class="border border-gray-300 px-4 py-2">{{ $scholar->books ?? 'N/A' }}</td>
+                                    <td class="border border-gray-300 px-4 py-2">{{ $scholar->years_active ?? 'N/A' }}</td>
                                     <td class="border border-gray-300 px-4 py-2 flex space-x-2">
-                                        <a href="{{ route('dashboard.scholars.edit', $scholar) }}"
+                                        <a href="{{ route('dashboard.scholars.edit', $scholar->id) }}"
                                             class="text-blue-500 hover:text-blue-700">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <form action="{{ route('scholars.destroy', $scholar) }}" method="POST"
+                                        <form action="{{ route('dashboard.scholars.destroy', $scholar->id) }}" method="POST"
                                             onsubmit="return confirm('Are you sure you want to delete scholar Note: this change cannot be reversed?');">
                                             @csrf
                                             @method('DELETE')

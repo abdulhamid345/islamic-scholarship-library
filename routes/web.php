@@ -42,11 +42,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('edit/{id}', [ScholarController::class, 'edit'])->name('edit');
             Route::post('update/{id}', [ScholarController::class, 'update'])->name('update');
             Route::get('show/{id}', [ScholarController::class, 'show'])->name('show');
-            Route::get('destroy/{id}', [ScholarController::class, 'destroy'])->name('destroy');
+            Route::delete('destroy/{id}', [ScholarController::class, 'destroy'])->name('destroy');
         });
     });
 });
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

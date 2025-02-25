@@ -45,7 +45,7 @@
                         <div class="mb-4">
                             <label for="published_works" class="block text-sm font-medium text-gray-700">Published
                                 Works</label>
-                            <input type="text" name="published_works" id="published_works"
+                            <input type="number" name="published_works" id="published_works"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
                         </div>
 

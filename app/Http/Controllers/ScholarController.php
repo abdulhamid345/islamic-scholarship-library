@@ -15,16 +15,16 @@ class ScholarController extends Controller
     public function showWelcomePage()
     {
         $books = Book::all();
-        $scholars = Scholar::get()->take(3); 
-        return view('welcome', compact('scholars', 'books'));  
+        $scholars = Scholar::get()->take(3);
+        return view('welcome', compact('scholars', 'books'));
     }
 
     public function index()
     {
-        $scholars = Scholar::all(); 
+        $scholars = Scholar::all();
         return view('scholars.index', compact('scholars'));
     }
-    
+
 
     /**
      * Show the form for creating a new scholar.
@@ -38,30 +38,30 @@ class ScholarController extends Controller
      * Store a newly created scholar in storage.
      */
     public function store(Request $request)
-{
-    // \Log::info($request->all());
+    {
+        // \Log::info($request->all());
 
-    $validated = $request->validate([
-        'name' => 'required|string|max:255',
-        'biography' => 'nullable|string',
-        'published_works' => 'nullable|string',
-        'categories' => 'nullable|array', 
-        'categories.*' => 'string', 
-        'years_active' => 'string',
-    ]);
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'biography' => 'nullable|string',
+            'published_works' => 'nullable|string',
+            'categories' => 'nullable|array',
+            'categories.*' => 'string',
+            'years_active' => 'string',
+        ]);
 
-    
-    $validated['categories'] = isset($validated['categories']) ? json_encode($validated['categories']) : null;
 
-    
-    $validated['published_works'] = isset($validated['published_works']) ? $validated['published_works'] : null;
-    $validated['students'] = isset($validated['students']) ? $validated['students'] : null;
+        $validated['categories'] = isset($validated['categories']) ? json_encode($validated['categories']) : null;
 
-    // dd($validated);
-    Scholar::create($validated);
 
-    return redirect()->route('dashboard.scholars.index')->with('success', 'Scholar created successfully!');
-}
+        $validated['published_works'] = isset($validated['published_works']) ? $validated['published_works'] : null;
+        $validated['students'] = isset($validated['students']) ? $validated['students'] : null;
+
+        // dd($validated);
+        Scholar::create($validated);
+
+        return redirect()->route('dashboard.scholars.index')->with('success', 'Scholar created successfully!');
+    }
 
 
 
@@ -69,24 +69,24 @@ class ScholarController extends Controller
     /**
      * Show the form for editing the specified scholar.
      */
-    public function edit(Scholar $scholar)
+    public function edit($id)
     {
-        $allCategories = ['Fiqh', 'Aqeedah', 'Tafsir', 'History'];
-
-        return view('scholars.edit', compact('scholar', 'allCategories'));
+        $scholar = Scholar::findOrFail($id); // Ensure scholar exists
+        return view('scholars.edit', compact('scholar'));
     }
 
     /**
      * Update the specified scholar in storage.
      */
-    public function update(Request $request, Scholar $scholar)
+    public function update(Request $request, Scholar $scholar, $id)
     {
+        $scholars = Scholar::find($id);
         $request->validate([
             'name' => 'required|string|max:255',
             'biography' => 'nullable|string',
             'published_works' => 'nullable|string',
-            'categories' => 'nullable|array', 
-            'categories.*' => 'string', 
+            'categories' => 'nullable|array',
+            'categories.*' => 'string',
             'years_active' => 'string',
         ]);
 
@@ -94,16 +94,22 @@ class ScholarController extends Controller
 
         $scholar->update($request->all());
 
-        return redirect()->route('scholars.index')->with('success', 'Scholar updated successfully.');
+        return redirect()->route('dashboard.scholars.index')->with('success', 'Scholar updated successfully.');
     }
 
     /**
      * Remove the specified scholar from storage.
      */
-    public function destroy(Scholar $scholar)
+    public function destroy($id)
     {
+        $scholar = Scholar::find($id);
+
+        if (!$scholar) {
+            return redirect()->route('dashboard.scholars.index')->with('error', 'Scholar not found.');
+        }
+
         $scholar->delete();
 
-        return redirect()->route('scholars.index')->with('success', 'Scholar deleted successfully.');
+        return redirect()->route('dashboard.scholars.index')->with('success', 'Scholar deleted successfully.');
     }
 }
