@@ -11,53 +11,48 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <form action="{{ route('dashboard.scholars.store') }}" method="POST">
                         @csrf
-                        
+
                         <!-- Name Field -->
                         <div class="mb-4">
                             <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                            <input type="text" name="name" id="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
-                        </div>
-
-                        <!-- About Field -->
-                        <div class="mb-4">
-                            <label for="about" class="block text-sm font-medium text-gray-700">About</label>
-                            <textarea name="about" id="about" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"></textarea>
+                            <input type="text" name="name" id="name"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
                         </div>
 
                         <!-- Biography Field -->
                         <div class="mb-4">
                             <label for="biography" class="block text-sm font-medium text-gray-700">Biography</label>
-                            <input type="text" name="biography" id="biography" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                        </div>
-
-                        <!-- Students Field -->
-                        <div class="mb-4">
-                            <label for="students" class="block text-sm font-medium text-gray-700">Students</label>
-                            <input type="text" name="students" id="students" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
+                            <input type="text" name="biography" id="biography"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                         </div>
 
                         <!-- Categories Field -->
                         <div class="mb-4">
                             <label for="categories" class="block text-sm font-medium text-gray-700">Categories</label>
-                            <select name="categories[]" id="categories" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" multiple>
+                            <select name="categories[]" id="categories"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" multiple>
                                 <option value="fiqh">Fiqh</option>
                                 <option value="hadith">Hadith</option>
                                 <option value="tafsir">Tafsir</option>
                                 <option value="islamic philosophy">Islamic Philosophy</option>
                                 <option value="islamic history">Islamic History</option>
                             </select>
-                            <small class="text-gray-500">Hold down the Ctrl (Windows) or Command (Mac) key to select multiple options.</small>
+                            <small class="text-gray-500">Hold down the Ctrl (Windows) or Command (Mac) key to select
+                                multiple options.</small>
                         </div>
 
                         <!-- Published Works Field -->
                         <div class="mb-4">
-                            <label for="published_works" class="block text-sm font-medium text-gray-700">Published Works</label>
-                            <input type="text" name="published_works" id="published_works" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
+                            <label for="published_works" class="block text-sm font-medium text-gray-700">Published
+                                Works</label>
+                            <input type="text" name="published_works" id="published_works"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
                         </div>
 
                         <div class="mb-4">
                             <label for="years_active" class="block text-sm font-medium">Years Active</label>
-                            <input type="text" id="years_active" name="years_active" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
+                            <input type="text" id="years_active" name="years_active"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
                         </div>
 
                         <!-- Submit Button -->

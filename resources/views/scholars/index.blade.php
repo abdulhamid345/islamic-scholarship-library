@@ -32,7 +32,7 @@
                                     <td class="border border-gray-300 px-4 py-2">{{ $scholar->biography ?? 'N/A' }}</td>
                                     <td class="border border-gray-300 px-4 py-2">{{ $scholar->books ?? 'N/A' }}</td>
                                     <td class="border border-gray-300 px-4 py-2 flex space-x-2">
-                                        <a href="{{ route('scholars.edit', $scholar) }}"
+                                        <a href="{{ route('dashboard.scholars.edit', $scholar) }}"
                                             class="text-blue-500 hover:text-blue-700">
                                             <i class="fas fa-edit"></i>
                                         </a>

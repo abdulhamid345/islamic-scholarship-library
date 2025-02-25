@@ -15,35 +15,34 @@ Route::get('/dashboard', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::name('dashboard.')->prefix('dashboard')->group(function () {
-
         Route::name('books.')->prefix('books')->group(function () {
             Route::get('', [BookController::class, 'index'])->name('index');
             Route::get('create', [BookController::class, 'create'])->name('create');
-            Route::get('store', [BookController::class, 'store'])->name('store');
-            Route::get('edit', [BookController::class, 'edit'])->name('edit');
-            Route::get('update', [BookController::class, 'update'])->name('update');
-            Route::get('show', [BookController::class, 'show'])->name('show');
-            Route::get('destroy', [BookController::class, 'destroy'])->name('destroy');
+            Route::post('store', [BookController::class, 'store'])->name('store');
+            Route::get('edit/{id}', [BookController::class, 'edit'])->name('edit');
+            Route::post('update/{id}', [BookController::class, 'update'])->name('update');
+            Route::get('show/{id}', [BookController::class, 'show'])->name('show');
+            Route::get('destroy/{id}', [BookController::class, 'destroy'])->name('destroy');
         });
 
         Route::name('category.')->prefix('category')->group(function () {
             Route::get('', [CategoryController::class, ''])->name('index');
             Route::get('create', [CategoryController::class, 'create'])->name('create');
-            Route::get('store', [CategoryController::class, 'store'])->name('store');
-            Route::get('edit', [CategoryController::class, 'edit'])->name('edit');
-            Route::get('update', [CategoryController::class, 'update'])->name('update');
-            // Route::get('show', [CategoryController::class, 'show'])->name('show');
-            Route::get('destroy', [CategoryController::class, 'destroy'])->name('destroy');
+            Route::post('store', [CategoryController::class, 'store'])->name('store');
+            Route::get('edit/{id}', [CategoryController::class, 'edit'])->name('edit');
+            Route::post('update/{id}', [CategoryController::class, 'update'])->name('update');
+            // Route::get('show/{id}', [CategoryController::class, 'show'])->name('show');
+            Route::get('destroy/{id}', [CategoryController::class, 'destroy'])->name('destroy');
         });
 
         Route::name('scholars.')->prefix('scholars')->group(function () {
             Route::get('', [ScholarController::class, 'index'])->name('index');
             Route::get('create', [ScholarController::class, 'create'])->name('create');
-            Route::get('store', [ScholarController::class, 'store'])->name('store');
-            Route::get('edit', [ScholarController::class, 'edit'])->name('edit');
-            Route::get('update', [ScholarController::class, 'update'])->name('update');
-            Route::get('show', [ScholarController::class, 'show'])->name('show');
-            Route::get('destroy', [ScholarController::class, 'destroy'])->name('destroy');
+            Route::post('store', [ScholarController::class, 'store'])->name('store');
+            Route::get('edit/{id}', [ScholarController::class, 'edit'])->name('edit');
+            Route::post('update/{id}', [ScholarController::class, 'update'])->name('update');
+            Route::get('show/{id}', [ScholarController::class, 'show'])->name('show');
+            Route::get('destroy/{id}', [ScholarController::class, 'destroy'])->name('destroy');
         });
     });
 });

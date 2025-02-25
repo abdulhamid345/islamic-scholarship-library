@@ -43,10 +43,8 @@ class ScholarController extends Controller
 
     $validated = $request->validate([
         'name' => 'required|string|max:255',
-        'about' => 'nullable|string',
         'biography' => 'nullable|string',
         'published_works' => 'nullable|string',
-        'students' => 'nullable|string',
         'categories' => 'nullable|array', 
         'categories.*' => 'string', 
         'years_active' => 'string',
@@ -62,7 +60,7 @@ class ScholarController extends Controller
     // dd($validated);
     Scholar::create($validated);
 
-    return redirect()->route('scholars.index')->with('success', 'Scholar created successfully!');
+    return redirect()->route('dashboard.scholars.index')->with('success', 'Scholar created successfully!');
 }
 
 
@@ -85,10 +83,8 @@ class ScholarController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'about' => 'nullable|string',
             'biography' => 'nullable|string',
             'published_works' => 'nullable|string',
-            'students' => 'nullable|string',
             'categories' => 'nullable|array', 
             'categories.*' => 'string', 
             'years_active' => 'string',
