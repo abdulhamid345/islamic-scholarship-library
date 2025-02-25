@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScholarController;
 
@@ -26,13 +27,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
 
         Route::name('category.')->prefix('category')->group(function () {
-            Route::get('', [BookController::class, ''])->name('index');
-            Route::get('create', [BookController::class, 'create'])->name('create');
-            Route::get('store', [BookController::class, 'store'])->name('store');
-            Route::get('edit', [BookController::class, 'edit'])->name('edit');
-            Route::get('update', [BookController::class, 'update'])->name('update');
-            Route::get('show', [BookController::class, 'show'])->name('show');
-            Route::get('destroy', [BookController::class, 'destroy'])->name('destroy');
+            Route::get('', [CategoryController::class, ''])->name('index');
+            Route::get('create', [CategoryController::class, 'create'])->name('create');
+            Route::get('store', [CategoryController::class, 'store'])->name('store');
+            Route::get('edit', [CategoryController::class, 'edit'])->name('edit');
+            Route::get('update', [CategoryController::class, 'update'])->name('update');
+            // Route::get('show', [CategoryController::class, 'show'])->name('show');
+            Route::get('destroy', [CategoryController::class, 'destroy'])->name('destroy');
         });
 
         Route::name('scholars.')->prefix('scholars')->group(function () {
