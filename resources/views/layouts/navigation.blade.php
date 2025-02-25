@@ -16,15 +16,15 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('scholars.index')" :active="request()->routeIs('scholars.index')">
+                    <x-nav-link :href="route('dashboard.scholars.index')" :active="request()->routeIs('dashboard.scholars.index')">
                         {{ __('Scholars') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('books.index')" :active="request()->routeIs('books.index')">
+                    <x-nav-link :href="route('dashboard.category.index')" :active="request()->routeIs('dashboard.category.index')">
                         {{ __('Categories') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('books.index')" :active="request()->routeIs('books.index')">
+                    <x-nav-link :href="route('dashboard.books.index')" :active="request()->routeIs('dashboard.books.index')">
                         {{ __('Books') }}
                     </x-nav-link>
 

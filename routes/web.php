@@ -12,29 +12,39 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::get('/all-books', function () {
-//     return view('books');
-// })->name('all-books');
-
-// Route::get('/scholars', function () {
-//     return view('scholars');
-// })->name('scholars');
-
-// Route::get('/works', function () {
-//     return view('works');
-// })->name('works');
-
-// Route::get('/scholar', function () {
-//     return view('scholar');
-// })->name('scholar');
-
-
-
-
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::resource('books', BookController::class);
-    Route::resource('scholars', ScholarController::class);
-    Route::get('/books/{id}', [BookController::class, 'show'])->name('books.show');
+    Route::name('dashboard.')->prefix('dashboard')->group(function () {
+
+        Route::name('books.')->prefix('books')->group(function () {
+            Route::get('', [BookController::class, 'index'])->name('index');
+            Route::get('create', [BookController::class, 'create'])->name('create');
+            Route::get('store', [BookController::class, 'store'])->name('store');
+            Route::get('edit', [BookController::class, 'edit'])->name('edit');
+            Route::get('update', [BookController::class, 'update'])->name('update');
+            Route::get('show', [BookController::class, 'show'])->name('show');
+            Route::get('destroy', [BookController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::name('category.')->prefix('category')->group(function () {
+            Route::get('', [BookController::class, ''])->name('index');
+            Route::get('create', [BookController::class, 'create'])->name('create');
+            Route::get('store', [BookController::class, 'store'])->name('store');
+            Route::get('edit', [BookController::class, 'edit'])->name('edit');
+            Route::get('update', [BookController::class, 'update'])->name('update');
+            Route::get('show', [BookController::class, 'show'])->name('show');
+            Route::get('destroy', [BookController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::name('scholars.')->prefix('scholars')->group(function () {
+            Route::get('', [ScholarController::class, 'index'])->name('index');
+            Route::get('create', [ScholarController::class, 'create'])->name('create');
+            Route::get('store', [ScholarController::class, 'store'])->name('store');
+            Route::get('edit', [ScholarController::class, 'edit'])->name('edit');
+            Route::get('update', [ScholarController::class, 'update'])->name('update');
+            Route::get('show', [ScholarController::class, 'show'])->name('show');
+            Route::get('destroy', [ScholarController::class, 'destroy'])->name('destroy');
+        });
+    });
 });
 
 

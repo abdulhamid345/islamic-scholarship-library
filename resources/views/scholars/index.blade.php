@@ -5,7 +5,7 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('All Scholars') }}
             </h2>
-            <a href="{{ route('scholars.create') }}"
+            <a href="{{ route('dashboard.scholars.create') }}"
                 class="bg-blue-500 hover:bg-blue-600 text-black font-bold py-2 px-4 rounded">
                 Create Scholars
             </a>
