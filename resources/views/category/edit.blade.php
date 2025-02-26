@@ -9,61 +9,25 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <form action="{{ route('dashboard.books.update', $book->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('dashboard.category.update', $category->id) }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
-                        @method('PUT')
 
                         <div class="mb-4">
-                            <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
-                            <input type="text" id="title" name="title" value="{{ $book->title }}" class="block mt-1 w-full" required>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="author" class="block text-sm font-medium text-gray-700">Author</label>
-                            <input type="text" id="author" name="author" value="{{ $book->author }}" class="block mt-1 w-full" required>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
-                            <textarea id="description" name="description" rows="4" class="block mt-1 w-full">{{ $book->description }}</textarea>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="language" class="block text-sm font-medium text-gray-700">Language</label>
-                            <input type="text" id="language" name="language" class="block mt-1 w-full text-black-500" required>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="categories" class="block text-sm font-medium text-gray-700">Category</label>
-                            <select id="categories" name="categories" class="block mt-1 w-full text-black-500" required>
-                                <option value="fiqh">Fiqh</option>
-                                <option value="aqeedah">Aqeedah</option>
-                                <option value="history">History</option>
-                                <option value="poetry">Poetry</option>
-                                <option value="philosophy">Philosophy</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="number_of_pages" class="block text-sm font-medium text-gray-700">Number of Pages</label>
-                            <input type="number" id="number_of_pages" name="number_of_pages" class="block mt-1 w-full text-black-500" required>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="year_written" class="block text-sm font-medium text-gray-700">Year Written</label>
-                            <input type="number" id="year_written" name="year_written" class="block mt-1 w-full text-black-500" required>
-                        </div>
-
-
-                        <div class="mb-4">
-                            <label for="file" class="block text-sm font-medium text-gray-700">Book File (optional)</label>
-                            <input type="file" id="file" name="file" class="block mt-1 w-full">
+                            <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                            <input type="text" id="name" name="name"
+                                value="{{ old('name', $category->name) }}"
+                                class="block mt-1 w-full p-2 border rounded-lg bg-gray-100 dark:bg-gray-700 focus:ring-blue-500 focus:border-blue-500"
+                                required>
                         </div>
 
                         <div>
-                            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Update</button>
+                            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                                Update
+                            </button>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>

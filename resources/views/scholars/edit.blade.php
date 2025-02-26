@@ -13,7 +13,6 @@
 
                     <form action="{{ route('dashboard.scholars.update', $scholar->id) }}" method="POST">
                         @csrf
-                        @method('PUT')
 
                         {{-- Name --}}
                         <div class="mb-4">

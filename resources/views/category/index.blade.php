@@ -2,11 +2,11 @@
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Books') }}
+                {{ __('Categories') }}
             </h2>
-            <a href="{{ route('dashboard.books.create') }}"
+            <a href="{{ route('dashboard.category.create') }}"
                 class="bg-blue-500 hover:bg-blue-600 text-black font-bold py-2 px-4 rounded">
-                Create Book
+                Create Category
             </a>
         </div>
     </x-slot>
@@ -22,17 +22,13 @@
                     @endif
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        @foreach ($books as $book)
+                        @foreach ($categories as $category)
                             <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg shadow-md">
                                 <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
-                                    {{ $book->title }}</h3>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">Author: {{ $book->author }}</p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                                    {{ Str::limit($book->description, 100, '...') }}
-                                </p>
+                                    {{ $category->name }}</h3>
 
                                 <div class="flex justify-between items-center mt-4">
-                                    <a href="{{ route('books.edit', $book->id) }}"
+                                    <a href="{{ route('dashboard.category.edit', $category->id) }}"
                                         class="text-blue-500 hover:text-blue-700 flex items-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20"
                                             fill="currentColor">
@@ -42,7 +38,7 @@
                                         Edit
                                     </a>
 
-                                    <form action="{{ route('books.destroy', $book->id) }}" method="POST"
+                                    <form action="{{ route('dashboard.category.destroy', $category->id) }}" method="POST"
                                         onsubmit="return confirm('Are you sure?');" class="flex items-center">
                                         @csrf
                                         @method('DELETE')

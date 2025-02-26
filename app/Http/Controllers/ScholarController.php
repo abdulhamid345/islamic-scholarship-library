@@ -78,9 +78,9 @@ class ScholarController extends Controller
     /**
      * Update the specified scholar in storage.
      */
-    public function update(Request $request, Scholar $scholar, $id)
+    public function update(Request $request, $id)
     {
-        $scholars = Scholar::find($id);
+        $scholar = Scholar::findOrfail($id);
         $request->validate([
             'name' => 'required|string|max:255',
             'biography' => 'nullable|string',

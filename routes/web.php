@@ -22,17 +22,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('edit/{id}', [BookController::class, 'edit'])->name('edit');
             Route::post('update/{id}', [BookController::class, 'update'])->name('update');
             Route::get('show/{id}', [BookController::class, 'show'])->name('show');
-            Route::get('destroy/{id}', [BookController::class, 'destroy'])->name('destroy');
+            Route::delete('destroy/{id}', [BookController::class, 'destroy'])->name('destroy');
         });
 
         Route::name('category.')->prefix('category')->group(function () {
-            Route::get('', [CategoryController::class, ''])->name('index');
+            Route::get('', [CategoryController::class, 'index'])->name('index');
             Route::get('create', [CategoryController::class, 'create'])->name('create');
             Route::post('store', [CategoryController::class, 'store'])->name('store');
             Route::get('edit/{id}', [CategoryController::class, 'edit'])->name('edit');
             Route::post('update/{id}', [CategoryController::class, 'update'])->name('update');
             // Route::get('show/{id}', [CategoryController::class, 'show'])->name('show');
-            Route::get('destroy/{id}', [CategoryController::class, 'destroy'])->name('destroy');
+            Route::delete('destroy/{id}', [CategoryController::class, 'destroy'])->name('destroy');
         });
 
         Route::name('scholars.')->prefix('scholars')->group(function () {

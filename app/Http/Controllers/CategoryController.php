@@ -31,38 +31,40 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
-        // dd($validated);
-
         Category::create([
             'name' => $validated['name'],
         ]);
 
-        return redirect()->route('category.index')->with('success', 'Book created successfully.');
+        return redirect()->route('dashboard.category.index')->with('success', 'Category created successfully.');
     }
 
-    public function edit(Category $category)
+    public function edit($id)
     {
-        return view('category.edit', compact('book'));
+        $category = Category::findOrFail($id);
+        return view('category.edit', compact('category'));
     }
 
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-        $validated = $request->validate([
+        $category = Category::findOrFail($id);
+
+        $request->validate([
             'name' => 'required|string|max:255',
         ]);
 
-        $category->update($validated);
+        $category->update([
+            'name' => $request->name,
+        ]);
 
-        return redirect()->route('category.index')->with('success', 'Book updated successfully.');
+        return redirect()->route('dashboard.category.index')->with('success', 'Category updated successfully.');
     }
 
     public function destroy($id)
     {
-        $book = Category::findOrFail($id);
+        $category = Category::findOrFail($id);
 
-        $book->delete();
+        $category->delete();
 
-
-        return redirect()->route('category.index')->with('success', 'Book deleted successfully.');
+        return redirect()->route('dashboard.category.index')->with('success', 'Category deleted successfully.');
     }
 }
