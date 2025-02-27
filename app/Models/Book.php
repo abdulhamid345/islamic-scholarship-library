@@ -15,7 +15,7 @@ class Book extends Model
      * @var array<int, string>
      */
 
-     protected $guarded = 'id'; 
+     protected $guarded = ['id']; 
 
     public function scholar() {
         return $this->belongsTo(Scholar::class);

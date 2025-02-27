@@ -24,15 +24,16 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         @foreach ($books as $book)
                             <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg shadow-md">
-                                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
+                                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">Book Name:
                                     {{ $book->title }}</h3>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">Author: {{ $book->author }}</p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Author:
+                                    {{ $book->scholar->name }}</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Description:
                                     {{ Str::limit($book->description, 100, '...') }}
                                 </p>
 
                                 <div class="flex justify-between items-center mt-4">
-                                    <a href="{{ route('books.edit', $book->id) }}"
+                                    <a href="{{ route('dashboard.books.edit', $book->id) }}"
                                         class="text-blue-500 hover:text-blue-700 flex items-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20"
                                             fill="currentColor">
@@ -42,7 +43,7 @@
                                         Edit
                                     </a>
 
-                                    <form action="{{ route('books.destroy', $book->id) }}" method="POST"
+                                    <form action="{{ route('dashboard.books.destroy', $book->id) }}" method="POST"
                                         onsubmit="return confirm('Are you sure?');" class="flex items-center">
                                         @csrf
                                         @method('DELETE')

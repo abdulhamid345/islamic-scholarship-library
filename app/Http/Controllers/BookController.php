@@ -18,9 +18,9 @@ class BookController extends Controller
 
     public function create()
     {
-        $scholar = Scholar::all();
+        $scholars = Scholar::all();
         $categories = Category::all();
-        return view('books.create', compact('scholar', 'categories'));
+        return view('books.create', compact('scholars', 'categories'));
     }
 
     public function show($id)
@@ -37,7 +37,6 @@ class BookController extends Controller
             'category_id' => 'required|string|max:255',
             'description' => 'nullable|string',
             'file' => 'mimes:pdf,epub,jpg,jpeg,png|max:10240',
-            'year_written' => 'required|integer|digits:4',
         ]);
 
         $filePath = null;
@@ -59,42 +58,44 @@ class BookController extends Controller
             'file' => $filePath,
         ]);
 
-        return redirect()->route('books.index')->with('success', 'Book created successfully.');
+        return redirect()->route('dashboard.books.index')->with('success', 'Book created successfully.');
     }
 
-    public function edit(Book $book)
+    public function edit($id)
     {
-        return view('books.edit', compact('book'));
+        $book = Book::findOrFail($id);
+        $scholars = Scholar::all();
+        $categories = Category::all();
+        return view('books.edit', compact('book', 'scholars', 'categories'));
     }
 
-    public function update(Request $request, Book $book)
+    public function update(Request $request, $id)
     {
+        $book = Book::findOrFail($id);
 
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'author' => 'required|string|max:255',
+            'scholar_id' => 'required|string|max:255',
+            'category_id' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'file' => 'nullable|file|mimes:pdf,epub|max:10240',
-            'language' => 'required|string|max:255',
-            'categories' => 'required|in:fiqh,aqeedah,history,poetry,philosophy',
-            'number_of_pages' => 'required|integer|min:1',
-            'year_written' => 'required|integer|digits:4',
+            'file' => 'nullable|mimes:pdf,epub,jpg,jpeg,png|max:10240',
         ]);
 
-
         if ($request->hasFile('file')) {
-            if ($book->file_path) {
-                Storage::delete($book->file_path);
+            // Delete the old file if it exists
+            if ($book->file) {
+                Storage::delete($book->file);
             }
 
-            $validated['file_path'] = $request->file('file')->store('books');
+            // Store the new file
+            $validated['file'] = $request->file('file')->store('books');
         }
-
 
         $book->update($validated);
 
-        return redirect()->route('books.index')->with('success', 'Book updated successfully.');
+        return redirect()->route('dashboard.books.index')->with('success', 'Book updated successfully.');
     }
+
 
     public function destroy($id)
     {
@@ -103,6 +104,6 @@ class BookController extends Controller
 
         $book->delete();
 
-        return redirect()->route('books.index')->with('success', 'Book deleted successfully.');
+        return redirect()->route('dashbaord.books.index')->with('success', 'Book deleted successfully.');
     }
 }
