@@ -29,17 +29,14 @@ class BookController extends Controller
         return view('books-details', compact('book'));
     }
 
-
     public function store(Request $request)
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'author' => 'required|string|max:255',
+            'scholar_id' => 'required|string|max:255',
+            'category_id' => 'required|string|max:255',
             'description' => 'nullable|string',
             'file' => 'mimes:pdf,epub,jpg,jpeg,png|max:10240',
-            'language' => 'required|string|max:255',
-            'categories' => 'required|string',
-            'number_of_pages' => 'required|integer|min:1',
             'year_written' => 'required|integer|digits:4',
         ]);
 
@@ -53,15 +50,11 @@ class BookController extends Controller
             }
         }
 
-        // dd($validated);
-
         Book::create([
             'title' => $validated['title'],
-            'author' => $validated['author'],
+            'scholar_id' => $validated['scholar_id'],
+            'category_id' => $validated['category_id'],
             'description' => $validated['description'],
-            'language' => $validated['language'],
-            'categories' => $validated['categories'],
-            'number_of_pages' => $validated['number_of_pages'],
             'year_written' => $validated['year_written'],
             'file' => $filePath,
         ]);

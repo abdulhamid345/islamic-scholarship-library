@@ -9,27 +9,29 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                @if ($errors->any())
-    <div class="bg-red-500 text-black p-2 rounded mb-4">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+                    @if ($errors->any())
+                        <div class="bg-red-500 text-black p-2 rounded mb-4">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 
                     <form action="{{ route('dashboard.books.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-4">
                             <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
-                            <input type="text" id="title" name="title" class="block mt-1 w-full text-black-500" required>
+                            <input type="text" id="title" name="title" class="block mt-1 w-full text-black-500"
+                                required>
                         </div>
 
                         <div class="mb-4">
                             <label for="author" class="block text-sm font-medium text-gray-700">Author</label>
-                            <input type="text" id="author" name="author" class="block mt-1 w-full text-black-500" required>
+                            <input type="text" id="author" name="author" class="block mt-1 w-full text-black-500"
+                                required>
                         </div>
 
                         <div class="mb-4">
@@ -39,7 +41,8 @@
 
                         <div class="mb-4">
                             <label for="language" class="block text-sm font-medium text-gray-700">Language</label>
-                            <input type="text" id="language" name="language" class="block mt-1 w-full text-black-500" required>
+                            <input type="text" id="language" name="language"
+                                class="block mt-1 w-full text-black-500" required>
                         </div>
 
                         <div class="mb-4">
@@ -54,19 +57,24 @@
                         </div>
 
                         <div class="mb-4">
-                            <label for="number_of_pages" class="block text-sm font-medium text-gray-700">Number of Pages</label>
-                            <input type="number" id="number_of_pages" name="number_of_pages" class="block mt-1 w-full text-black-500" required>
+                            <label for="number_of_pages" class="block text-sm font-medium text-gray-700">Number of
+                                Pages</label>
+                            <input type="number" id="number_of_pages" name="number_of_pages"
+                                class="block mt-1 w-full text-black-500" required>
                         </div>
 
                         <div class="mb-4">
-                            <label for="year_written" class="block text-sm font-medium text-gray-700">Year Written</label>
-                            <input type="number" id="year_written" name="year_written" class="block mt-1 w-full text-black-500" required>
+                            <label for="year_written" class="block text-sm font-medium text-gray-700">Year
+                                Written</label>
+                            <input type="number" id="year_written" name="year_written"
+                                class="block mt-1 w-full text-black-500" required>
                         </div>
 
 
                         <div class="mb-4">
                             <label for="file" class="block text-sm font-medium text-gray-700">Book File</label>
-                            <input type="file" id="file" name="file" class="block mt-1 w-full text-black-500">
+                            <input type="file" id="file" name="file"
+                                class="block mt-1 w-full text-black-500">
                         </div>
 
                         <div>
