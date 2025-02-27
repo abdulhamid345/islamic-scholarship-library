@@ -18,7 +18,6 @@
                             </ul>
                         </div>
                     @endif
-
                     <form action="{{ route('dashboard.books.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
