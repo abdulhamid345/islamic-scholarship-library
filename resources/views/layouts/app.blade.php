@@ -66,7 +66,7 @@
     </style>
 </head>
 <body class="font-sans antialiased">
-    <div id="app" class="min-h-screen bg-gray-50 dark:bg-gray-900 hero-pattern">
+    <div id="app" class="min-h-screen bg-green-400 dark:bg-green-900 hero-pattern">
         <!-- Navigation -->
         <nav class="bg-green-800 text-white shadow-lg">
             <div class="max-w-7xl mx-auto px-4">
