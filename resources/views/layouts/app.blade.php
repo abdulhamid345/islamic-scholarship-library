@@ -87,16 +87,16 @@
 
                     <!-- Navigation Links -->
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-white hover:bg-green-700">
                             {{ __('Dashboard') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('dashboard.books.index')" :active="request()->routeIs('books.*')">
+                        <x-nav-link :href="route('dashboard.books.index')" :active="request()->routeIs('books.*')" class="text-white hover:bg-green-700">
                             {{ __('Books') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('dashboard.category.index')" :active="request()->routeIs('category.*')">
+                        <x-nav-link :href="route('dashboard.category.index')" :active="request()->routeIs('category.*')" class="text-white hover:bg-green-700">
                             {{ __('Categories') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('dashboard.scholars.index')" :active="request()->routeIs('scholars.*')">
+                        <x-nav-link :href="route('dashboard.scholars.index')" :active="request()->routeIs('scholars.*')" class="text-white hover:bg-green-700">
                             {{ __('Scholars') }}
                         </x-nav-link>
                     </div>
