@@ -1,52 +1,280 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+<html>
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+<head>
+    <base href="/" />
+    <title>Register - Yahaya Bawa Islamic Library</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        .register-form {
+            transition: all 0.3s ease;
+        }
+
+        .register-form:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .input-field {
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3);
+        }
+
+        .hero-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .scholar-card {
+            transition: all 0.3s ease;
+        }
+
+        .scholar-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .book-card {
+            transition: all 0.3s ease;
+        }
+
+        .book-card:hover {
+            transform: scale(1.02);
+        }
+
+        .search-bar {
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:focus {
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3);
+        }
+
+        .arabic-calligraphy {
+            font-family: 'Noto Naskh Arabic', serif;
+        }
+
+        .mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        .mobile-menu.closed {
+            transform: translateX(100%);
+        }
+
+        .moon-icon {
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .moon-icon:hover {
+            transform: rotate(45deg) scale(1.1);
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-gray-50">
+    <div id="app">
+        <!-- Navigation -->
+        <nav class="bg-green-800 text-white shadow-lg sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="flex justify-between items-center h-16 relative">
+                    <!-- Left side - Logo -->
+                    <div class="flex-shrink-0 flex items-center">
+                        <a href="/" class="text-xl font-bold flex items-center space-x-2">
+                            <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <span class="hidden sm:inline">Yahaya Bawa Islamic Library</span>
+                            <span class="sm:hidden">YBIL</span>
+                        </a>
+                    </div>
+
+                    <!-- Center - Moon Icon -->
+                    <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center">
+                        <div class="bg-green-700 rounded-full p-2">
+                            <svg class="w-6 h-6 moon-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Right side - Navigation Links -->
+                    <div class="hidden md:flex items-center space-x-4">
+                        <a href="{{ route('books.index') }}" class="px-3 py-2 rounded-md hover:bg-green-700 transition-colors">Books</a>
+                        <a href="{{ route('category.index') }}" class="px-3 py-2 rounded-md hover:bg-green-700 transition-colors">Categories</a>
+                        <a href="{{ route('scholars.index') }}" class="px-3 py-2 rounded-md hover:bg-green-700 transition-colors">Scholars</a>
+                    </div>
+
+                    <!-- Mobile menu button -->
+                    <div class="md:hidden flex items-center">
+                        <button @click="toggleMobileMenu" class="inline-flex items-center justify-center p-2 rounded-md hover:bg-green-700 focus:outline-none transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path v-if="!isMobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                                <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile menu panel -->
+                <transition enter-active-class="transition duration-200 ease-out" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition duration-100 ease-in" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
+                    <div v-show="isMobileMenuOpen" class="md:hidden">
+                        <div class="px-2 pt-2 pb-3 space-y-1">
+                            <a href="books.html" class="block px-3 py-2 rounded-md hover:bg-green-700 transition-colors">Books</a>
+                            <a href="categories.html" class="block px-3 py-2 rounded-md hover:bg-green-700 transition-colors">Categories</a>
+                            <a href="scholars-page.html" class="block px-3 py-2 rounded-md hover:bg-green-700 transition-colors">Scholars</a>
+                            <a href="login.html" class="block px-3 py-2 rounded-md bg-green-600 hover:bg-green-700 transition-colors">Login</a>
+                        </div>
+                    </div>
+                </transition>
+            </div>
+        </nav>
+
+        <!-- Registration Section -->
+        <div class="min-h-screen bg-green-700 hero-pattern py-16 px-4">
+            <div class="max-w-md mx-auto">
+                <div class="register-form bg-white rounded-lg shadow-xl p-8 fade-in">
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl font-bold text-gray-800">Create Account</h2>
+                        <p class="text-gray-600 mt-2">Join the Yahaya Bawa Islamic Library</p>
+                    </div>
+
+                    <form method="POST" action="{{ route('register') }}" class="space-y-6">
+                        @csrf
+                        <div>
+                            <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Full Name</label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                v-model="name"
+                                class="input-field w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-green-500"
+                                placeholder="Enter your full name"
+                                required>
+                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                        </div>
+
+                        <div>
+                            <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email Address</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                v-model="email"
+                                class="input-field w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-green-500"
+                                placeholder="Enter your email"
+                                required>
+                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                        </div>
+
+                        <div>
+                            <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                v-model="password"
+                                class="input-field w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-green-500"
+                                placeholder="Create a strong password"
+                                required>
+                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                            <p class="text-sm text-gray-500 mt-1">Password must be at least 8 characters long</p>
+                        </div>
+
+                        <div>
+                            <label for="password_confirmation" class="block text-gray-700 text-sm font-bold mb-2">Confirm Password</label>
+                            <input
+                                type="password"
+                                id="password_confirmation"
+                                name="password_confirmation"
+                                v-model="passwordConfirmation"
+                                class="input-field w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-green-500"
+                                placeholder="Confirm your password"
+                                required>
+                        </div>
+
+                        <div class="flex items-center">
+                            <input
+                                type="checkbox"
+                                id="terms"
+                                v-model="agreeToTerms"
+                                class="form-checkbox text-green-600">
+                            <label for="terms" class="ml-2 text-sm text-gray-600">
+                                I agree to the <a href="#" class="text-green-600 hover:text-green-800">Terms of Service</a> and <a href="#" class="text-green-600 hover:text-green-800">Privacy Policy</a>
+                            </label>
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
+                            :disabled="!agreeToTerms">
+                            Create Account
+                        </button>
+                    </form>
+
+                    <div class="mt-6 text-center">
+                        <p class="text-gray-600">
+                            Already have an account?
+                            <a href="login.html" class="text-green-600 hover:text-green-800 font-semibold">Sign in here</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+    <script>
+        const {
+            createApp
+        } = Vue
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+        createApp({
+            data() {
+                return {
+                    isMobileMenuOpen: false,
+                    name: '',
+                    email: '',
+                    password: '',
+                    passwordConfirmation: '',
+                    agreeToTerms: false
+                }
+            },
+            methods: {
+                toggleMobileMenu() {
+                    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+                }
+            }
+        }).mount('#app')
+    </script>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
+</body>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+</html>

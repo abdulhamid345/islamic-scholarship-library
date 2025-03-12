@@ -13,6 +13,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/scholars', [ScholarController::class, 'index'])->name('scholars.index');
+Route::get('/books', [BookController::class, 'index'])->name('books.index');
+Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::name('dashboard.')->prefix('dashboard')->group(function () {
         Route::name('books.')->prefix('books')->group(function () {
