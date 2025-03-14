@@ -106,4 +106,10 @@ class BookController extends Controller
 
         return redirect()->route('dashbaord.books.index')->with('success', 'Book deleted successfully.');
     }
+
+    public function bookPage()
+    {
+        $books = Book::all();
+        return view('books', compact('books'));
+    }
 }

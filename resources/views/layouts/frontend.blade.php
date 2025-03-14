@@ -157,13 +157,13 @@
                         </button>
                     </div>
                     <div :class="['nav-links', 'md:flex', 'md:items-center', 'md:space-x-6', { 'active': menuOpen }]">
-                        <a href="books.html" class="hover:text-green-200 transition-colors">Books</a>
-                        <a href="categories.html"
+                        <a href="{{ route('books.index') }}" class="hover:text-green-200 transition-colors">Books</a>
+                        <a href="{{ route('category.index') }}"
                             class="px-3 py-2 rounded-md hover:bg-green-700 transition-colors">Categories</a>
-                        <a href="scholars-page.html" class="hover:text-green-200 transition-colors">Scholars</a>
-                        <a href="{{ route('login') }}" class="hover:text-green-200 transition-colors">Login</a>
+                        <a href="{{ route('scholars.index') }}" class="hover:text-green-200 transition-colors">Scholars</a>
+                        <!-- <a href="{{ route('login') }}" class="hover:text-green-200 transition-colors">Login</a>
                         <a href="{{ route('register') }}"
-                            class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">Register</a>
+                            class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">Register</a> -->
                     </div>
                 </div>
             </div>

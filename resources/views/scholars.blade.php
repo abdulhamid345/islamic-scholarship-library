@@ -47,10 +47,10 @@
               </a>
             </div>
             <div class="flex items-center space-x-6">
-              <a href="{{ route('all-books') }}" class="hover:text-green-200 transition-colors">Books</a>
-              <a href="{{ route('scholars') }}" class="hover:text-green-200 transition-colors">Scholars</a>
-              <a href="{{ route('login') }}" class="hover:text-green-200 transition-colors">Login</a>
-              <a href="{{ route('register') }}" class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">Register</a>
+              <a href="{{ route('books.index') }}" class="hover:text-green-200 transition-colors">Books</a>
+              <a href="{{ route('scholars.index') }}" class="hover:text-green-200 transition-colors">Scholars</a>
+              <!-- <a href="{{ route('login') }}" class="hover:text-green-200 transition-colors">Login</a>
+              <a href="{{ route('register') }}" class="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">Register</a> -->
             </div>
           </div>
         </div>
@@ -116,7 +116,7 @@
               </div>
               <div class="flex justify-between items-center">
                 <span class="text-sm text-gray-500"> scholar.works  works</span>
-                <a href="{{ route('scholar') }}" 
+                <a href="{{ route('scholars.index') }}" 
                    class="inline-flex items-center text-green-600 hover:text-green-800">
                   View Profile
                   <svg class="w-4 h-4 ml-1" viewBox="0 0 24 24" fill="none" stroke="currentColor">

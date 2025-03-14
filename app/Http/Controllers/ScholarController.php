@@ -112,4 +112,9 @@ class ScholarController extends Controller
 
         return redirect()->route('dashboard.scholars.index')->with('success', 'Scholar deleted successfully.');
     }
+
+    public function scholarPage() {
+        $scholars = Scholar::all();
+        return view('scholars', compact('scholars'));
+    }
 }
