@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,43 +22,60 @@
         .slide-fade-enter-active {
             transition: all 0.3s ease;
         }
+
         .slide-fade-leave-active {
             transition: all 0.3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
         }
+
         .slide-fade-enter-from,
         .slide-fade-leave-to {
             transform: translateX(20px);
             opacity: 0;
         }
+
         .fade-in {
             animation: fadeIn 0.5s ease-in;
         }
+
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
+
         .scholar-card {
             transition: all 0.3s ease;
         }
+
         .scholar-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
+
         .book-card {
             transition: all 0.3s ease;
         }
+
         .book-card:hover {
             transform: scale(1.02);
         }
+
         .search-bar {
             transition: all 0.3s ease;
         }
+
         .search-bar:focus {
             box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3);
         }
+
         .arabic-calligraphy {
             font-family: 'Noto Naskh Arabic', serif;
         }
+
         .hero-pattern {
             background-color: #065f46;
             background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
@@ -65,6 +83,7 @@
         }
     </style>
 </head>
+
 <body class="font-sans antialiased">
     <div id="app" class="min-h-screen bg-green-900 dark:bg-green-900 hero-pattern">
         <!-- Navigation -->
@@ -75,9 +94,12 @@
                         <a href="{{ route('dashboard') }}" class="text-xl font-bold">
                             <span class="flex items-center">
                                 <svg class="w-8 h-8 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2L2 7L12 12L22 7L12 2Z"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 17L12 22L22 17"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 12L12 17L22 12"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 2L2 7L12 12L22 7L12 2Z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M2 17L12 22L22 17"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M2 12L12 17L22 12"></path>
                                 </svg>
                                 <span class="hidden sm:inline">Yahaya Bawa Islamic Library</span>
                                 <span class="sm:hidden">YBIL</span>
@@ -105,12 +127,16 @@
                     <div class="hidden sm:flex sm:items-center sm:ml-6">
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
-                                <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-green-700 hover:bg-green-600 focus:outline-none transition ease-in-out duration-150">
+                                <button
+                                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-green-700 hover:bg-green-600 focus:outline-none transition ease-in-out duration-150">
                                     <div>{{ Auth::user()->name }}</div>
 
                                     <div class="ml-1">
-                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd"
+                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                clip-rule="evenodd" />
                                         </svg>
                                     </div>
                                 </button>
@@ -126,7 +152,7 @@
                                     @csrf
 
                                     <x-dropdown-link :href="route('logout')"
-                                            onclick="event.preventDefault();
+                                        onclick="event.preventDefault();
                                                         this.closest('form').submit();">
                                         {{ __('Log Out') }}
                                     </x-dropdown-link>
@@ -137,10 +163,14 @@
 
                     <!-- Hamburger -->
                     <div class="-mr-2 flex items-center sm:hidden">
-                        <button onclick="toggleMobileMenu()" class="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-white hover:bg-green-700 focus:outline-none focus:bg-green-700 focus:text-white transition duration-150 ease-in-out">
-                            <svg id="hamburger-icon" class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                                <path id="hamburger-open" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                                <path id="hamburger-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        <button onclick="toggleMobileMenu()"
+                            class="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-white hover:bg-green-700 focus:outline-none focus:bg-green-700 focus:text-white transition duration-150 ease-in-out">
+                            <svg id="hamburger-icon" class="h-6 w-6" stroke="currentColor" fill="none"
+                                viewBox="0 0 24 24">
+                                <path id="hamburger-open" class="inline-flex" stroke-linecap="round"
+                                    stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                                <path id="hamburger-close" class="hidden" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </button>
                     </div>
@@ -181,7 +211,7 @@
                             @csrf
 
                             <x-responsive-nav-link :href="route('logout')"
-                                    onclick="event.preventDefault();
+                                onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-responsive-nav-link>
@@ -212,7 +242,7 @@
             const mobileMenu = document.getElementById('mobile-menu');
             const hamburgerOpen = document.getElementById('hamburger-open');
             const hamburgerClose = document.getElementById('hamburger-close');
-            
+
             if (mobileMenu.classList.contains('hidden')) {
                 mobileMenu.classList.remove('hidden');
                 hamburgerOpen.classList.add('hidden');
@@ -236,4 +266,5 @@
         })
     </script>
 </body>
+
 </html>
