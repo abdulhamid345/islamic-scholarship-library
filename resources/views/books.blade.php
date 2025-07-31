@@ -356,6 +356,7 @@
                     </button>
                 </div>
             </div>
+          </div>
 
             <!-- Mobile Menu -->
             <div class="md:hidden nav-links" id="mobileMenu">
