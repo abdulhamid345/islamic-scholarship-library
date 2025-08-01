@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Scholar;
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class ScholarController extends Controller
@@ -44,21 +45,15 @@ class ScholarController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'biography' => 'nullable|string',
-            'published_works' => 'nullable|string',
-            'categories' => 'nullable|array',
-            'categories.*' => 'string',
-            'years_active' => 'string',
+            'years_active' => 'nullable|string',
         ]);
 
-
-        $validated['categories'] = isset($validated['categories']) ? json_encode($validated['categories']) : null;
-
-
-        $validated['published_works'] = isset($validated['published_works']) ? $validated['published_works'] : null;
-        $validated['students'] = isset($validated['students']) ? $validated['students'] : null;
-
-        // dd($validated);
-        Scholar::create($validated);
+        Scholar::create([
+            'name' => $validated['name'],
+            'slug' => Str::slug($validated['name']),
+            'biography' => $validated['biography'],
+            'years_active' => $validated['years_active'],
+        ]);
 
         return redirect()->route('dashboard.scholars.index')->with('success', 'Scholar created successfully!');
     }
@@ -81,18 +76,22 @@ class ScholarController extends Controller
     public function update(Request $request, $id)
     {
         $scholar = Scholar::findOrfail($id);
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'biography' => 'nullable|string',
             'published_works' => 'nullable|string',
             'categories' => 'nullable|array',
             'categories.*' => 'string',
-            'years_active' => 'string',
+            'years_active' => 'nullable|string',
         ]);
 
-        // dd($request->all());
-
-        $scholar->update($request->all());
+        $scholar->update([
+            'name' => $validated['name'],
+            'slug' => Str::slug($validated['name']),
+            'biography' => $validated['biography'] ?? null,
+            'published_works' => $validated['published_works'] ?? null,
+            'years_active' => $validated['years_active'] ?? null,
+        ]);
 
         return redirect()->route('dashboard.scholars.index')->with('success', 'Scholar updated successfully.');
     }

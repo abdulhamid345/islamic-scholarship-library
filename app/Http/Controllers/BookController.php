@@ -36,7 +36,7 @@ class BookController extends Controller
             'scholar_id' => 'required|string|max:255',
             'category_id' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'file' => 'mimes:pdf,epub,jpg,jpeg,png|max:10240',
+            'file' => 'mimes:pdf,epub,jpg,jpeg,png|max:102400',
         ]);
 
         $filePath = null;
@@ -78,7 +78,7 @@ class BookController extends Controller
             'scholar_id' => 'required|string|max:255',
             'category_id' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'file' => 'nullable|mimes:pdf,epub,jpg,jpeg,png|max:10240',
+            'file' => 'nullable|mimes:pdf,epub,jpg,jpeg,png|max:102400',
         ]);
 
         if ($request->hasFile('file')) {

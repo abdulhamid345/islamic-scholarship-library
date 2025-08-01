@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -25,21 +26,17 @@ public function index(Request $request)
         return view('category.create');
     }
 
-    // public function show($id)
-    // {
-    //     $book = Category::findOrFail($id);
-
-    //     return view('books-details', compact('book'));
-    // }
-
     public function store(Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'description' => 'nullable|string|max:1000',
         ]);
 
         Category::create([
             'name' => $validated['name'],
+            'slug' => Str::slug($validated['name']),
+            'description' => $validated['description'],
         ]);
 
         return redirect()->route('dashboard.category.index')->with('success', 'Category created successfully.');
@@ -57,10 +54,13 @@ public function index(Request $request)
 
         $request->validate([
             'name' => 'required|string|max:255',
+            'description' => 'nullable|string|max:1000',
         ]);
 
         $category->update([
             'name' => $request->name,
+            'slug' => Str::slug($request->name),
+            'description' => $request->description,
         ]);
 
         return redirect()->route('dashboard.category.index')->with('success', 'Category updated successfully.');

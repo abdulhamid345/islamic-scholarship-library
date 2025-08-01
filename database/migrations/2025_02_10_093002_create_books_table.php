@@ -18,7 +18,6 @@ return new class extends Migration
             $table->foreignId('category_id');
             $table->string('description')->nullable();
             $table->string('file');
-            $table->string('categories')->nullable();
             $table->integer('download_count')->default(0); 
             $table->timestamps();
         });
