@@ -1,71 +1,83 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+@extends('layouts.dashboard')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <!-- Welcome Card -->
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-6 fade-in">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <div class="flex items-center mb-4">
-                        <svg class="w-8 h-8 text-green-600 dark:text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
-                        </svg>
-                        <h3 class="text-2xl font-bold">Welcome to Yahaya Bawa Islamic Library</h3>
-                    </div>
-                    <p class="text-lg">You're logged in successfully. Manage books, scholars, and categories from your dashboard.</p>
-                </div>
-            </div>
-
-            <!-- Statistics Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-6">
-                <!-- Books Stats -->
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg book-card">
-                    <div class="p-4 sm:p-6">
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100">Total Books</h3>
-                            <svg class="w-8 h-8 sm:w-10 sm:h-10 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                            </svg>
-                        </div>
-                        <p class="mt-4 text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100">{{ $bookCount ?? 27 }}</p>
-                        <p class="mt-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
-                            <span class="text-green-600 dark:text-green-400">↗ 3 new</span> books added this month
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Scholars Stats -->
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg scholar-card">
-                    <div class="p-4 sm:p-6">
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100">Scholars</h3>
-                            <svg class="w-8 h-8 sm:w-10 sm:h-10 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                            </svg>
-                        </div>
-                        <p class="mt-4 text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100">{{ $scholarCount ?? 8 }}</p>
-                        <p class="mt-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400">From classical and contemporary traditions</p>
-                    </div>
-                </div>
-
-                <!-- Categories Stats -->
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg book-card">
-                    <div class="p-4 sm:p-6">
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100">Categories</h3>
-                            <svg class="w-8 h-8 sm:w-10 sm:h-10 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
-                            </svg>
-                        </div>
-                        <p class="mt-4 text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100">{{ $categoryCount ?? 9 }}</p>
-                        <p class="mt-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400">Fiqh, Aqeedah, Tafsir, and more</p>
-                    </div>
+@section('content')
+    <main class="p-6">
+        <!-- Welcome Card -->
+        <div
+            class="bg-gradient-to-r from-green-600 to-emerald-600 rounded-3xl shadow-2xl p-8 text-white mb-8 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-white bg-opacity-10 rounded-full -mr-32 -mt-32"></div>
+            <div class="absolute bottom-0 left-0 w-48 h-48 bg-white bg-opacity-5 rounded-full -ml-24 -mb-24"></div>
+            <div class="relative z-10">
+                <h1 class="text-3xl font-bold mb-2">Welcome back, John! 👋</h1>
+                <p class="text-green-100 text-lg mb-6">Here's what's happening with your business today.</p>
+                <div class="flex items-center space-x-4">
+                    <button
+                        class="bg-white text-green-600 px-6 py-3 rounded-xl font-semibold hover:bg-gray-50 transition-colors shadow-lg">
+                        View Reports
+                    </button>
+                    <button
+                        class="border border-white text-white px-6 py-3 rounded-xl font-semibold hover:bg-white hover:text-green-600 transition-colors">
+                        Quick Actions
+                    </button>
                 </div>
             </div>
         </div>
-    </div>
-</x-app-layout>
+
+        <!-- Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Stats Cards -->
+            <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-600">Total Users</p>
+                            <p class="text-3xl font-bold text-gray-900">2,847</p>
+                            <p class="text-sm text-green-600 mt-1">↗ +12% from last month</p>
+                        </div>
+                        <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-users text-green-600 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-600">Revenue</p>
+                            <p class="text-3xl font-bold text-gray-900">$48,294</p>
+                            <p class="text-sm text-green-600 mt-1">↗ +8.2% from last month</p>
+                        </div>
+                        <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-dollar-sign text-blue-600 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+                <div class="space-y-3">
+                    <button class="w-full flex items-center p-3 text-left hover:bg-gray-50 rounded-xl transition-colors">
+                        <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-plus text-green-600"></i>
+                        </div>
+                        <span class="text-gray-700">Add New User</span>
+                    </button>
+                    <button class="w-full flex items-center p-3 text-left hover:bg-gray-50 rounded-xl transition-colors">
+                        <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-file-alt text-blue-600"></i>
+                        </div>
+                        <span class="text-gray-700">Generate Report</span>
+                    </button>
+                    <button class="w-full flex items-center p-3 text-left hover:bg-gray-50 rounded-xl transition-colors">
+                        <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-cog text-purple-600"></i>
+                        </div>
+                        <span class="text-gray-700">System Settings</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+@endsection
