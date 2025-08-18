@@ -9,7 +9,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
     <style>
         :root {
             --primary-green: #0f4a2a;
@@ -85,9 +87,12 @@
         }
 
         @keyframes float {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0px);
             }
+
             50% {
                 transform: translateY(-20px);
             }
@@ -102,6 +107,7 @@
                 transform: scale(1);
                 opacity: 1;
             }
+
             100% {
                 transform: scale(1.3);
                 opacity: 0;
@@ -117,6 +123,7 @@
                 opacity: 0;
                 transform: translateX(-30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateX(0);
@@ -132,6 +139,7 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -187,24 +195,32 @@
         <!-- Animated Background Elements -->
         <div class="absolute inset-0 opacity-10">
             <div class="floating-element absolute top-20 left-10 w-20 h-20 bg-white rounded-full"></div>
-            <div class="floating-element absolute top-40 right-20 w-16 h-16 bg-yellow-300 rounded-full" style="animation-delay: -2s;"></div>
-            <div class="floating-element absolute bottom-32 left-20 w-12 h-12 bg-green-300 rounded-full" style="animation-delay: -4s;"></div>
-            <div class="floating-element absolute bottom-20 right-32 w-24 h-24 bg-emerald-300 rounded-full" style="animation-delay: -1s;"></div>
-            
+            <div class="floating-element absolute top-40 right-20 w-16 h-16 bg-yellow-300 rounded-full"
+                style="animation-delay: -2s;"></div>
+            <div class="floating-element absolute bottom-32 left-20 w-12 h-12 bg-green-300 rounded-full"
+                style="animation-delay: -4s;"></div>
+            <div class="floating-element absolute bottom-20 right-32 w-24 h-24 bg-emerald-300 rounded-full"
+                style="animation-delay: -1s;"></div>
+
             <!-- Islamic Pattern Elements -->
             <div class="absolute top-32 left-1/4 text-white opacity-5 text-6xl font-arabic">ﷲ</div>
-            <div class="absolute bottom-40 right-1/4 text-white opacity-5 text-4xl font-arabic transform rotate-45">☪</div>
+            <div class="absolute bottom-40 right-1/4 text-white opacity-5 text-4xl font-arabic transform rotate-45">☪
+            </div>
         </div>
 
         <div class="w-full max-w-2xl mx-auto px-6 relative z-10">
             <!-- Logo and Header -->
             <div class="text-center mb-8" data-aos="fade-down">
                 <div class="flex items-center justify-center mb-6">
-                    <div class="w-16 h-16 bg-white bg-opacity-20 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-white border-opacity-30">
+                    <div
+                        class="w-16 h-16 bg-white bg-opacity-20 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-white border-opacity-30">
                         <svg class="w-10 h-10 text-white" viewBox="0 0 24 24" fill="none">
-                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
                         </svg>
                     </div>
                 </div>
@@ -216,70 +232,65 @@
             <div class="glass-morphism rounded-2xl p-8 shadow-2xl" data-aos="fade-up">
                 <!-- Tab Navigation -->
                 <div class="flex mb-8 border-b border-gray-200">
+                    <button id="registerTab"
+                        class="tab-button active flex-1 py-3 text-center font-semibold text-gray-600">
+                        Sign Up
+                    </button>
                     <button id="loginTab" class="tab-button flex-1 py-3 text-center font-semibold text-gray-600">
                         Sign In
                     </button>
-                    <button id="registerTab" class="tab-button active flex-1 py-3 text-center font-semibold text-gray-600">
-                        Sign Up
-                    </button>
                 </div>
 
-                                <!-- Register Form -->
-                <div id="registerForm" class="form-page">
+                <!-- Register Form -->
+                <div id="registerForm" class="form-page active">
                     <div class="space-y-6">
                         <div class="text-center mb-6">
                             <h2 class="text-2xl font-bold text-gray-800 mb-2">Create Account</h2>
                             <p class="text-gray-600">Join our community of Islamic knowledge seekers</p>
                         </div>
 
-                        <form class="space-y-6" id="registerFormElement">
-                            <div class="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
-                                    <input type="text" 
-                                           name="firstName"
-                                           class="form-input w-full px-4 py-3 rounded-xl focus:outline-none" 
-                                           placeholder="First name">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
-                                    <input type="text" 
-                                           name="lastName"
-                                           class="form-input w-full px-4 py-3 rounded-xl focus:outline-none" 
-                                           placeholder="Last name">
-                                </div>
+                        <form action="{{ route('register') }}" class="space-y-6"
+                            id="registerFormElement" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                                <input type="text" name="firstName"
+                                    class="form-input w-full px-4 py-3 rounded-xl focus:outline-none" name="name"
+                                    placeholder="First name">
+                                @if ($errors->has('email'))
+                                    <span class="text-red-500 text-sm mt-2 block">{{ $errors->first('email') }}</span>
+                                @endif
                             </div>
 
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
-                                <input type="email" 
-                                       name="email"
-                                       class="form-input w-full px-4 py-3 rounded-xl focus:outline-none" 
-                                       placeholder="Enter your email address">
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number (Optional)</label>
-                                <input type="tel" 
-                                       name="phone"
-                                       class="form-input w-full px-4 py-3 rounded-xl focus:outline-none" 
-                                       placeholder="+234 xxx xxx xxxx">
+                                <input type="email" name="email"
+                                    class="form-input w-full px-4 py-3 rounded-xl focus:outline-none" name="email"
+                                    placeholder="Enter your email address">
+                                @if ($errors->has('email'))
+                                    <span class="text-red-500 text-sm mt-2 block">{{ $errors->first('email') }}</span>
+                                @endif
                             </div>
 
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
                                 <div class="relative">
-                                    <input type="password" 
-                                           id="registerPassword"
-                                           name="password"
-                                           class="form-input w-full px-4 py-3 pr-12 rounded-xl focus:outline-none" 
-                                           placeholder="Create a strong password">
-                                    <button type="button" 
-                                            class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                                            onclick="togglePassword('registerPassword')">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                    <input type="password" id="registerPassword" name="password"
+                                        class="form-input w-full px-4 py-3 pr-12 rounded-xl focus:outline-none"
+                                        placeholder="Create a strong password">
+                                    @if ($errors->has('email'))
+                                        <span
+                                            class="text-red-500 text-sm mt-2 block">{{ $errors->first('email') }}</span>
+                                    @endif
+                                    <button type="button"
+                                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                        onclick="togglePassword('registerPassword')">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                         </svg>
                                     </button>
                                 </div>
@@ -288,17 +299,22 @@
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
                                 <div class="relative">
-                                    <input type="password" 
-                                           id="confirmPassword"
-                                           name="confirmPassword"
-                                           class="form-input w-full px-4 py-3 pr-12 rounded-xl focus:outline-none" 
-                                           placeholder="Confirm your password">
-                                    <button type="button" 
-                                            class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                                            onclick="togglePassword('confirmPassword')">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                    <input type="password" id="confirmPassword" name="confirmPassword"
+                                        class="form-input w-full px-4 py-3 pr-12 rounded-xl focus:outline-none"
+                                        placeholder="Confirm your password">
+                                    @if ($errors->has('email'))
+                                        <span
+                                            class="text-red-500 text-sm mt-2 block">{{ $errors->first('email') }}</span>
+                                    @endif
+                                    <button type="button"
+                                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                        onclick="togglePassword('confirmPassword')">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                         </svg>
                                     </button>
                                 </div>
@@ -306,14 +322,19 @@
 
                             <div class="space-y-4">
                                 <label class="flex items-start">
-                                    <input type="checkbox" name="terms" class="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500 mt-1">
+                                    <input type="checkbox" name="terms"
+                                        class="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500 mt-1">
                                     <span class="ml-3 text-sm text-gray-600">
-                                        I agree to the <a href="#" class="text-green-600 hover:text-green-700 font-medium">Terms of Service</a> and <a href="#" class="text-green-600 hover:text-green-700 font-medium">Privacy Policy</a>
+                                        I agree to the <a href="#"
+                                            class="text-green-600 hover:text-green-700 font-medium">Terms of
+                                            Service</a> and <a href="#"
+                                            class="text-green-600 hover:text-green-700 font-medium">Privacy Policy</a>
                                     </span>
                                 </label>
                             </div>
 
-                            <button type="submit" class="btn-primary w-full py-4 text-white font-semibold rounded-xl">
+                            <button type="submit"
+                                class="btn-primary w-full py-4 text-white font-semibold rounded-xl">
                                 Create Account
                             </button>
                         </form>
@@ -321,50 +342,62 @@
                 </div>
 
                 <!-- Login Form -->
-                <div id="loginForm" class="form-page active">
+                <div id="loginForm" class="form-page ">
                     <div class="space-y-6">
                         <div class="text-center mb-6">
                             <h2 class="text-2xl font-bold text-gray-800 mb-2">Welcome Back</h2>
                             <p class="text-gray-600">Sign in to continue your Islamic learning journey</p>
                         </div>
 
-                        <form class="space-y-6" id="loginFormElement">
+                        <form action="{{ route('login') }}" method="POST" class="space-y-6" id="loginFormElement"
+                            enctype="multipart/form-data">
+                            @csrf
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
-                                <input type="email" 
-                                       name="email"
-                                       class="form-input w-full px-4 py-3 rounded-xl focus:outline-none" 
-                                       placeholder="Enter your email address">
+                                <input type="email" name="email"
+                                    class="form-input w-full px-4 py-3 rounded-xl focus:outline-none"
+                                    placeholder="Enter your email address">
+                                @if ($errors->has('email'))
+                                    <span class="text-red-500 text-sm mt-2 block">{{ $errors->first('email') }}</span>
+                                @endif
                             </div>
 
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
                                 <div class="relative">
-                                    <input type="password" 
-                                           id="loginPassword"
-                                           name="password"
-                                           class="form-input w-full px-4 py-3 pr-12 rounded-xl focus:outline-none" 
-                                           placeholder="Enter your password">
-                                    <button type="button" 
-                                            class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                                            onclick="togglePassword('loginPassword')">
+                                    <input type="password" id="loginPassword" name="password"
+                                        class="form-input w-full px-4 py-3 pr-12 rounded-xl focus:outline-none"
+                                        placeholder="Enter your password">
+                                    @if ($errors->has('email'))
+                                        <span
+                                            class="text-red-500 text-sm mt-2 block">{{ $errors->first('email') }}</span>
+                                    @endif
+                                    <button type="button"
+                                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                        onclick="togglePassword('loginPassword')">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                         </svg>
                                     </button>
                                 </div>
                             </div>
 
-                            <div class="flex items-center justify-between">
+                            {{-- <div class="flex items-center justify-between">
                                 <label class="flex items-center">
-                                    <input type="checkbox" name="remember" class="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500">
+                                    <input type="checkbox" name="remember"
+                                        class="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500">
                                     <span class="ml-2 text-sm text-gray-600">Remember me</span>
                                 </label>
-                                <a href="#" class="text-sm text-green-600 hover:text-green-700 font-medium">Forgot password?</a>
-                            </div>
+                                <a href="#"
+                                    class="text-sm text-green-600 hover:text-green-700 font-medium">Forgot
+                                    password?</a>
+                            </div> --}}
 
-                            <button type="submit" class="btn-primary w-full py-4 text-white font-semibold rounded-xl">
+                            <button type="submit"
+                                class="btn-primary w-full py-4 text-white font-semibold rounded-xl">
                                 Sign In
                             </button>
                         </form>
@@ -374,7 +407,8 @@
                 <!-- Footer Links -->
                 <div class="text-center mt-8 pt-6 border-t border-gray-200">
                     <p class="text-sm text-gray-600">
-                        Need help? <a href="#" class="text-green-600 hover:text-green-700 font-medium">Contact Support</a>
+                        Need help? <a href="#" class="text-green-600 hover:text-green-700 font-medium">Contact
+                            Support</a>
                     </p>
                     <p class="text-sm text-gray-500 mt-2">
                         <a href="index.html" class="hover:text-green-600 transition-colors">← Back to Library</a>
@@ -403,17 +437,17 @@
             // Update tab states
             activeTab.classList.add('active');
             inactiveTab.classList.remove('active');
-            
+
             // Smooth form transition
             hideForm.style.opacity = '0';
             hideForm.style.transform = 'translateX(-20px)';
-            
+
             setTimeout(() => {
                 hideForm.classList.remove('active');
                 showForm.classList.add('active');
                 showForm.style.opacity = '0';
                 showForm.style.transform = 'translateX(20px)';
-                
+
                 setTimeout(() => {
                     showForm.style.opacity = '1';
                     showForm.style.transform = 'translateX(0)';
@@ -440,7 +474,7 @@
             const input = document.getElementById(inputId);
             const button = input.nextElementSibling;
             const icon = button.querySelector('svg');
-            
+
             if (input.type === 'password') {
                 input.type = 'text';
                 icon.innerHTML = `
@@ -469,7 +503,7 @@
                 input.addEventListener('focus', function() {
                     this.parentElement.classList.add('focused');
                 });
-                
+
                 input.addEventListener('blur', function() {
                     this.parentElement.classList.remove('focused');
                 });
@@ -492,7 +526,7 @@
                         this.style.transform = 'translateY(-2px)';
                     }
                 });
-                
+
                 button.addEventListener('mouseleave', function() {
                     if (!this.disabled) {
                         this.style.transform = 'translateY(0)';
@@ -538,7 +572,7 @@
                     loginTab.click();
                 }
             }
-            
+
             // Enter to submit forms
             if (e.key === 'Enter' && e.target.tagName === 'INPUT') {
                 const form = e.target.closest('form');
@@ -551,11 +585,11 @@
         // Add form validation styling (visual feedback only)
         function addValidationStyling() {
             const inputs = document.querySelectorAll('input[required], input[type="email"]');
-            
+
             inputs.forEach(input => {
                 input.addEventListener('blur', function() {
                     const isValid = this.checkValidity();
-                    
+
                     if (this.value.length > 0) {
                         if (isValid) {
                             this.style.borderColor = 'var(--accent-green)';
@@ -566,7 +600,7 @@
                         }
                     }
                 });
-                
+
                 input.addEventListener('input', function() {
                     if (this.style.borderColor === 'rgb(239, 68, 68)') {
                         this.style.borderColor = '#e5e7eb';
@@ -581,7 +615,7 @@
 
         // Add smooth scroll for better UX
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
@@ -605,7 +639,7 @@
                     Connecting...
                 `;
                 this.disabled = true;
-                
+
                 setTimeout(() => {
                     this.innerHTML = originalContent;
                     this.disabled = false;
