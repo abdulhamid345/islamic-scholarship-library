@@ -409,7 +409,7 @@
                             Support</a>
                     </p>
                     <p class="text-sm text-gray-500 mt-2">
-                        <a href="index.html" class="hover:text-green-600 transition-colors">← Back to Library</a>
+                        <a href="{{ route('welcome') }}" class="hover:text-green-600 transition-colors">← Back to Library</a>
                     </p>
                 </div>
             </div>

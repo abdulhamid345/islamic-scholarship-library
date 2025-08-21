@@ -18,12 +18,12 @@ public function index(Request $request)
 
     $categories = $query->latest()->get();
 
-    return view('category.index', compact('categories'));
+    return view('admin.category.index', compact('categories'));
 }
 
     public function create()
     {
-        return view('category.create');
+        return view('admin.category.create');
     }
 
     public function store(Request $request)
@@ -45,7 +45,7 @@ public function index(Request $request)
     public function edit($id)
     {
         $category = Category::findOrFail($id);
-        return view('category.edit', compact('category'));
+        return view('admin.category.edit', compact('category'));
     }
 
     public function update(Request $request, $id)

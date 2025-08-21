@@ -13,20 +13,20 @@ class BookController extends Controller
     public function index()
     {
         $books = Book::all();
-        return view('books.index', compact('books'));
+        return view('admin.books.index', compact('books'));
     }
 
     public function create()
     {
         $scholars = Scholar::all();
         $categories = Category::all();
-        return view('books.create', compact('scholars', 'categories'));
+        return view('admin.books.create', compact('scholars', 'categories'));
     }
 
-    public function show($id)
+    public function show($slug)
     {
-        $book = Book::findOrFail($id);
-        return view('books-details', compact('book'));
+        $book = Book::findOrFail($slug);
+        return view('admin.books.show', compact('book'));
     }
 
     public function store(Request $request)
@@ -66,7 +66,7 @@ class BookController extends Controller
         $book = Book::findOrFail($id);
         $scholars = Scholar::all();
         $categories = Category::all();
-        return view('books.edit', compact('book', 'scholars', 'categories'));
+        return view('admin.books.edit', compact('book', 'scholars', 'categories'));
     }
 
     public function update(Request $request, $id)
@@ -110,6 +110,6 @@ class BookController extends Controller
     public function bookPage()
     {
         $books = Book::all();
-        return view('books', compact('books'));
+        return view('admin.books.index', compact('books'));
     }
 }

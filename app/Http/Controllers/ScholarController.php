@@ -23,7 +23,7 @@ class ScholarController extends Controller
     public function index()
     {
         $scholars = Scholar::all();
-        return view('scholars.index', compact('scholars'));
+        return view('admin.scholars.index', compact('scholars'));
     }
 
 
@@ -32,7 +32,7 @@ class ScholarController extends Controller
      */
     public function create()
     {
-        return view('scholars.create');
+        return view('admin.scholars.create');
     }
 
     /**
@@ -67,7 +67,7 @@ class ScholarController extends Controller
     public function edit($id)
     {
         $scholar = Scholar::findOrFail($id); // Ensure scholar exists
-        return view('scholars.edit', compact('scholar'));
+        return view('admin.scholars.edit', compact('scholar'));
     }
 
     /**

@@ -51,7 +51,7 @@
                     <i class="fas fa-leaf text-green-600 text-xl"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl font-bold tracking-tight">EcoAdmin</h1>
+                    <h1 class="text-xl font-bold tracking-tight">Yahaya Bawa Islamic Library</h1>
                     <p class="text-xs text-green-200 opacity-80">Admin Dashboard</p>
                 </div>
             </div>
@@ -81,7 +81,7 @@
             <div class="space-y-1">
                 <p class="px-4 text-xs font-semibold text-green-200 uppercase tracking-wider opacity-75 mb-3">Main Menu
                 </p>
-                <a href="#"
+                <a href="{{ route('dashboard') }}"
                     class="nav-item-active flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 group">
                     <div
                         class="w-8 h-8 bg-green-500 bg-opacity-20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-opacity-30 transition-colors">
@@ -100,7 +100,7 @@
                     <span class="flex-1">Users</span>
                     <span class="bg-green-500 text-white text-xs px-2 py-1 rounded-full">24</span>
                 </a> --}}
-                <a href="#"
+                <a href="{{ route('dashboard.scholars.index') }}"
                     class="flex items-center px-4 py-3 text-sm font-medium rounded-xl text-green-100 hover:bg-white hover:bg-opacity-10 transition-all duration-200 group">
                     <div
                         class="w-8 h-8 bg-green-500 bg-opacity-20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-opacity-30 transition-colors">
@@ -108,7 +108,7 @@
                     </div>
                     <span class="flex-1">Scholars</span>
                 </a>
-                <a href="#"
+                <a href="{{ route('dashboard.category.index') }}"
                     class="flex items-center px-4 py-3 text-sm font-medium rounded-xl text-green-100 hover:bg-white hover:bg-opacity-10 transition-all duration-200 group">
                     <div
                         class="w-8 h-8 bg-green-500 bg-opacity-20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-opacity-30 transition-colors">
@@ -116,7 +116,7 @@
                     </div>
                     <span class="flex-1">Category</span>
                 </a>
-                <a href="#"
+                <a href="{{ route('dashboard.books.index') }}"
                     class="flex items-center px-4 py-3 text-sm font-medium rounded-xl text-green-100 hover:bg-white hover:bg-opacity-10 transition-all duration-200 group">
                     <div
                         class="w-8 h-8 bg-green-500 bg-opacity-20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-opacity-30 transition-colors">
@@ -129,14 +129,17 @@
 
         <!-- Bottom Section -->
         <div class="p-4 border-t border-green-600 border-opacity-30">
-            <a href="#"
-                class="flex items-center px-4 py-3 text-sm font-medium rounded-xl text-green-100 hover:bg-red-500 hover:bg-opacity-20 transition-all duration-200 group">
-                <div
-                    class="w-8 h-8 bg-red-500 bg-opacity-20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-opacity-30 transition-colors">
-                    <i class="fas fa-sign-out-alt text-red-300"></i>
-                </div>
-                <span class="flex-1">Logout</span>
-            </a>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit"
+                    class="flex items-center px-4 py-3 text-sm font-medium rounded-xl text-green-100 hover:bg-red-500 hover:bg-opacity-20 transition-all duration-200 group w-full text-left">
+                    <div
+                        class="w-8 h-8 bg-red-500 bg-opacity-20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-opacity-30 transition-colors">
+                        <i class="fas fa-sign-out-alt text-red-300"></i>
+                    </div>
+                    <span class="flex-1">Logout</span>
+                </button>
+            </form>
         </div>
     </div>
 
@@ -208,11 +211,13 @@
                                 </div>
                             </a>
                             <div class="border-t border-gray-100 my-1"></div>
-                            <a href="#"
-                                class="flex items-center px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-colors">
-                                <i class="fas fa-sign-out-alt mr-3"></i>
-                                <span>Sign out</span>
-                            </a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="flex items-center px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-colors w-full text-left">
+                                    <i class="fas fa-sign-out-alt mr-3"></i>
+                                    <span>Sign out</span>
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>

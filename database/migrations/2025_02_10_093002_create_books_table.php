@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->foreignId('scholar_id');
             $table->foreignId('category_id');
+            $table->string('slug')->unique();
             $table->string('description')->nullable();
             $table->string('file');
             $table->integer('download_count')->default(0); 

@@ -254,11 +254,11 @@
                             @csrf
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
-                                <input type="text" name="firstName"
+                                <input type="text" name="name"
                                     class="form-input w-full px-4 py-3 rounded-xl focus:outline-none" name="name"
                                     placeholder="First name">
-                                @if ($errors->has('email'))
-                                    <span class="text-red-500 text-sm mt-2 block">{{ $errors->first('email') }}</span>
+                                @if ($errors->has('name'))
+                                    <span class="text-red-500 text-sm mt-2 block">{{ $errors->first('name') }}</span>
                                 @endif
                             </div>
 
@@ -278,9 +278,9 @@
                                     <input type="password" id="registerPassword" name="password"
                                         class="form-input w-full px-4 py-3 pr-12 rounded-xl focus:outline-none"
                                         placeholder="Create a strong password">
-                                    @if ($errors->has('email'))
+                                    @if ($errors->has('password'))
                                         <span
-                                            class="text-red-500 text-sm mt-2 block">{{ $errors->first('email') }}</span>
+                                            class="text-red-500 text-sm mt-2 block">{{ $errors->first('password') }}</span>
                                     @endif
                                     <button type="button"
                                         class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
@@ -299,12 +299,12 @@
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
                                 <div class="relative">
-                                    <input type="password" id="confirmPassword" name="confirmPassword"
+                                    <input type="password" id="confirmPassword" name="password_confirmation"
                                         class="form-input w-full px-4 py-3 pr-12 rounded-xl focus:outline-none"
                                         placeholder="Confirm your password">
-                                    @if ($errors->has('email'))
+                                    @if ($errors->has('password_confirmation'))
                                         <span
-                                            class="text-red-500 text-sm mt-2 block">{{ $errors->first('email') }}</span>
+                                            class="text-red-500 text-sm mt-2 block">{{ $errors->first('password_confirmation') }}</span>
                                     @endif
                                     <button type="button"
                                         class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
@@ -411,7 +411,7 @@
                             Support</a>
                     </p>
                     <p class="text-sm text-gray-500 mt-2">
-                        <a href="index.html" class="hover:text-green-600 transition-colors">← Back to Library</a>
+                        <a href="{{ route('welcome') }}" class="hover:text-green-600 transition-colors">← Back to Library</a>
                     </p>
                 </div>
             </div>
