@@ -17,22 +17,24 @@ class ScholarController extends Controller
     {
         $books = Book::all();
         $scholars = Scholar::get()->take(3);
-        return view('welcome', compact('scholars', 'books'));
+        $user = auth()->user();
+        return view('welcome', compact('scholars', 'books', 'user'));
     }
 
     public function index()
     {
         $scholars = Scholar::all();
-        return view('admin.scholars.index', compact('scholars'));
+        $user = auth()->user();
+        return view('admin.scholars.index', compact('scholars', 'user'));
     }
-
 
     /**
      * Show the form for creating a new scholar.
      */
     public function create()
     {
-        return view('admin.scholars.create');
+        $user = auth()->user();
+        return view('admin.scholars.create', compact('user'));
     }
 
     /**
@@ -58,16 +60,14 @@ class ScholarController extends Controller
         return redirect()->route('dashboard.scholars.index')->with('success', 'Scholar created successfully!');
     }
 
-
-
-
     /**
      * Show the form for editing the specified scholar.
      */
     public function edit($id)
     {
         $scholar = Scholar::findOrFail($id); // Ensure scholar exists
-        return view('admin.scholars.edit', compact('scholar'));
+        $user = auth()->user();
+        return view('admin.scholars.edit', compact('scholar', 'user'));
     }
 
     /**
@@ -114,6 +114,7 @@ class ScholarController extends Controller
 
     public function scholarPage() {
         $scholars = Scholar::all();
-        return view('scholars', compact('scholars'));
+        $user = auth()->user();
+        return view('scholars', compact('scholars', 'user'));
     }
 }

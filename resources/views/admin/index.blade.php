@@ -10,7 +10,7 @@
             <div class="relative z-10">
                 <h1 class="text-3xl font-bold mb-2">Welcome back, Admin! 👋</h1>
                 <p class="text-green-100 text-lg mb-6">We're glad to see you again. Welcome back to your dashboard!</p>
-                
+
             </div>
         </div>
 
@@ -70,24 +70,33 @@
             <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
                 <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
                 <div class="space-y-3">
-                    <button class="w-full flex items-center p-3 text-left hover:bg-gray-50 rounded-xl transition-colors">
-                        <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3">
-                            <i class="fas fa-book-medical text-green-600"></i>
-                        </div>
-                        <span class="text-gray-700">Add New Book</span>
-                    </button>
-                    <button class="w-full flex items-center p-3 text-left hover:bg-gray-50 rounded-xl transition-colors">
-                        <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
-                            <i class="fas fa-user-plus text-blue-600"></i>
-                        </div>
-                        <span class="text-gray-700">Add New Scholar</span>
-                    </button>
-                    <button class="w-full flex items-center p-3 text-left hover:bg-gray-50 rounded-xl transition-colors">
-                        <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
-                            <i class="fas fa-layer-group text-purple-600"></i>
-                        </div>
-                        <span class="text-gray-700">Add New Category</span>
-                    </button>
+                    <a href="{{ route('dashboard.books.create') }}">
+                        <button
+                            class="w-full flex items-center p-3 text-left hover:bg-gray-50 rounded-xl transition-colors">
+                            <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+                                <i class="fas fa-book-medical text-green-600"></i>
+                            </div>
+                            <span class="text-gray-700">Add New Book</span>
+                        </button>
+                    </a>
+                    <a href="{{ route('dashboard.scholars.create') }}">
+                        <button
+                            class="w-full flex items-center p-3 text-left hover:bg-gray-50 rounded-xl transition-colors">
+                            <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                                <i class="fas fa-user-plus text-blue-600"></i>
+                            </div>
+                            <span class="text-gray-700">Add New Scholar</span>
+                        </button>
+                    </a>
+                    <a href="{{ route('dashboard.category.create') }}">
+                        <button
+                            class="w-full flex items-center p-3 text-left hover:bg-gray-50 rounded-xl transition-colors">
+                            <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
+                                <i class="fas fa-layer-group text-purple-600"></i>
+                            </div>
+                            <span class="text-gray-700">Add New Category</span>
+                        </button>
+                    </a>
                 </div>
             </div>
         </div>

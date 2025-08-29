@@ -186,30 +186,13 @@
                             class="hidden absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl py-2 z-50 border border-gray-100 backdrop-blur-xl">
                             <div class="px-4 py-3 border-b border-gray-100">
                                 <p class="text-sm font-medium text-gray-900">Admin</p>
-                                <p class="text-xs text-gray-500">john.doe@company.com</p>
+                                <p class="text-xs text-gray-500"> {{$user->email}} </p>
                             </div>
-                            <a href="#"
+                            {{-- <a href="#"
                                 class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
                                 <i class="fas fa-user mr-3 text-gray-400"></i>
                                 <span>Your Profile</span>
-                            </a>
-                            <a href="#"
-                                class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                                <i class="fas fa-cog mr-3 text-gray-400"></i>
-                                <span>Account Settings</span>
-                            </a>
-                            <a href="#"
-                                class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                                <i class="fas fa-moon mr-3 text-gray-400"></i>
-                                <span>Dark Mode</span>
-                                <div class="ml-auto">
-                                    <div class="w-8 h-4 bg-gray-200 rounded-full relative">
-                                        <div
-                                            class="w-4 h-4 bg-white rounded-full shadow absolute transition-transform">
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
+                            </a> --}}
                             <div class="border-t border-gray-100 my-1"></div>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf

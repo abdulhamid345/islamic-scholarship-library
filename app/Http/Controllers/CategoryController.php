@@ -8,22 +8,31 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-public function index(Request $request)
-{
-    $query = Category::query();
+    public function index(Request $request)
+    {
+        $query = Category::query();
 
-    if ($search = $request->input('search')) {
-        $query->where('name', 'LIKE', '%' . $search . '%');
+        if ($search = $request->input('search')) {
+            $query->where('name', 'LIKE', '%' . $search . '%');
+        }
+
+        $categories = $query->latest()->get();
+        $user = auth()->user();
+
+        return view('admin.category.index', compact('categories', 'user'));
     }
-
-    $categories = $query->latest()->get();
-
-    return view('admin.category.index', compact('categories'));
-}
 
     public function create()
     {
-        return view('admin.category.create');
+        $user = auth()->user();
+        return view('admin.category.create', compact('user'));
+    }
+
+    public function edit($id)
+    {
+        $category = Category::findOrFail($id);
+        $user = auth()->user();
+        return view('admin.category.edit', compact('category', 'user'));
     }
 
     public function store(Request $request)
@@ -40,12 +49,6 @@ public function index(Request $request)
         ]);
 
         return redirect()->route('dashboard.category.index')->with('success', 'Category created successfully.');
-    }
-
-    public function edit($id)
-    {
-        $category = Category::findOrFail($id);
-        return view('admin.category.edit', compact('category'));
     }
 
     public function update(Request $request, $id)

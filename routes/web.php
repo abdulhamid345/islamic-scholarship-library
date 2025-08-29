@@ -30,7 +30,8 @@ Route::get('/scholars/{id}', function() {
 })->name(name: 'scholars.details');
 
 Route::get('/dashboard', function () {
-    return view('admin.index');
+    $user = auth()->user();
+    return view('admin.index', compact('user'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
