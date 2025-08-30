@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Scholar;
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -54,10 +55,10 @@ class BookController extends Controller
 
         Book::create([
             'title' => $validated['title'],
+            'slug' => Str::slug($validated['title']),
             'scholar_id' => $validated['scholar_id'],
             'category_id' => $validated['category_id'],
             'description' => $validated['description'],
-            'year_written' => $validated['year_written'],
             'file' => $filePath,
         ]);
 

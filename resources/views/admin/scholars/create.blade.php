@@ -129,13 +129,18 @@
 
                             <!-- Rich Text Editor -->
                             <div id="biographyEditor"
-                                class="min-h-[200px] border-l border-r border-b border-gray-300 rounded-b-xl p-4 focus-within:ring-2 focus-within:ring-green-500 focus-within:border-green-500 transition-all duration-200 @error('biography') border-red-500 @enderror"
+                                class="min-h-[200px] border-l border-r border-b rounded-b-xl p-4 focus-within:ring-2 focus-within:ring-green-500 focus-within:border-green-500 transition-all duration-200 {{ $errors->has('biography') ? 'border-red-500' : 'border-gray-300' }}"
                                 contenteditable="true"
                                 data-placeholder="Write the scholar's biography here... Include their education, achievements, specializations, and contributions to Islamic scholarship.">
                                 {!! old('biography') !!}
                             </div>
 
                             <textarea id="biography" name="biography" class="hidden">{{ old('biography') }}</textarea>
+                            <script>
+                                document.getElementById('scholarForm').addEventListener('submit', function (e) {
+                                    document.getElementById('biography').value = document.getElementById('biographyEditor').innerHTML;
+                                });
+                            </script>
 
                             @error('biography')
                                 <p class="mt-2 text-sm text-red-600 flex items-center">

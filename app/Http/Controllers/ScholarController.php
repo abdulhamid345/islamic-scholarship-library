@@ -47,14 +47,15 @@ class ScholarController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'biography' => 'nullable|string',
-            'years_active' => 'nullable|string',
+            'year_from' => 'required|string',
+            'year_to' => 'required|string',
         ]);
 
         Scholar::create([
             'name' => $validated['name'],
             'slug' => Str::slug($validated['name']),
             'biography' => $validated['biography'],
-            'years_active' => $validated['years_active'],
+            'years_active' => ($validated['year_from'] ?? '') . ' - ' . ($validated['year_to'] ?? ''),
         ]);
 
         return redirect()->route('dashboard.scholars.index')->with('success', 'Scholar created successfully!');

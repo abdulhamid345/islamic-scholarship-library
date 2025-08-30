@@ -11,27 +11,8 @@
             <div>
                 <h1 class="text-3xl font-bold text-gray-900 mb-2">Scholars Management</h1>
                 <p class="text-gray-600">Manage Islamic scholars and their information</p>
-                <div class="flex items-center space-x-4 mt-3">
-                    <div class="flex items-center space-x-2 text-sm">
-                        <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-                        <span class="text-gray-600">{{ $totalScholars ?? '156' }} Total Scholars</span>
-                    </div>
-                    <div class="flex items-center space-x-2 text-sm">
-                        <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
-                        <span class="text-gray-600">{{ $activeScholars ?? '142' }} Active</span>
-                    </div>
-                    <div class="flex items-center space-x-2 text-sm">
-                        <div class="w-3 h-3 bg-gray-400 rounded-full"></div>
-                        <span class="text-gray-600">{{ $inactiveScholars ?? '14' }} Inactive</span>
-                    </div>
-                </div>
             </div>
             <div class="flex flex-col sm:flex-row gap-3">
-                <button onclick="exportScholars()" 
-                    class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-xl text-gray-700 bg-white hover:bg-gray-50 transition-all duration-200">
-                    <i class="fas fa-download mr-2 text-gray-500"></i>
-                    Export
-                </button>
                 <a href="{{ route('dashboard.scholars.create') }}" 
                     class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white text-sm font-semibold rounded-xl shadow-lg hover:from-green-700 hover:to-emerald-700 transform hover:scale-105 transition-all duration-200">
                     <i class="fas fa-plus mr-2"></i>
@@ -52,54 +33,8 @@
                     </div>
                     <input type="text" id="searchInput" 
                         class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200" 
-                        placeholder="Search scholars by name, specialization, or location...">
+                        placeholder="Search scholars by name ...">
                 </div>
-            </div>
-            
-            <!-- Specialization Filter -->
-            <div>
-                <select id="specializationFilter" 
-                    class="block w-full py-3 px-3 border border-gray-300 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200">
-                    <option value="">All Specializations</option>
-                    <option value="quran">Quran & Tafsir</option>
-                    <option value="hadith">Hadith Sciences</option>
-                    <option value="fiqh">Islamic Jurisprudence</option>
-                    <option value="aqeedah">Islamic Creed</option>
-                    <option value="history">Islamic History</option>
-                    <option value="ethics">Islamic Ethics</option>
-                </select>
-            </div>
-            
-            <!-- Status Filter -->
-            <div>
-                <select id="statusFilter" 
-                    class="block w-full py-3 px-3 border border-gray-300 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200">
-                    <option value="">All Status</option>
-                    <option value="active">Active</option>
-                    <option value="inactive">Inactive</option>
-                </select>
-            </div>
-        </div>
-        
-        <!-- View Toggle and Results Info -->
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-6 pt-6 border-t border-gray-200">
-            <div class="flex items-center space-x-3 mb-4 sm:mb-0">
-                <span class="text-sm text-gray-600">View:</span>
-                <div class="flex rounded-xl border border-gray-300 p-1 bg-gray-50">
-                    <button id="tableViewBtn" 
-                        class="px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 bg-white text-gray-900 shadow-sm">
-                        <i class="fas fa-table mr-1"></i>
-                        Table
-                    </button>
-                    <button id="cardViewBtn" 
-                        class="px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 text-gray-600 hover:text-gray-900">
-                        <i class="fas fa-th-large mr-1"></i>
-                        Cards
-                    </button>
-                </div>
-            </div>
-            <div class="text-sm text-gray-600">
-                Showing <span id="resultsStart">1</span>-<span id="resultsEnd">10</span> of <span id="resultsTotal">{{ $totalScholars ?? '156' }}</span> scholars
             </div>
         </div>
     </div>
@@ -118,23 +53,16 @@
                         </th>
                         <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             <div class="flex items-center space-x-1">
-                                <span>Specialization</span>
+                                <span>Years Active</span>
                                 <i class="fas fa-sort text-gray-400 cursor-pointer hover:text-gray-600"></i>
                             </div>
                         </th>
                         <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             <div class="flex items-center space-x-1">
-                                <span>Location</span>
+                                <span>Biography</span>
                                 <i class="fas fa-sort text-gray-400 cursor-pointer hover:text-gray-600"></i>
                             </div>
                         </th>
-                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            <div class="flex items-center space-x-1">
-                                <span>Books</span>
-                                <i class="fas fa-sort text-gray-400 cursor-pointer hover:text-gray-600"></i>
-                            </div>
-                        </th>
-                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                         <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                     </tr>
                 </thead>
@@ -150,32 +78,14 @@
                                 </div>
                                 <div class="ml-4">
                                     <div class="text-sm font-semibold text-gray-900">{{ $scholar->name }}</div>
-                                    <div class="text-sm text-gray-500 arabic-text">{{ $scholar->name_arabic }}</div>
-                                    <div class="text-xs text-gray-400">{{ $scholar->title }}</div>
                                 </div>
                             </div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">{{ $scholar->specialization }}</div>
-                            <div class="text-xs text-gray-500">{{ $scholar->experience_years }}+ years</div>
+                            <div class="text-sm text-gray-900">{{ $scholar->years_active }}</div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">{{ $scholar->location }}</div>
-                            <div class="text-xs text-gray-500">{{ $scholar->country }}</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="flex items-center">
-                                <span class="text-sm font-medium text-gray-900">{{ $scholar->books_count }}</span>
-                                <span class="ml-1 text-xs text-gray-500">books</span>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
-                                {{ $scholar->status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
-                                <div class="w-1.5 h-1.5 rounded-full mr-1 
-                                    {{ $scholar->status === 'active' ? 'bg-green-400' : 'bg-gray-400' }}"></div>
-                                {{ ucfirst($scholar->status) }}
-                            </span>
+                            <div class="text-sm text-gray-900">{{ $scholar->biography }}</div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                             <div class="flex items-center space-x-2">
@@ -203,71 +113,6 @@
                         </td>
                     </tr>
                     @empty
-                    {{-- Default data for demonstration --}}
-                    @for($i = 1; $i <= 10; $i++)
-                    <tr class="hover:bg-gray-50 transition-colors duration-200">
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="flex items-center">
-                                <div class="flex-shrink-0 h-12 w-12">
-                                    <img class="h-12 w-12 rounded-full object-cover ring-2 ring-green-500 ring-opacity-30" 
-                                         src="https://ui-avatars.com/api/?name=Scholar{{ $i }}&background=059669&color=ffffff" 
-                                         alt="Scholar {{ $i }}">
-                                </div>
-                                <div class="ml-4">
-                                    <div class="text-sm font-semibold text-gray-900">Dr. Ahmad Al-Rashid {{ $i }}</div>
-                                    <div class="text-sm text-gray-500 arabic-text">د. أحمد الراشد {{ $i }}</div>
-                                    <div class="text-xs text-gray-400">Professor of Islamic Studies</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">{{ ['Quran & Tafsir', 'Hadith Sciences', 'Islamic Jurisprudence', 'Islamic Creed'][$i % 4] }}</div>
-                            <div class="text-xs text-gray-500">{{ 15 + ($i * 2) }}+ years</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">{{ ['Mecca', 'Medina', 'Cairo', 'Damascus'][$i % 4] }}</div>
-                            <div class="text-xs text-gray-500">{{ ['Saudi Arabia', 'Egypt', 'Syria', 'Jordan'][$i % 4] }}</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="flex items-center">
-                                <span class="text-sm font-medium text-gray-900">{{ 5 + ($i * 3) }}</span>
-                                <span class="ml-1 text-xs text-gray-500">books</span>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
-                                {{ $i % 5 === 0 ? 'bg-gray-100 text-gray-800' : 'bg-green-100 text-green-800' }}">
-                                <div class="w-1.5 h-1.5 rounded-full mr-1 
-                                    {{ $i % 5 === 0 ? 'bg-gray-400' : 'bg-green-400' }}"></div>
-                                {{ $i % 5 === 0 ? 'Inactive' : 'Active' }}
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <div class="flex items-center space-x-2">
-                                <a href="#" 
-                                   class="text-green-600 hover:text-green-900 p-2 rounded-lg hover:bg-green-50 transition-all duration-200" 
-                                   title="View Scholar">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                                <a href="#" 
-                                   class="text-blue-600 hover:text-blue-900 p-2 rounded-lg hover:bg-blue-50 transition-all duration-200" 
-                                   title="Edit Scholar">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <button onclick="toggleScholarStatus({{ $i }})" 
-                                        class="text-yellow-600 hover:text-yellow-900 p-2 rounded-lg hover:bg-yellow-50 transition-all duration-200" 
-                                        title="Toggle Status">
-                                    <i class="fas fa-power-off"></i>
-                                </button>
-                                <button onclick="deleteScholar({{ $i }})" 
-                                        class="text-red-600 hover:text-red-900 p-2 rounded-lg hover:bg-red-50 transition-all duration-200" 
-                                        title="Delete Scholar">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    @endfor
                     @endforelse
                 </tbody>
             </table>
@@ -388,36 +233,6 @@
         </div>
         @endfor
         @endforelse
-    </div>
-
-    <!-- Pagination -->
-    <div class="glass-effect rounded-2xl p-6 border border-white border-opacity-20 backdrop-blur-xl shadow-lg">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-            <div class="flex items-center space-x-2 text-sm text-gray-600 mb-4 sm:mb-0">
-                <span>Show</span>
-                <select class="border border-gray-300 rounded-lg px-3 py-1 focus:outline-none focus:ring-2 focus:ring-green-500">
-                    <option>10</option>
-                    <option>25</option>
-                    <option>50</option>
-                    <option>100</option>
-                </select>
-                <span>entries per page</span>
-            </div>
-            
-            <nav class="flex items-center space-x-1">
-                <button class="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <button class="px-4 py-2 text-sm font-medium text-white bg-green-600 border border-green-600">1</button>
-                <button class="px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 hover:bg-gray-50">2</button>
-                <button class="px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 hover:bg-gray-50">3</button>
-                <span class="px-4 py-2 text-sm font-medium text-gray-500">...</span>
-                <button class="px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 hover:bg-gray-50">16</button>
-                <button class="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-50">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-            </nav>
-        </div>
     </div>
 </div>
 

@@ -53,7 +53,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::post('store', [CategoryController::class, 'store'])->name('store');
             Route::get('edit/{id}', [CategoryController::class, 'edit'])->name('edit');
             Route::post('update/{id}', [CategoryController::class, 'update'])->name('update');
-            // Route::get('show/{id}', [CategoryController::class, 'show'])->name('show');
+            Route::get('show/{id}', [CategoryController::class, 'show'])->name('show');
             Route::delete('destroy/{id}', [CategoryController::class, 'destroy'])->name('destroy');
         });
 
