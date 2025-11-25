@@ -76,25 +76,42 @@ class ScholarController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $scholar = Scholar::findOrfail($id);
+        $scholar = Scholar::findOrFail($id);
+        
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'biography' => 'nullable|string',
-            'published_works' => 'nullable|string',
-            'categories' => 'nullable|array',
-            'categories.*' => 'string',
+            'year_from' => 'nullable|string',
+            'year_to' => 'nullable|string',
             'years_active' => 'nullable|string',
         ]);
+
+        // Build years_active from year_from and year_to if provided
+        $yearsActive = $validated['years_active'] ?? null;
+        if (isset($validated['year_from']) || isset($validated['year_to'])) {
+            $yearFrom = $validated['year_from'] ?? '';
+            $yearTo = $validated['year_to'] ?? '';
+            $yearsActive = trim($yearFrom . ' - ' . $yearTo, ' -');
+        }
 
         $scholar->update([
             'name' => $validated['name'],
             'slug' => Str::slug($validated['name']),
             'biography' => $validated['biography'] ?? null,
-            'published_works' => $validated['published_works'] ?? null,
-            'years_active' => $validated['years_active'] ?? null,
+            'years_active' => $yearsActive,
         ]);
 
         return redirect()->route('dashboard.scholars.index')->with('success', 'Scholar updated successfully.');
+    }
+
+    /**
+     * Display the specified scholar.
+     */
+    public function show($id)
+    {
+        $scholar = Scholar::with('books')->findOrFail($id);
+        $user = auth()->user();
+        return view('admin.scholars.show', compact('scholar', 'user'));
     }
 
     /**
@@ -102,11 +119,7 @@ class ScholarController extends Controller
      */
     public function destroy($id)
     {
-        $scholar = Scholar::find($id);
-
-        if (!$scholar) {
-            return redirect()->route('dashboard.scholars.index')->with('error', 'Scholar not found.');
-        }
+        $scholar = Scholar::findOrFail($id);
 
         $scholar->delete();
 

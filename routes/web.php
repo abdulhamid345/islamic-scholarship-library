@@ -1,41 +1,87 @@
 <?php
 
+use App\Models\Book;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScholarController;
+use App\Http\Controllers\CategoryController;
 
 
 require __DIR__.'/auth.php';
 
+// Home Page
 Route::get('/', function () {
-    return view('welcome');
+    $books = \App\Models\Book::with(['scholar', 'category'])->latest()->take(6)->get();
+    $scholars = \App\Models\Scholar::withCount('books')->latest()->take(6)->get();
+    $categories = \App\Models\Category::withCount('books')->latest()->take(8)->get();
+    $totalBooks = \App\Models\Book::count();
+    $totalScholars = \App\Models\Scholar::count();
+    $totalCategories = \App\Models\Category::count();
+    return view('welcome', compact('books', 'scholars', 'categories', 'totalBooks', 'totalScholars', 'totalCategories'));
 })->name('welcome');
 
+// Books Pages
 Route::get('/books', function () {
-    return view('books');
+    $books = \App\Models\Book::with(['scholar', 'category'])->latest()->get();
+    return view('books', compact('books'));
 })->name('books');
 
-Route::get('/books/{id}', function() {
-    return view('books-details');
+Route::get('/books/{id}', function($id) {
+    $book = \App\Models\Book::with(['scholar', 'category'])->findOrFail($id);
+    $relatedBooks = \App\Models\Book::where('category_id', $book->category_id)
+        ->where('id', '!=', $book->id)
+        ->with(['scholar', 'category'])
+        ->take(4)
+        ->get();
+    return view('books-details', compact('book', 'relatedBooks'));
 })->name('books.details');
 
+// Scholars Pages
 Route::get('/scholars', function () {
-    return view('scholars');
+    $scholars = \App\Models\Scholar::withCount('books')->latest()->get();
+    return view('scholars', compact('scholars'));
 })->name('scholars');
 
-Route::get('/scholars/{id}', function() {
-    return view('scholars-details');
-})->name(name: 'scholars.details');
+Route::get('/scholars/{id}', function($id) {
+    $scholar = \App\Models\Scholar::with(['books.category'])->findOrFail($id);
+    $relatedScholars = \App\Models\Scholar::where('id', '!=', $scholar->id)
+        ->withCount('books')
+        ->take(4)
+        ->get();
+    return view('scholars-details', compact('scholar', 'relatedScholars'));
+})->name('scholars.details');
+
+// Categories Pages
+Route::get('/categories', function () {
+    $categories = \App\Models\Category::withCount('books')->latest()->get();
+    return view('categories', compact('categories'));
+})->name('categories');
+
+Route::get('/categories/{id}', function($id) {
+    $category = \App\Models\Category::with(['books.scholar'])->findOrFail($id);
+    $relatedCategories = \App\Models\Category::where('id', '!=', $category->id)
+        ->withCount('books')
+        ->take(4)
+        ->get();
+    return view('categories-details', compact('category', 'relatedCategories'));
+})->name('categories.details');
 
 Route::get('/dashboard', function () {
     $user = auth()->user();
-    return view('admin.index', compact('user'));
-})->middleware(['auth', 'verified'])->name('dashboard');
+    
+    // Get accurate counts from the database
+    $totalUsers = \App\Models\User::count();
+    $totalScholars = \App\Models\Scholar::count();
+    $totalBooks = \App\Models\Book::count();
+    $totalCategories = \App\Models\Category::count();
+    
+    return view('admin.index', compact('user', 'totalUsers', 'totalScholars', 'totalBooks', 'totalCategories'));
+})->middleware(['auth', 'verified', AdminMiddleware::class])->name('dashboard');
 
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', AdminMiddleware::class])->group(function () {
     Route::name('dashboard.')->prefix('dashboard')->group(function () {
         Route::name('books.')->prefix('books')->group(function () {
             Route::get('', [BookController::class, 'index'])->name('index');

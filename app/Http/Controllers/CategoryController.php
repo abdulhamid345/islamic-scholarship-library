@@ -69,6 +69,19 @@ class CategoryController extends Controller
         return redirect()->route('dashboard.category.index')->with('success', 'Category updated successfully.');
     }
 
+    /**
+     * Display the specified category.
+     */
+    public function show($id)
+    {
+        $category = Category::with('books')->findOrFail($id);
+        $user = auth()->user();
+        return view('admin.category.show', compact('category', 'user'));
+    }
+
+    /**
+     * Remove the specified category from storage.
+     */
     public function destroy($id)
     {
         $category = Category::findOrFail($id);

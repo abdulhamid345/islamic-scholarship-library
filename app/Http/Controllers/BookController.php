@@ -26,21 +26,27 @@ class BookController extends Controller
         return view('admin.books.create', compact('scholars', 'categories', 'user'));
     }
 
-    public function show($slug)
+    /**
+     * Display the specified book.
+     */
+    public function show($id)
     {
-        $book = Book::findOrFail($slug);
+        $book = Book::with(['scholar', 'category'])->findOrFail($id);
         $user = auth()->user();
         return view('admin.books.show', compact('book', 'user'));
     }
 
+    /**
+     * Store a newly created book in storage.
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'scholar_id' => 'required|string|max:255',
-            'category_id' => 'required|string|max:255',
+            'scholar_id' => 'required|integer|exists:scholars,id',
+            'category_id' => 'required|integer|exists:categories,id',
             'description' => 'nullable|string',
-            'file' => 'mimes:pdf,epub,jpg,jpeg,png|max:102400',
+            'file' => 'required|mimes:pdf,epub,jpg,jpeg,png|max:102400',
         ]);
 
         $filePath = null;
@@ -49,7 +55,7 @@ class BookController extends Controller
             try {
                 $filePath = $request->file('file')->store('books');
             } catch (\Exception $e) {
-                return redirect()->back()->withErrors(['file' => 'Failed to upload file: ' . $e->getMessage()]);
+                return redirect()->back()->withErrors(['file' => 'Failed to upload file: ' . $e->getMessage()])->withInput();
             }
         }
 
@@ -58,7 +64,7 @@ class BookController extends Controller
             'slug' => Str::slug($validated['title']),
             'scholar_id' => $validated['scholar_id'],
             'category_id' => $validated['category_id'],
-            'description' => $validated['description'],
+            'description' => $validated['description'] ?? null,
             'file' => $filePath,
         ]);
 
@@ -74,17 +80,29 @@ class BookController extends Controller
         return view('admin.books.edit', compact('book', 'scholars', 'categories', 'user'));
     }
 
+    /**
+     * Update the specified book in storage.
+     */
     public function update(Request $request, $id)
     {
         $book = Book::findOrFail($id);
 
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'scholar_id' => 'required|string|max:255',
-            'category_id' => 'required|string|max:255',
+            'scholar_id' => 'required|integer|exists:scholars,id',
+            'category_id' => 'required|integer|exists:categories,id',
             'description' => 'nullable|string',
             'file' => 'nullable|mimes:pdf,epub,jpg,jpeg,png|max:102400',
         ]);
+
+        // Update slug if title changed
+        $updateData = [
+            'title' => $validated['title'],
+            'slug' => Str::slug($validated['title']),
+            'scholar_id' => $validated['scholar_id'],
+            'category_id' => $validated['category_id'],
+            'description' => $validated['description'] ?? null,
+        ];
 
         if ($request->hasFile('file')) {
             // Delete the old file if it exists
@@ -93,23 +111,30 @@ class BookController extends Controller
             }
 
             // Store the new file
-            $validated['file'] = $request->file('file')->store('books');
+            $updateData['file'] = $request->file('file')->store('books');
         }
 
-        $book->update($validated);
+        $book->update($updateData);
 
         return redirect()->route('dashboard.books.index')->with('success', 'Book updated successfully.');
     }
 
 
+    /**
+     * Remove the specified book from storage.
+     */
     public function destroy($id)
     {
-
         $book = Book::findOrFail($id);
+
+        // Delete the associated file if it exists
+        if ($book->file) {
+            Storage::delete($book->file);
+        }
 
         $book->delete();
 
-        return redirect()->route('dashbaord.books.index')->with('success', 'Book deleted successfully.');
+        return redirect()->route('dashboard.books.index')->with('success', 'Book deleted successfully.');
     }
 
     public function bookPage()

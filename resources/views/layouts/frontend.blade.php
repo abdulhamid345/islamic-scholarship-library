@@ -670,6 +670,10 @@
                         <a href="{{ route('scholars') }}">Scholars</a>
                         <div class="nav-links-ar">العلماء</div>
                     </li>
+                    <li>
+                        <a href="{{ route('categories') }}">Categories</a>
+                        <div class="nav-links-ar">التصنيفات</div>
+                    </li>
                 </ul>
             </nav>
 

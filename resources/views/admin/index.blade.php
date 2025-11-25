@@ -18,11 +18,12 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <!-- Stats Cards -->
             <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Total Users Card -->
                 <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow">
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm font-medium text-gray-600">Total Users</p>
-                            <p class="text-3xl font-bold text-gray-900">287</p>
+                            <p class="text-3xl font-bold text-gray-900">{{ number_format($totalUsers) }}</p>
                         </div>
                         <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
                             <i class="fas fa-users text-green-600 text-xl"></i>
@@ -30,22 +31,25 @@
                     </div>
                 </div>
 
+                <!-- Scholars Card -->
                 <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow">
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm font-medium text-gray-600">Scholars</p>
-                            <p class="text-3xl font-bold text-gray-900">30</p>
+                            <p class="text-3xl font-bold text-gray-900">{{ number_format($totalScholars) }}</p>
                         </div>
                         <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
                             <i class="fas fa-user-graduate text-blue-600 text-xl"></i>
                         </div>
                     </div>
                 </div>
+                
+                <!-- Books Card -->
                 <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow">
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm font-medium text-gray-600">Books</p>
-                            <p class="text-3xl font-bold text-gray-900">1,847</p>
+                            <p class="text-3xl font-bold text-gray-900">{{ number_format($totalBooks) }}</p>
                         </div>
                         <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
                             <i class="fas fa-book text-green-600 text-xl"></i>
@@ -53,11 +57,12 @@
                     </div>
                 </div>
 
+                <!-- Categories Card -->
                 <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow">
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm font-medium text-gray-600">Categories</p>
-                            <p class="text-3xl font-bold text-gray-900">200</p>
+                            <p class="text-3xl font-bold text-gray-900">{{ number_format($totalCategories) }}</p>
                         </div>
                         <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
                             <i class="fas fa-layer-group text-blue-600 text-xl"></i>
