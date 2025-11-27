@@ -285,16 +285,10 @@
                                 </div>
                             </div>
 
-                            {{-- <div class="flex items-center justify-between">
-                                <label class="flex items-center">
-                                    <input type="checkbox" name="remember"
-                                        class="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500">
-                                    <span class="ml-2 text-sm text-gray-600">Remember me</span>
-                                </label>
-                                <a href="#"
-                                    class="text-sm text-green-600 hover:text-green-700 font-medium">Forgot
-                                    password?</a>
-                            </div> --}}
+                            <div class="flex items-center justify-end">
+                                <a href="{{ route('password.request') }}"
+                                    class="text-sm text-green-600 hover:text-green-700 font-medium">Forgot password?</a>
+                            </div>
 
                             <button type="submit" class="btn-primary w-full py-4 text-white font-semibold rounded-xl">
                                 Sign In

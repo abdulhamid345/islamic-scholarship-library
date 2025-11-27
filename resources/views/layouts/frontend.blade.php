@@ -678,14 +678,30 @@
             </nav>
 
             <div class="auth-buttons">
-                <a href="{{ route('login') }}" class="btn btn-outline">
-                    Sign In
-                    <div style="font-size: 0.8rem; color: #6b7280;">تسجيل الدخول</div>
-                </a>
-                <a href="{{ route('register') }}" class="btn btn-primary">
-                    Join Now
-                    <div style="font-size: 0.8rem;">انضم الآن</div>
-                </a>
+                @auth
+                    <a href="{{ route('user.dashboard') }}" class="btn btn-primary">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Dashboard
+                        <div style="font-size: 0.8rem;">لوحة التحكم</div>
+                    </a>
+                    <form method="POST" action="{{ route('logout') }}" style="display: inline; margin-left: 0.5rem;">
+                        @csrf
+                        <button type="submit" class="btn btn-outline">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                            <div style="font-size: 0.8rem; color: #6b7280;">تسجيل الخروج</div>
+                        </button>
+                    </form>
+                @else
+                    <a href="{{ route('login') }}" class="btn btn-outline">
+                        Sign In
+                        <div style="font-size: 0.8rem; color: #6b7280;">تسجيل الدخول</div>
+                    </a>
+                    <a href="{{ route('register') }}" class="btn btn-primary">
+                        Join Now
+                        <div style="font-size: 0.8rem;">انضم الآن</div>
+                    </a>
+                @endauth
             </div>
         </div>
     </header>

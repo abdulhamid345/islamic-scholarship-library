@@ -115,7 +115,20 @@ Route::middleware(['auth', 'verified', AdminMiddleware::class])->group(function 
     });
 });
 
+// User Dashboard and Profile Routes
 Route::middleware('auth')->group(function () {
+    // User Dashboard
+    Route::get('/user/dashboard', function () {
+        $user = auth()->user();
+        $userBooks = \App\Models\Book::whereHas('scholar', function($query) use ($user) {
+            // Get books downloaded by user (if you have a downloads table)
+            // For now, just show recent books
+        })->latest()->take(6)->get();
+        
+        return view('user.dashboard', compact('user', 'userBooks'));
+    })->name('user.dashboard');
+    
+    // Profile Routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
